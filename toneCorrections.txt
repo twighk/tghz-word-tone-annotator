@@ -1,8 +1,19 @@
 ﻿# File that forces the tones for character combinations
-的 de5
-得 de5
-了 le5
-你们好 ni3 men5 hao3
 汉字 han4 zi4
+你们好 ni3 men5 hao3
+都 dou1
+大 da4
+的 de5
+地 de5
+了 le5
+也 ye3
+得 de5
+看 kan4
+比 bi3
+呢 ne5
 吃 chi1
-喝 he1
+喝 he5
+说 shuo1
+和 he2
+经 jing1
+中 zhong1
