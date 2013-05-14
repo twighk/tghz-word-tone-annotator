@@ -231,7 +231,6 @@
     <Compile Include="toneCorrectionForm.Designer.cs">
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
-    <None Include="tbranch88.cert.pfx" />
     <None Include="tghz-word-tone-annotator.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
     <EmbeddedResource Include="editForm.resx">
@@ -256,7 +255,6 @@
     <Content Include="cedict_ts.u8">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Hanzi2TGHZRibbon_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
