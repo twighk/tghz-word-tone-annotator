@@ -40,7 +40,7 @@
     <PublishUrl>C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Publish\</PublishUrl>
     <InstallUrl>http://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.17</ApplicationVersion>
+    <ApplicationVersion>1.0.0.18</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
@@ -155,10 +155,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>tbranch88.cert.pfx</ManifestKeyFile>
+    <ManifestKeyFile>tghz-word-tone-annotator.cert.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>02CE0C111746037650B5403674A41E65779DE446</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5ED3EE3081731259DDE576BB746A53D2DE5E29EA</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -232,6 +232,7 @@
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
     <None Include="tbranch88.cert.pfx" />
+    <None Include="tghz-word-tone-annotator.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
     <EmbeddedResource Include="editForm.resx">
       <DependentUpon>editForm.cs</DependentUpon>
