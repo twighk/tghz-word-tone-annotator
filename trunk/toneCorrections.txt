@@ -1,0 +1,8 @@
+﻿# File that forces the tones for character combinations
+的 de5
+得 de5
+了 le5
+你们好 ni3 men5 hao3
+汉字 han4 zi4
+吃 chi1
+喝 he1
