@@ -40,7 +40,7 @@
     <PublishUrl>C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Publish\</PublishUrl>
     <InstallUrl>http://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.15</ApplicationVersion>
+    <ApplicationVersion>1.0.0.17</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
@@ -155,10 +155,11 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Hanzi2TGHZRibbon_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>AC4810DF35CD2389C42867E3BA1EB038CAABE310</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>4BF99064E414FE2D8337238E852E80D6D012B026</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
