@@ -155,11 +155,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>tbranch88.cert.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>4BF99064E414FE2D8337238E852E80D6D012B026</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>02CE0C111746037650B5403674A41E65779DE446</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -232,6 +231,7 @@
     <Compile Include="toneCorrectionForm.Designer.cs">
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
+    <None Include="tbranch88.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
     <EmbeddedResource Include="editForm.resx">
       <DependentUpon>editForm.cs</DependentUpon>
