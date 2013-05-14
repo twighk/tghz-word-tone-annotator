@@ -1,0 +1,48 @@
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.Properties.Resources.resources
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.RibbonMain.resources
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.pdb
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll.manifest
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.vsto
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.dll
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.pdb
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\cedict_ts.u8
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.toneCorrectionForm.resources
+C:\Users\Thomas Branch\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\cedict_ts.u8
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.pdb
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll.manifest
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.vsto
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.Properties.Resources.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.RibbonMain.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.toneCorrectionForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.dll
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.pdb
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\ResolveAssemblyReference.cache
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.Properties.Resources.resources
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.RibbonMain.resources
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.toneCorrectionForm.resources
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.read.1.tlog
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\GenerateResource.write.1.tlog
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.dll
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.pdb
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\cedict_ts.u8
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.pdb
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll.manifest
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.vsto
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resources
