@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Hanzi2TGHZRibbon
 {
@@ -107,6 +108,9 @@ namespace Hanzi2TGHZRibbon
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 hanzi2tghz.saveCorrections(correctionsAsDict(), saveFileDialog.FileName);
+            if (File.Exists(saveFileDialog.FileName))
+                File.SetAttributes(saveFileDialog.FileName, File.GetAttributes(saveFileDialog.FileName) & ~FileAttributes.Hidden);
+
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
