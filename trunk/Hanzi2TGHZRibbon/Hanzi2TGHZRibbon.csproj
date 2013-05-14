@@ -40,7 +40,7 @@
     <PublishUrl>C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Publish\</PublishUrl>
     <InstallUrl>http://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.14</ApplicationVersion>
+    <ApplicationVersion>1.0.0.15</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
