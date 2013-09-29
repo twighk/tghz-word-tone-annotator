@@ -13,12 +13,12 @@ namespace Hanzi2TGHZRibbon
     {
         private hanzi2tghz tghz;
         toneCorrectionForm tcform;
+        lookupForm luform;
+        private readonly string dictpath = AppDomain.CurrentDomain.BaseDirectory + "\\cedict_ts.u8";
+
         private void RibbonMain_Load(object sender, RibbonUIEventArgs e)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            tghz = new hanzi2tghz(path + "\\cedict_ts.u8", Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\tghzToneCorrections.txt");
-
-
+            tghz = new hanzi2tghz(dictpath, Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\tghzToneCorrections.txt");
         }
 
 
@@ -310,15 +310,42 @@ namespace Hanzi2TGHZRibbon
 
         }
 
+        /* Look Up words Methods */
+        private void lookUp_Click(object sender, RibbonControlEventArgs e)
+        {
+            // Get the range
+            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
+            if (currentSelection.Start == currentSelection.End)
+                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range.Duplicate;
+            
+            string xmlstr = currentRange.WordOpenXML;
 
+            // Remove phonetic guides
+            MatchCollection rubies = new Regex(@"<w:ruby>.*?<\/w:ruby>").Matches(xmlstr);
+            foreach (Match ruby in rubies)
+            {
+                xmlstr = Regex.Replace(xmlstr, ruby.Value, new Regex(@"<w:t>.*?<\/w:t>").Matches(ruby.Value)[1].Value);
+            }
 
+            // Get Text
+            string text = "";
+            MatchCollection texts = new Regex(@"<w:t>.*?<\/w:t>").Matches(xmlstr);
+            foreach (Match t in texts){
+                text += t.Value.Replace(@"<w:t>","").Replace(@"</w:t>","");
+            }
 
+            // Create the form if it doesn't exist
+            if (luform == null || luform.IsDisposed == true)
+            {
+                luform = new lookupForm(dictpath);
+                luform.Show();
+            }
 
+            luform.BringToFront(text);
+         
 
-
-
-
-
+        }
 
 
     }

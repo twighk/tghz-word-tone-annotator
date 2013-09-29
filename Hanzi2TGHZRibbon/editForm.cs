@@ -50,12 +50,6 @@ namespace Hanzi2TGHZRibbon
             this.Close();
         }
 
-        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
     }
 
     public class hanzipytn
