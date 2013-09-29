@@ -50,7 +50,6 @@
             this.pysize = this.Factory.CreateRibbonEditBox();
             this.tnsize = this.Factory.CreateRibbonEditBox();
             this.toneheight = this.Factory.CreateRibbonEditBox();
-            this.edittnpy = this.Factory.CreateRibbonButton();
             this.remove = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
             this.devel = this.Factory.CreateRibbonGroup();
@@ -67,11 +66,13 @@
             this.pinyinMenuI = this.Factory.CreateRibbonMenu();
             this.pinyinMenuU = this.Factory.CreateRibbonMenu();
             this.pinyinMenuV = this.Factory.CreateRibbonMenu();
+            this.other = this.Factory.CreateRibbonGroup();
             this.totradbutton = this.Factory.CreateRibbonButton();
             this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
             this.AddPinyin = this.Factory.CreateRibbonButton();
             this.undobutton = this.Factory.CreateRibbonButton();
+            this.edittnpy = this.Factory.CreateRibbonButton();
             this.tone1button = this.Factory.CreateRibbonButton();
             this.tone2button = this.Factory.CreateRibbonButton();
             this.tone3button = this.Factory.CreateRibbonButton();
@@ -101,6 +102,7 @@
             this.buttonv3 = this.Factory.CreateRibbonButton();
             this.buttonv4 = this.Factory.CreateRibbonButton();
             this.AddTones = this.Factory.CreateRibbonButton();
+            this.lookUp = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group2.SuspendLayout();
@@ -109,6 +111,7 @@
             this.box2.SuspendLayout();
             this.box6.SuspendLayout();
             this.devel.SuspendLayout();
+            this.other.SuspendLayout();
             // 
             // tab1
             // 
@@ -116,6 +119,7 @@
             this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.group1);
             this.tab1.Groups.Add(this.devel);
+            this.tab1.Groups.Add(this.other);
             this.tab1.Label = "hanzi2tghz";
             this.tab1.Name = "tab1";
             // 
@@ -223,15 +227,6 @@
             this.toneheight.Name = "toneheight";
             this.toneheight.ShowLabel = false;
             this.toneheight.Text = "10";
-            // 
-            // edittnpy
-            // 
-            this.edittnpy.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.edittnpy.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pencil;
-            this.edittnpy.Label = "Edit Tones or Pinyin";
-            this.edittnpy.Name = "edittnpy";
-            this.edittnpy.ShowImage = true;
-            this.edittnpy.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edittnpy_Click);
             // 
             // remove
             // 
@@ -379,6 +374,12 @@
             this.pinyinMenuV.ScreenTip = "Insert this character.";
             this.pinyinMenuV.ShowImage = true;
             // 
+            // other
+            // 
+            this.other.Items.Add(this.lookUp);
+            this.other.Label = "Other";
+            this.other.Name = "other";
+            // 
             // totradbutton
             // 
             this.totradbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -427,6 +428,15 @@
             this.undobutton.Name = "undobutton";
             this.undobutton.ShowImage = true;
             this.undobutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.undobutton_Click);
+            // 
+            // edittnpy
+            // 
+            this.edittnpy.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.edittnpy.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pencil;
+            this.edittnpy.Label = "Edit Tones or Pinyin";
+            this.edittnpy.Name = "edittnpy";
+            this.edittnpy.ShowImage = true;
+            this.edittnpy.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edittnpy_Click);
             // 
             // tone1button
             // 
@@ -695,6 +705,14 @@
             this.AddTones.ShowImage = true;
             this.AddTones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTones_Click);
             // 
+            // lookUp
+            // 
+            this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
+            this.lookUp.Label = "Character Definition";
+            this.lookUp.Name = "lookUp";
+            this.lookUp.ShowImage = true;
+            this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
+            // 
             // RibbonMain
             // 
             this.Name = "RibbonMain";
@@ -717,6 +735,8 @@
             this.box6.PerformLayout();
             this.devel.ResumeLayout(false);
             this.devel.PerformLayout();
+            this.other.ResumeLayout(false);
+            this.other.PerformLayout();
 
         }
 
@@ -789,6 +809,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel label1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton remove;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton py2tones;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup other;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
     }
 
     partial class ThisRibbonCollection
