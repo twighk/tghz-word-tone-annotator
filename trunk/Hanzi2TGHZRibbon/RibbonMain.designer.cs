@@ -36,13 +36,18 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.config = this.Factory.CreateRibbonGroup();
-            this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
             this.label1 = this.Factory.CreateRibbonLabel();
-            this.dicton = this.Factory.CreateRibbonToggleButton();
             this.group2 = this.Factory.CreateRibbonGroup();
+            this.group1 = this.Factory.CreateRibbonGroup();
+            this.devel = this.Factory.CreateRibbonGroup();
+            this.brackets = this.Factory.CreateRibbonCheckBox();
+            this.other = this.Factory.CreateRibbonGroup();
+            this.vlabel = this.Factory.CreateRibbonLabel();
+            this.label2 = this.Factory.CreateRibbonLabel();
+            this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
+            this.dicton = this.Factory.CreateRibbonToggleButton();
             this.totradbutton = this.Factory.CreateRibbonButton();
             this.tosimpbutton = this.Factory.CreateRibbonButton();
-            this.group1 = this.Factory.CreateRibbonGroup();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
             this.AddPinyin = this.Factory.CreateRibbonButton();
             this.box1 = this.Factory.CreateRibbonBox();
@@ -58,10 +63,9 @@
             this.edittnpy = this.Factory.CreateRibbonButton();
             this.remove = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
-            this.devel = this.Factory.CreateRibbonGroup();
+            this.lookUp = this.Factory.CreateRibbonButton();
             this.inspt = this.Factory.CreateRibbonButton();
             this.insxml = this.Factory.CreateRibbonButton();
-            this.brackets = this.Factory.CreateRibbonCheckBox();
             this.reins = this.Factory.CreateRibbonButton();
             this.ToneGraphMenu = this.Factory.CreateRibbonMenu();
             this.tone1button = this.Factory.CreateRibbonButton();
@@ -101,26 +105,23 @@
             this.buttonv3 = this.Factory.CreateRibbonButton();
             this.buttonv4 = this.Factory.CreateRibbonButton();
             this.AddTones = this.Factory.CreateRibbonButton();
-            this.other = this.Factory.CreateRibbonGroup();
-            this.lookUp = this.Factory.CreateRibbonButton();
-            this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group2.SuspendLayout();
             this.group1.SuspendLayout();
+            this.devel.SuspendLayout();
+            this.other.SuspendLayout();
             this.box1.SuspendLayout();
             this.box2.SuspendLayout();
             this.box6.SuspendLayout();
-            this.devel.SuspendLayout();
-            this.other.SuspendLayout();
             // 
             // tab1
             // 
             this.tab1.Groups.Add(this.config);
             this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.group1);
-            this.tab1.Groups.Add(this.devel);
             this.tab1.Groups.Add(this.other);
+            this.tab1.Groups.Add(this.devel);
             this.tab1.Label = "hanzi2tghz";
             this.tab1.Name = "tab1";
             // 
@@ -132,22 +133,10 @@
             this.config.Label = "Dictionary Correction";
             this.config.Name = "config";
             // 
-            // tonecorrectionbutton
-            // 
-            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
-            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
-            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
-            // 
             // label1
             // 
             this.label1.Label = "          ";
             this.label1.Name = "label1";
-            // 
-            // dicton
-            // 
-            this.dicton.Label = "          Enable          ";
-            this.dicton.Name = "dicton";
-            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // group2
             // 
@@ -155,6 +144,68 @@
             this.group2.Items.Add(this.tosimpbutton);
             this.group2.Label = "Convert";
             this.group2.Name = "group2";
+            // 
+            // group1
+            // 
+            this.group1.Items.Add(this.AddTonesRuby);
+            this.group1.Items.Add(this.AddPinyin);
+            this.group1.Items.Add(this.box1);
+            this.group1.Items.Add(this.undobutton);
+            this.group1.Items.Add(this.edittnpy);
+            this.group1.Items.Add(this.remove);
+            this.group1.Items.Add(this.py2tones);
+            this.group1.Label = "Tones or Pinyin";
+            this.group1.Name = "group1";
+            // 
+            // devel
+            // 
+            this.devel.Items.Add(this.inspt);
+            this.devel.Items.Add(this.insxml);
+            this.devel.Items.Add(this.brackets);
+            this.devel.Items.Add(this.reins);
+            this.devel.Items.Add(this.ToneGraphMenu);
+            this.devel.Items.Add(this.removeButton);
+            this.devel.Items.Add(this.pinyinMenu);
+            this.devel.Items.Add(this.AddTones);
+            this.devel.Label = "Developer";
+            this.devel.Name = "devel";
+            this.devel.Visible = false;
+            // 
+            // brackets
+            // 
+            this.brackets.Description = "Turn on Bracket with pinyin output";
+            this.brackets.Label = "[Brackets]";
+            this.brackets.Name = "brackets";
+            // 
+            // other
+            // 
+            this.other.Items.Add(this.lookUp);
+            this.other.Items.Add(this.label2);
+            this.other.Items.Add(this.vlabel);
+            this.other.Label = "Other";
+            this.other.Name = "other";
+            // 
+            // vlabel
+            // 
+            this.vlabel.Label = "Version: 0.xx";
+            this.vlabel.Name = "vlabel";
+            // 
+            // label2
+            // 
+            this.label2.Label = "   ";
+            this.label2.Name = "label2";
+            // 
+            // tonecorrectionbutton
+            // 
+            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
+            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
+            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
+            // 
+            // dicton
+            // 
+            this.dicton.Label = "          Enable          ";
+            this.dicton.Name = "dicton";
+            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // totradbutton
             // 
@@ -175,18 +226,6 @@
             this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
             this.tosimpbutton.ShowImage = true;
             this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.AddTonesRuby);
-            this.group1.Items.Add(this.AddPinyin);
-            this.group1.Items.Add(this.box1);
-            this.group1.Items.Add(this.undobutton);
-            this.group1.Items.Add(this.edittnpy);
-            this.group1.Items.Add(this.remove);
-            this.group1.Items.Add(this.py2tones);
-            this.group1.Label = "Tones or Pinyin";
-            this.group1.Name = "group1";
             // 
             // AddTonesRuby
             // 
@@ -301,19 +340,13 @@
             this.py2tones.Name = "py2tones";
             this.py2tones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.py2tones_Click);
             // 
-            // devel
+            // lookUp
             // 
-            this.devel.Items.Add(this.inspt);
-            this.devel.Items.Add(this.insxml);
-            this.devel.Items.Add(this.brackets);
-            this.devel.Items.Add(this.reins);
-            this.devel.Items.Add(this.ToneGraphMenu);
-            this.devel.Items.Add(this.removeButton);
-            this.devel.Items.Add(this.pinyinMenu);
-            this.devel.Items.Add(this.AddTones);
-            this.devel.Label = "Developer";
-            this.devel.Name = "devel";
-            this.devel.Visible = false;
+            this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
+            this.lookUp.Label = "Character Definition";
+            this.lookUp.Name = "lookUp";
+            this.lookUp.ShowImage = true;
+            this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
             // 
             // inspt
             // 
@@ -326,12 +359,6 @@
             this.insxml.Label = "Insert XML";
             this.insxml.Name = "insxml";
             this.insxml.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insxml_Click);
-            // 
-            // brackets
-            // 
-            this.brackets.Description = "Turn on Bracket with pinyin output";
-            this.brackets.Label = "[Brackets]";
-            this.brackets.Name = "brackets";
             // 
             // reins
             // 
@@ -700,26 +727,6 @@
             this.AddTones.ShowImage = true;
             this.AddTones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTones_Click);
             // 
-            // other
-            // 
-            this.other.Items.Add(this.lookUp);
-            this.other.Items.Add(this.vlabel);
-            this.other.Label = "Other";
-            this.other.Name = "other";
-            // 
-            // lookUp
-            // 
-            this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
-            this.lookUp.Label = "Character Definition";
-            this.lookUp.Name = "lookUp";
-            this.lookUp.ShowImage = true;
-            this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
-            // 
-            // vlabel
-            // 
-            this.vlabel.Label = "vlabel";
-            this.vlabel.Name = "vlabel";
-            // 
             // RibbonMain
             // 
             this.Name = "RibbonMain";
@@ -734,16 +741,16 @@
             this.group2.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
+            this.devel.ResumeLayout(false);
+            this.devel.PerformLayout();
+            this.other.ResumeLayout(false);
+            this.other.PerformLayout();
             this.box1.ResumeLayout(false);
             this.box1.PerformLayout();
             this.box2.ResumeLayout(false);
             this.box2.PerformLayout();
             this.box6.ResumeLayout(false);
             this.box6.PerformLayout();
-            this.devel.ResumeLayout(false);
-            this.devel.PerformLayout();
-            this.other.ResumeLayout(false);
-            this.other.PerformLayout();
 
         }
 
@@ -819,6 +826,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup other;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel vlabel;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel label2;
     }
 
     partial class ThisRibbonCollection
