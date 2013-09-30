@@ -40,7 +40,11 @@
             this.label1 = this.Factory.CreateRibbonLabel();
             this.dicton = this.Factory.CreateRibbonToggleButton();
             this.group2 = this.Factory.CreateRibbonGroup();
+            this.totradbutton = this.Factory.CreateRibbonButton();
+            this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.AddTonesRuby = this.Factory.CreateRibbonButton();
+            this.AddPinyin = this.Factory.CreateRibbonButton();
             this.box1 = this.Factory.CreateRibbonBox();
             this.box2 = this.Factory.CreateRibbonBox();
             this.resizepinyin = this.Factory.CreateRibbonButton();
@@ -50,6 +54,8 @@
             this.pysize = this.Factory.CreateRibbonEditBox();
             this.tnsize = this.Factory.CreateRibbonEditBox();
             this.toneheight = this.Factory.CreateRibbonEditBox();
+            this.undobutton = this.Factory.CreateRibbonButton();
+            this.edittnpy = this.Factory.CreateRibbonButton();
             this.remove = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
             this.devel = this.Factory.CreateRibbonGroup();
@@ -58,51 +64,46 @@
             this.brackets = this.Factory.CreateRibbonCheckBox();
             this.reins = this.Factory.CreateRibbonButton();
             this.ToneGraphMenu = this.Factory.CreateRibbonMenu();
-            this.removeButton = this.Factory.CreateRibbonButton();
-            this.pinyinMenu = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuA = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuO = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuE = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuI = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuU = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuV = this.Factory.CreateRibbonMenu();
-            this.other = this.Factory.CreateRibbonGroup();
-            this.totradbutton = this.Factory.CreateRibbonButton();
-            this.tosimpbutton = this.Factory.CreateRibbonButton();
-            this.AddTonesRuby = this.Factory.CreateRibbonButton();
-            this.AddPinyin = this.Factory.CreateRibbonButton();
-            this.undobutton = this.Factory.CreateRibbonButton();
-            this.edittnpy = this.Factory.CreateRibbonButton();
             this.tone1button = this.Factory.CreateRibbonButton();
             this.tone2button = this.Factory.CreateRibbonButton();
             this.tone3button = this.Factory.CreateRibbonButton();
             this.tone4button = this.Factory.CreateRibbonButton();
+            this.removeButton = this.Factory.CreateRibbonButton();
+            this.pinyinMenu = this.Factory.CreateRibbonMenu();
+            this.pinyinMenuA = this.Factory.CreateRibbonMenu();
             this.buttona1 = this.Factory.CreateRibbonButton();
             this.buttona2 = this.Factory.CreateRibbonButton();
             this.buttona3 = this.Factory.CreateRibbonButton();
             this.buttona4 = this.Factory.CreateRibbonButton();
+            this.pinyinMenuO = this.Factory.CreateRibbonMenu();
             this.buttono1 = this.Factory.CreateRibbonButton();
             this.buttono2 = this.Factory.CreateRibbonButton();
             this.buttono3 = this.Factory.CreateRibbonButton();
             this.buttono4 = this.Factory.CreateRibbonButton();
+            this.pinyinMenuE = this.Factory.CreateRibbonMenu();
             this.buttone1 = this.Factory.CreateRibbonButton();
             this.buttone2 = this.Factory.CreateRibbonButton();
             this.buttone3 = this.Factory.CreateRibbonButton();
             this.buttone4 = this.Factory.CreateRibbonButton();
+            this.pinyinMenuI = this.Factory.CreateRibbonMenu();
             this.buttoni1 = this.Factory.CreateRibbonButton();
             this.buttoni2 = this.Factory.CreateRibbonButton();
             this.buttoni3 = this.Factory.CreateRibbonButton();
             this.buttoni4 = this.Factory.CreateRibbonButton();
+            this.pinyinMenuU = this.Factory.CreateRibbonMenu();
             this.buttonu1 = this.Factory.CreateRibbonButton();
             this.buttonu2 = this.Factory.CreateRibbonButton();
             this.buttonu3 = this.Factory.CreateRibbonButton();
             this.buttonu4 = this.Factory.CreateRibbonButton();
+            this.pinyinMenuV = this.Factory.CreateRibbonMenu();
             this.buttonv1 = this.Factory.CreateRibbonButton();
             this.buttonv2 = this.Factory.CreateRibbonButton();
             this.buttonv3 = this.Factory.CreateRibbonButton();
             this.buttonv4 = this.Factory.CreateRibbonButton();
             this.AddTones = this.Factory.CreateRibbonButton();
+            this.other = this.Factory.CreateRibbonGroup();
             this.lookUp = this.Factory.CreateRibbonButton();
+            this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group2.SuspendLayout();
@@ -155,6 +156,26 @@
             this.group2.Label = "Convert";
             this.group2.Name = "group2";
             // 
+            // totradbutton
+            // 
+            this.totradbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.totradbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.fan;
+            this.totradbutton.Label = "To Traditional";
+            this.totradbutton.Name = "totradbutton";
+            this.totradbutton.ScreenTip = "Convert selected text to tradional Chinese.";
+            this.totradbutton.ShowImage = true;
+            this.totradbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.totradbutton_Click);
+            // 
+            // tosimpbutton
+            // 
+            this.tosimpbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.tosimpbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.jian;
+            this.tosimpbutton.Label = "To Simplified";
+            this.tosimpbutton.Name = "tosimpbutton";
+            this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
+            this.tosimpbutton.ShowImage = true;
+            this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
+            // 
             // group1
             // 
             this.group1.Items.Add(this.AddTonesRuby);
@@ -166,6 +187,26 @@
             this.group1.Items.Add(this.py2tones);
             this.group1.Label = "Tones or Pinyin";
             this.group1.Name = "group1";
+            // 
+            // AddTonesRuby
+            // 
+            this.AddTonesRuby.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.AddTonesRuby.Image = global::Hanzi2TGHZRibbon.Properties.Resources.tones;
+            this.AddTonesRuby.Label = "Add Tones";
+            this.AddTonesRuby.Name = "AddTonesRuby";
+            this.AddTonesRuby.ShowImage = true;
+            this.AddTonesRuby.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTonesRuby_Click);
+            // 
+            // AddPinyin
+            // 
+            this.AddPinyin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.AddPinyin.Description = "Add pinyin to selected text.";
+            this.AddPinyin.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pinyin;
+            this.AddPinyin.Label = "Add Pinyin";
+            this.AddPinyin.Name = "AddPinyin";
+            this.AddPinyin.ScreenTip = "Add pinyin to selected text.";
+            this.AddPinyin.ShowImage = true;
+            this.AddPinyin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddPinyin_Click);
             // 
             // box1
             // 
@@ -228,6 +269,24 @@
             this.toneheight.ShowLabel = false;
             this.toneheight.Text = "10";
             // 
+            // undobutton
+            // 
+            this.undobutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.undobutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.undo;
+            this.undobutton.Label = "Undo";
+            this.undobutton.Name = "undobutton";
+            this.undobutton.ShowImage = true;
+            this.undobutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.undobutton_Click);
+            // 
+            // edittnpy
+            // 
+            this.edittnpy.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.edittnpy.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pencil;
+            this.edittnpy.Label = "Edit Tones or Pinyin";
+            this.edittnpy.Name = "edittnpy";
+            this.edittnpy.ShowImage = true;
+            this.edittnpy.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edittnpy_Click);
+            // 
             // remove
             // 
             this.remove.Label = "Remove Tones/Pinyin";
@@ -289,155 +348,6 @@
             this.ToneGraphMenu.Label = "Tone graph";
             this.ToneGraphMenu.Name = "ToneGraphMenu";
             // 
-            // removeButton
-            // 
-            this.removeButton.Label = "Remove both";
-            this.removeButton.Name = "removeButton";
-            this.removeButton.ScreenTip = "Removes added tones or pinyin.";
-            this.removeButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeButton_Click);
-            // 
-            // pinyinMenu
-            // 
-            this.pinyinMenu.Items.Add(this.pinyinMenuA);
-            this.pinyinMenu.Items.Add(this.pinyinMenuO);
-            this.pinyinMenu.Items.Add(this.pinyinMenuE);
-            this.pinyinMenu.Items.Add(this.pinyinMenuI);
-            this.pinyinMenu.Items.Add(this.pinyinMenuU);
-            this.pinyinMenu.Items.Add(this.pinyinMenuV);
-            this.pinyinMenu.Label = "Pinyin";
-            this.pinyinMenu.Name = "pinyinMenu";
-            this.pinyinMenu.ScreenTip = "Insert pinyin vowel with tone graph.";
-            // 
-            // pinyinMenuA
-            // 
-            this.pinyinMenuA.Items.Add(this.buttona1);
-            this.pinyinMenuA.Items.Add(this.buttona2);
-            this.pinyinMenuA.Items.Add(this.buttona3);
-            this.pinyinMenuA.Items.Add(this.buttona4);
-            this.pinyinMenuA.Label = "a";
-            this.pinyinMenuA.Name = "pinyinMenuA";
-            this.pinyinMenuA.ScreenTip = "Insert \'a\' with tone graph.";
-            this.pinyinMenuA.ShowImage = true;
-            // 
-            // pinyinMenuO
-            // 
-            this.pinyinMenuO.Items.Add(this.buttono1);
-            this.pinyinMenuO.Items.Add(this.buttono2);
-            this.pinyinMenuO.Items.Add(this.buttono3);
-            this.pinyinMenuO.Items.Add(this.buttono4);
-            this.pinyinMenuO.Label = "o";
-            this.pinyinMenuO.Name = "pinyinMenuO";
-            this.pinyinMenuO.ScreenTip = "Insert \'o\' with tone graph.";
-            this.pinyinMenuO.ShowImage = true;
-            // 
-            // pinyinMenuE
-            // 
-            this.pinyinMenuE.Items.Add(this.buttone1);
-            this.pinyinMenuE.Items.Add(this.buttone2);
-            this.pinyinMenuE.Items.Add(this.buttone3);
-            this.pinyinMenuE.Items.Add(this.buttone4);
-            this.pinyinMenuE.Label = "e";
-            this.pinyinMenuE.Name = "pinyinMenuE";
-            this.pinyinMenuE.ScreenTip = "Insert this character.";
-            this.pinyinMenuE.ShowImage = true;
-            // 
-            // pinyinMenuI
-            // 
-            this.pinyinMenuI.Items.Add(this.buttoni1);
-            this.pinyinMenuI.Items.Add(this.buttoni2);
-            this.pinyinMenuI.Items.Add(this.buttoni3);
-            this.pinyinMenuI.Items.Add(this.buttoni4);
-            this.pinyinMenuI.Label = "i";
-            this.pinyinMenuI.Name = "pinyinMenuI";
-            this.pinyinMenuI.ScreenTip = "Insert \'i\' with tone graph.";
-            this.pinyinMenuI.ShowImage = true;
-            // 
-            // pinyinMenuU
-            // 
-            this.pinyinMenuU.Items.Add(this.buttonu1);
-            this.pinyinMenuU.Items.Add(this.buttonu2);
-            this.pinyinMenuU.Items.Add(this.buttonu3);
-            this.pinyinMenuU.Items.Add(this.buttonu4);
-            this.pinyinMenuU.Label = "u";
-            this.pinyinMenuU.Name = "pinyinMenuU";
-            this.pinyinMenuU.ScreenTip = "Insert \'u\' with tone graph.";
-            this.pinyinMenuU.ShowImage = true;
-            // 
-            // pinyinMenuV
-            // 
-            this.pinyinMenuV.Items.Add(this.buttonv1);
-            this.pinyinMenuV.Items.Add(this.buttonv2);
-            this.pinyinMenuV.Items.Add(this.buttonv3);
-            this.pinyinMenuV.Items.Add(this.buttonv4);
-            this.pinyinMenuV.Label = "ü";
-            this.pinyinMenuV.Name = "pinyinMenuV";
-            this.pinyinMenuV.ScreenTip = "Insert this character.";
-            this.pinyinMenuV.ShowImage = true;
-            // 
-            // other
-            // 
-            this.other.Items.Add(this.lookUp);
-            this.other.Label = "Other";
-            this.other.Name = "other";
-            // 
-            // totradbutton
-            // 
-            this.totradbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.totradbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.fan;
-            this.totradbutton.Label = "To Traditional";
-            this.totradbutton.Name = "totradbutton";
-            this.totradbutton.ScreenTip = "Convert selected text to tradional Chinese.";
-            this.totradbutton.ShowImage = true;
-            this.totradbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.totradbutton_Click);
-            // 
-            // tosimpbutton
-            // 
-            this.tosimpbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.tosimpbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.jian;
-            this.tosimpbutton.Label = "To Simplified";
-            this.tosimpbutton.Name = "tosimpbutton";
-            this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
-            this.tosimpbutton.ShowImage = true;
-            this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
-            // 
-            // AddTonesRuby
-            // 
-            this.AddTonesRuby.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.AddTonesRuby.Image = global::Hanzi2TGHZRibbon.Properties.Resources.tones;
-            this.AddTonesRuby.Label = "Add Tones";
-            this.AddTonesRuby.Name = "AddTonesRuby";
-            this.AddTonesRuby.ShowImage = true;
-            this.AddTonesRuby.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTonesRuby_Click);
-            // 
-            // AddPinyin
-            // 
-            this.AddPinyin.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.AddPinyin.Description = "Add pinyin to selected text.";
-            this.AddPinyin.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pinyin;
-            this.AddPinyin.Label = "Add Pinyin";
-            this.AddPinyin.Name = "AddPinyin";
-            this.AddPinyin.ScreenTip = "Add pinyin to selected text.";
-            this.AddPinyin.ShowImage = true;
-            this.AddPinyin.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddPinyin_Click);
-            // 
-            // undobutton
-            // 
-            this.undobutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.undobutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.undo;
-            this.undobutton.Label = "Undo";
-            this.undobutton.Name = "undobutton";
-            this.undobutton.ShowImage = true;
-            this.undobutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.undobutton_Click);
-            // 
-            // edittnpy
-            // 
-            this.edittnpy.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.edittnpy.Image = global::Hanzi2TGHZRibbon.Properties.Resources.pencil;
-            this.edittnpy.Label = "Edit Tones or Pinyin";
-            this.edittnpy.Name = "edittnpy";
-            this.edittnpy.ShowImage = true;
-            this.edittnpy.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edittnpy_Click);
-            // 
             // tone1button
             // 
             this.tone1button.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
@@ -478,6 +388,36 @@
             this.tone4button.Tag = "4";
             this.tone4button.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertTagAsTone);
             // 
+            // removeButton
+            // 
+            this.removeButton.Label = "Remove both";
+            this.removeButton.Name = "removeButton";
+            this.removeButton.ScreenTip = "Removes added tones or pinyin.";
+            this.removeButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeButton_Click);
+            // 
+            // pinyinMenu
+            // 
+            this.pinyinMenu.Items.Add(this.pinyinMenuA);
+            this.pinyinMenu.Items.Add(this.pinyinMenuO);
+            this.pinyinMenu.Items.Add(this.pinyinMenuE);
+            this.pinyinMenu.Items.Add(this.pinyinMenuI);
+            this.pinyinMenu.Items.Add(this.pinyinMenuU);
+            this.pinyinMenu.Items.Add(this.pinyinMenuV);
+            this.pinyinMenu.Label = "Pinyin";
+            this.pinyinMenu.Name = "pinyinMenu";
+            this.pinyinMenu.ScreenTip = "Insert pinyin vowel with tone graph.";
+            // 
+            // pinyinMenuA
+            // 
+            this.pinyinMenuA.Items.Add(this.buttona1);
+            this.pinyinMenuA.Items.Add(this.buttona2);
+            this.pinyinMenuA.Items.Add(this.buttona3);
+            this.pinyinMenuA.Items.Add(this.buttona4);
+            this.pinyinMenuA.Label = "a";
+            this.pinyinMenuA.Name = "pinyinMenuA";
+            this.pinyinMenuA.ScreenTip = "Insert \'a\' with tone graph.";
+            this.pinyinMenuA.ShowImage = true;
+            // 
             // buttona1
             // 
             this.buttona1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
@@ -513,6 +453,17 @@
             this.buttona4.ScreenTip = "Insert this character.";
             this.buttona4.ShowImage = true;
             this.buttona4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
+            // 
+            // pinyinMenuO
+            // 
+            this.pinyinMenuO.Items.Add(this.buttono1);
+            this.pinyinMenuO.Items.Add(this.buttono2);
+            this.pinyinMenuO.Items.Add(this.buttono3);
+            this.pinyinMenuO.Items.Add(this.buttono4);
+            this.pinyinMenuO.Label = "o";
+            this.pinyinMenuO.Name = "pinyinMenuO";
+            this.pinyinMenuO.ScreenTip = "Insert \'o\' with tone graph.";
+            this.pinyinMenuO.ShowImage = true;
             // 
             // buttono1
             // 
@@ -550,6 +501,17 @@
             this.buttono4.ShowImage = true;
             this.buttono4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
             // 
+            // pinyinMenuE
+            // 
+            this.pinyinMenuE.Items.Add(this.buttone1);
+            this.pinyinMenuE.Items.Add(this.buttone2);
+            this.pinyinMenuE.Items.Add(this.buttone3);
+            this.pinyinMenuE.Items.Add(this.buttone4);
+            this.pinyinMenuE.Label = "e";
+            this.pinyinMenuE.Name = "pinyinMenuE";
+            this.pinyinMenuE.ScreenTip = "Insert this character.";
+            this.pinyinMenuE.ShowImage = true;
+            // 
             // buttone1
             // 
             this.buttone1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
@@ -585,6 +547,17 @@
             this.buttone4.ScreenTip = "Insert this character.";
             this.buttone4.ShowImage = true;
             this.buttone4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
+            // 
+            // pinyinMenuI
+            // 
+            this.pinyinMenuI.Items.Add(this.buttoni1);
+            this.pinyinMenuI.Items.Add(this.buttoni2);
+            this.pinyinMenuI.Items.Add(this.buttoni3);
+            this.pinyinMenuI.Items.Add(this.buttoni4);
+            this.pinyinMenuI.Label = "i";
+            this.pinyinMenuI.Name = "pinyinMenuI";
+            this.pinyinMenuI.ScreenTip = "Insert \'i\' with tone graph.";
+            this.pinyinMenuI.ShowImage = true;
             // 
             // buttoni1
             // 
@@ -622,6 +595,17 @@
             this.buttoni4.ShowImage = true;
             this.buttoni4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
             // 
+            // pinyinMenuU
+            // 
+            this.pinyinMenuU.Items.Add(this.buttonu1);
+            this.pinyinMenuU.Items.Add(this.buttonu2);
+            this.pinyinMenuU.Items.Add(this.buttonu3);
+            this.pinyinMenuU.Items.Add(this.buttonu4);
+            this.pinyinMenuU.Label = "u";
+            this.pinyinMenuU.Name = "pinyinMenuU";
+            this.pinyinMenuU.ScreenTip = "Insert \'u\' with tone graph.";
+            this.pinyinMenuU.ShowImage = true;
+            // 
             // buttonu1
             // 
             this.buttonu1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
@@ -657,6 +641,17 @@
             this.buttonu4.ScreenTip = "Insert this character.";
             this.buttonu4.ShowImage = true;
             this.buttonu4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
+            // 
+            // pinyinMenuV
+            // 
+            this.pinyinMenuV.Items.Add(this.buttonv1);
+            this.pinyinMenuV.Items.Add(this.buttonv2);
+            this.pinyinMenuV.Items.Add(this.buttonv3);
+            this.pinyinMenuV.Items.Add(this.buttonv4);
+            this.pinyinMenuV.Label = "ü";
+            this.pinyinMenuV.Name = "pinyinMenuV";
+            this.pinyinMenuV.ScreenTip = "Insert this character.";
+            this.pinyinMenuV.ShowImage = true;
             // 
             // buttonv1
             // 
@@ -705,6 +700,13 @@
             this.AddTones.ShowImage = true;
             this.AddTones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTones_Click);
             // 
+            // other
+            // 
+            this.other.Items.Add(this.lookUp);
+            this.other.Items.Add(this.vlabel);
+            this.other.Label = "Other";
+            this.other.Name = "other";
+            // 
             // lookUp
             // 
             this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
@@ -712,6 +714,11 @@
             this.lookUp.Name = "lookUp";
             this.lookUp.ShowImage = true;
             this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
+            // 
+            // vlabel
+            // 
+            this.vlabel.Label = "vlabel";
+            this.vlabel.Name = "vlabel";
             // 
             // RibbonMain
             // 
@@ -811,6 +818,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton py2tones;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup other;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel vlabel;
     }
 
     partial class ThisRibbonCollection

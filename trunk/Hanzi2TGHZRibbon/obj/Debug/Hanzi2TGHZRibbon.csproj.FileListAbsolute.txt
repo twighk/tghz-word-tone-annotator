@@ -46,3 +46,4 @@ H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.vsto
 H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
 H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
 H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.lookupForm.resources
