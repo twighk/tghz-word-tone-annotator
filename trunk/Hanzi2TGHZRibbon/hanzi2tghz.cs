@@ -499,26 +499,31 @@ namespace Hanzi2TGHZRibbon
             for (int i = rubies.Count - 1; i >= 0; i--) // Count down so position of matches further in xml are not changed
             {
                 string match = rubies[i].Value;
-                MatchCollection tnpyhanzi = new Regex(@"(?<=<w:t>)(.*?)(?=<\/w:t>)").Matches(match);// Find tone/pinyin & characters
-                // Change characters
-                match = match.Remove(tnpyhanzi[1].Index, tnpyhanzi[1].Length); 
-                match = match.Insert(tnpyhanzi[1].Index, list[i].Item1);
-
-                // Change tone/pinyin
-                match = match.Remove(tnpyhanzi[0].Index, tnpyhanzi[0].Length); 
-
-                string tnpy = "";
-                int tmp;
-                if (Int32.TryParse(list[i].Item2, out tmp))
+                if (list[i].Item2 != "")
                 {
-                    foreach (char num in list[i].Item2.Trim())
-                        if (Int32.Parse(num.ToString()) < accent.Length + 1)
-                            tnpy += (char)accent[Int32.Parse(num.ToString()) - 1];
-                }
-                else
-                    tnpy += gap + num2tonegraphs(list[i].Item2) + gap;
+                    MatchCollection tnpyhanzi = new Regex(@"(?<=<w:t>)(.*?)(?=<\/w:t>)").Matches(match);// Find tone/pinyin & characters
+                    // Change characters
+                    match = match.Remove(tnpyhanzi[1].Index, tnpyhanzi[1].Length);
+                    match = match.Insert(tnpyhanzi[1].Index, list[i].Item1);
 
-                match = match.Insert(tnpyhanzi[0].Index, tnpy);
+                    // Change tone/pinyin
+                    match = match.Remove(tnpyhanzi[0].Index, tnpyhanzi[0].Length);
+
+                    string tnpy = "";
+                    int tmp;
+                    if (Int32.TryParse(list[i].Item2, out tmp))
+                    {
+                        foreach (char num in list[i].Item2.Trim())
+                            if (Int32.Parse(num.ToString()) < accent.Length + 1)
+                                tnpy += (char)accent[Int32.Parse(num.ToString()) - 1];
+                    }
+                    else
+                        tnpy += gap + num2tonegraphs(list[i].Item2) + gap;
+
+                    match = match.Insert(tnpyhanzi[0].Index, tnpy);
+                } else {
+                    match = @"<w:t>" + list[i].Item1 + "</w:t>)";
+                }
 
                 //fix xml
                 xml = xml.Remove(rubies[i].Index, rubies[i].Length);
