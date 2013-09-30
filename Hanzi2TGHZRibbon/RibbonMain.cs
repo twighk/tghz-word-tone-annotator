@@ -22,7 +22,7 @@ namespace Hanzi2TGHZRibbon
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 Version currentver = ApplicationDeployment.CurrentDeployment.CurrentVersion;
-                vlabel.Label = string.Format("Version: v{0}.{1}.{2}.{3}", currentver.Major, currentver.Minor, currentver.Build, currentver.Revision);
+                vlabel.Label = string.Format("Version: {0}.{3}", currentver.Major, currentver.Minor, currentver.Build, currentver.Revision);
             }
             else
             {
