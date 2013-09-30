@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
-
+using System.Deployment.Application;
 
 namespace Hanzi2TGHZRibbon
 {
@@ -19,6 +19,16 @@ namespace Hanzi2TGHZRibbon
         private void RibbonMain_Load(object sender, RibbonUIEventArgs e)
         {
             tghz = new hanzi2tghz(dictpath, Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\tghzToneCorrections.txt");
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                Version currentver = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                vlabel.Label = string.Format("Version: v{0}.{1}.{2}.{3}", currentver.Major, currentver.Minor, currentver.Build, currentver.Revision);
+            }
+            else
+            {
+                vlabel.Label = "Devel Version";
+            }
+
         }
 
 
