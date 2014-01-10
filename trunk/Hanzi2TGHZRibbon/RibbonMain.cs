@@ -66,44 +66,6 @@ namespace Hanzi2TGHZRibbon
             tradSimpConvert(VbStrConv.SimplifiedChinese);
         }
 
-        /* Developer Methods */
-        private void inspt_Click(object sender, RibbonControlEventArgs e)
-        {
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-
-            Word.Characters chars = currentRange.Characters;
-            foreach (Word.Range c in chars)
-            {
-                string ostr = "";
-                foreach (char a in c.Text)
-                {
-                    c.TextRetrievalMode.IncludeFieldCodes = true;
-                    c.TextRetrievalMode.IncludeHiddenText = true;
-                    ostr += Convert.ToInt32(a).ToString();
-                    ostr += " ";
-                }
-                System.Windows.Forms.MessageBox.Show(ostr);
-            }
-        }
-
-        private void insxml_Click(object sender, RibbonControlEventArgs e)
-        {
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-            //currentRange.InsertFile("C:\\Users\\Thomas Branch\\Desktop\\Output2.xml");
-            //string file = File.ReadAllText("C:\\Users\\Thomas Branch\\Desktop\\Output2.xml");
-            //currentRange.InsertXML(file);
-            //System.Windows.Forms.MessageBox.Show(hanzi2tghz.xmlHeader + hanzi2tghz.withTone("你",1) + hanzi2tghz.xmlFooter);
-            currentRange.InsertXML(hanzi2tghz.xmlHeader
-                + hanzi2tghz.withTone("你", 1)
-                + hanzi2tghz.withTone("你", 2)
-                + hanzi2tghz.withTone("你", 3)
-                + hanzi2tghz.withTone("你", 4)
-                + hanzi2tghz.withTone("你", 5)
-                + hanzi2tghz.withNone("你")
-                + hanzi2tghz.withString("你", "āáǎàa")
-                + hanzi2tghz.xmlFooter);
-        }
-
         /* Pinyin Tone Methods */
         private void pinyintones(Func<string, bool, bool, string> function, bool b1 = false, bool b2 = true)
         {
@@ -153,54 +115,7 @@ namespace Hanzi2TGHZRibbon
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
             //pinyintones(tghz.withPinYinXML, brackets.Checked);
-            pinyintones(tghz.withPinYinXMLRuby, brackets.Checked);
-        }
-
-        private void AddTones_Click(object sender, RibbonControlEventArgs e)
-        {
-
-            pinyintones(tghz.withToneXML);
-        }
-
-        private void insertLabel(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.Application.Selection.Range.Text = (sender as RibbonButton).Label;
-        }
-
-        private void insertTagAsTone(object sender, RibbonControlEventArgs e)
-        {
-            Globals.ThisAddIn.Application.Selection.Range.InsertXML(hanzi2tghz.xmlHeader
-                + hanzi2tghz.withTone("", Int32.Parse((sender as RibbonButton).Tag.ToString()))
-                + hanzi2tghz.xmlFooter);
-        }
-
-        private void reins_Click(object sender, RibbonControlEventArgs e)
-        {
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-            currentRange.TextRetrievalMode.IncludeFieldCodes = true;
-            currentRange.TextRetrievalMode.IncludeHiddenText = true;
-
-            currentRange.Text = currentRange.Text;
-        }
-
-        private void removeButton_Click(object sender, RibbonControlEventArgs e)
-        {
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-
-            if (currentRange.Text != null)
-            {
-                foreach (Word.Range c in currentRange.Characters)
-                    foreach (Word.OMath m in c.OMaths)
-                        m.Remove();
-
-                //Char with tones
-                MatchEvaluator getchareval = new MatchEvaluator((Match m) => m.Value[1].ToString());
-                currentRange.Text = new Regex("\".\" .. ").Replace(currentRange.Text, getchareval);
-
-                //Char with pinyin
-                MatchEvaluator getpinyineval = new MatchEvaluator((Match m) => m.Value[m.Value.Length - 5].ToString());
-                currentRange.Text = new Regex(".\\(.{0,6}@\".\" \\) ").Replace(currentRange.Text, getpinyineval);
-            }
+            pinyintones(tghz.withPinYinXMLRuby, false);
         }
 
         private void undobutton_Click(object sender, RibbonControlEventArgs e)

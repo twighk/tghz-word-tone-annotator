@@ -199,20 +199,6 @@ namespace Hanzi2TGHZRibbon
             return LoadToneCorrections(tonepath).Item2;
         }
 
-        public string withToneXML(string input, bool b1, bool b2) //superflous bools to match withpiyinxml type
-        {
-            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
-            string output = "";
-            foreach (Tuple<string, List<string>> c in hzpi)
-                if (c.Item2.Count == 0)
-                    output += withNone(c.Item1);
-                else
-                    foreach (List<int> pi in str2tones(c.Item2))
-                        for (int i = 0; i != c.Item1.Length; i++)
-                            output += withTone(c.Item1[i].ToString(), pi[i]);
-            return output;
-        }
-
 
         public static List<List<T>> Transpose<T>(List<List<T>> lists)
         {
@@ -244,27 +230,6 @@ namespace Hanzi2TGHZRibbon
             return output ;
         }
 
-        public string withPinYinXML(string input, bool brackets = false, bool tonegraphs = true)
-        {
-            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
-            string output = "";
-            foreach (Tuple<string, List<string>> c in hzpi)
-                if (c.Item2.Count == 0)
-                    output += withString(c.Item1, "&#8203;");
-                else
-                    foreach (string pi in c.Item2)
-                    {
-                        string pi2 = pi;
-                        if (!brackets) pi2 = pi.Trim(new char[] { '[', ']' });
-                        string[] splt = pi2.Split(new char[] { ' ' });
-                        for (int i = 0; i != c.Item1.Length; i++)
-                        {
-                            if (tonegraphs) splt[i] = num2tonegraphs(splt[i]);
-                            output += withString(c.Item1[i].ToString(), splt[i]);
-                        }
-                    }
-            return output;
-        }
 
         public string withPinYinXMLRuby(string input, bool brackets = false, bool tonegraphs = true)
         {
@@ -378,23 +343,9 @@ namespace Hanzi2TGHZRibbon
             return output;
         }
 
-
-
         private static int pinyin2tone(string pinyin)
         {
             return Int32.Parse(Regex.Match(pinyin, @"\d+").Value); //Get tone number
-        }
-
-        public static string withTone(string str, int t)
-        {
-            string output = "";
-            output += "<m:oMath><m:acc><m:accPr><m:chr m:val=\"&#";
-            output += accent[t - 1].ToString();
-            output += ";\"/></m:accPr><m:e><m:r><m:rPr><m:nor/></m:rPr><m:t>";
-            output += str;
-            output += "</m:t></m:r></m:e></m:acc></m:oMath>";
-            output += "<w:r><w:t xml:space=\"preserve\"> </w:t></w:r>"; // Space
-            return output;
         }
 
         public static string withNone(string str)
@@ -405,21 +356,6 @@ namespace Hanzi2TGHZRibbon
             output += "</w:t></w:r>";
             return output;
 
-        }
-
-        public static string withString(string bottom, string top)
-        {
-            string output = "";
-            output += "<m:oMath><m:m><m:mPr><m:mcs><m:mc><m:mcPr><m:count m:val=\"1\"/><m:mcJc m:val=\"center\"/></m:mcPr></m:mc></m:mcs>";
-            output += "</m:mPr><m:mr><m:e><m:r><m:rPr><m:sty m:val=\"p\"/></m:rPr>";
-            output += "<w:rPr><w:rFonts w:ascii=\"Times New Roman\" w:hAnsi=\"Times New Roman\" w:cs=\"Times New Roman\"/></w:rPr>";
-            output += "<m:t>";
-            output += top;
-            output += "</m:t></m:r></m:e></m:mr><m:mr><m:e><m:r><m:rPr><m:nor/></m:rPr><m:t>";
-            output += bottom;
-            output += "</m:t></m:r></m:e></m:mr></m:m></m:oMath>";
-            output += "<w:r><w:t xml:space=\"preserve\"> </w:t></w:r>"; // Space
-            return output;
         }
 
         public static string withRuby(string bottom, string top)
@@ -536,7 +472,7 @@ namespace Hanzi2TGHZRibbon
         }
 
 
-
+/*
         public static readonly string xmlFooter = @"</w:p></w:body></w:document></pkg:xmlData></pkg:part></pkg:package>";
 
         public static readonly string xmlHeader = @"
@@ -562,6 +498,6 @@ namespace Hanzi2TGHZRibbon
             <w:p>
 ".Replace(Environment.NewLine, "");
 
-
+*/
     }
 }

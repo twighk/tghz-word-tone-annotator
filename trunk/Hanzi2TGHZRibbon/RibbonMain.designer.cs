@@ -36,18 +36,13 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.config = this.Factory.CreateRibbonGroup();
-            this.label1 = this.Factory.CreateRibbonLabel();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.group1 = this.Factory.CreateRibbonGroup();
-            this.devel = this.Factory.CreateRibbonGroup();
-            this.brackets = this.Factory.CreateRibbonCheckBox();
-            this.other = this.Factory.CreateRibbonGroup();
-            this.vlabel = this.Factory.CreateRibbonLabel();
-            this.label2 = this.Factory.CreateRibbonLabel();
             this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
+            this.label1 = this.Factory.CreateRibbonLabel();
             this.dicton = this.Factory.CreateRibbonToggleButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
             this.totradbutton = this.Factory.CreateRibbonButton();
             this.tosimpbutton = this.Factory.CreateRibbonButton();
+            this.group1 = this.Factory.CreateRibbonGroup();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
             this.AddPinyin = this.Factory.CreateRibbonButton();
             this.box1 = this.Factory.CreateRibbonBox();
@@ -63,57 +58,18 @@
             this.edittnpy = this.Factory.CreateRibbonButton();
             this.remove = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
+            this.other = this.Factory.CreateRibbonGroup();
             this.lookUp = this.Factory.CreateRibbonButton();
-            this.inspt = this.Factory.CreateRibbonButton();
-            this.insxml = this.Factory.CreateRibbonButton();
-            this.reins = this.Factory.CreateRibbonButton();
-            this.ToneGraphMenu = this.Factory.CreateRibbonMenu();
-            this.tone1button = this.Factory.CreateRibbonButton();
-            this.tone2button = this.Factory.CreateRibbonButton();
-            this.tone3button = this.Factory.CreateRibbonButton();
-            this.tone4button = this.Factory.CreateRibbonButton();
-            this.removeButton = this.Factory.CreateRibbonButton();
-            this.pinyinMenu = this.Factory.CreateRibbonMenu();
-            this.pinyinMenuA = this.Factory.CreateRibbonMenu();
-            this.buttona1 = this.Factory.CreateRibbonButton();
-            this.buttona2 = this.Factory.CreateRibbonButton();
-            this.buttona3 = this.Factory.CreateRibbonButton();
-            this.buttona4 = this.Factory.CreateRibbonButton();
-            this.pinyinMenuO = this.Factory.CreateRibbonMenu();
-            this.buttono1 = this.Factory.CreateRibbonButton();
-            this.buttono2 = this.Factory.CreateRibbonButton();
-            this.buttono3 = this.Factory.CreateRibbonButton();
-            this.buttono4 = this.Factory.CreateRibbonButton();
-            this.pinyinMenuE = this.Factory.CreateRibbonMenu();
-            this.buttone1 = this.Factory.CreateRibbonButton();
-            this.buttone2 = this.Factory.CreateRibbonButton();
-            this.buttone3 = this.Factory.CreateRibbonButton();
-            this.buttone4 = this.Factory.CreateRibbonButton();
-            this.pinyinMenuI = this.Factory.CreateRibbonMenu();
-            this.buttoni1 = this.Factory.CreateRibbonButton();
-            this.buttoni2 = this.Factory.CreateRibbonButton();
-            this.buttoni3 = this.Factory.CreateRibbonButton();
-            this.buttoni4 = this.Factory.CreateRibbonButton();
-            this.pinyinMenuU = this.Factory.CreateRibbonMenu();
-            this.buttonu1 = this.Factory.CreateRibbonButton();
-            this.buttonu2 = this.Factory.CreateRibbonButton();
-            this.buttonu3 = this.Factory.CreateRibbonButton();
-            this.buttonu4 = this.Factory.CreateRibbonButton();
-            this.pinyinMenuV = this.Factory.CreateRibbonMenu();
-            this.buttonv1 = this.Factory.CreateRibbonButton();
-            this.buttonv2 = this.Factory.CreateRibbonButton();
-            this.buttonv3 = this.Factory.CreateRibbonButton();
-            this.buttonv4 = this.Factory.CreateRibbonButton();
-            this.AddTones = this.Factory.CreateRibbonButton();
+            this.label2 = this.Factory.CreateRibbonLabel();
+            this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group2.SuspendLayout();
             this.group1.SuspendLayout();
-            this.devel.SuspendLayout();
-            this.other.SuspendLayout();
             this.box1.SuspendLayout();
             this.box2.SuspendLayout();
             this.box6.SuspendLayout();
+            this.other.SuspendLayout();
             // 
             // tab1
             // 
@@ -121,7 +77,6 @@
             this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.group1);
             this.tab1.Groups.Add(this.other);
-            this.tab1.Groups.Add(this.devel);
             this.tab1.Label = "hanzi2tghz";
             this.tab1.Name = "tab1";
             // 
@@ -133,10 +88,22 @@
             this.config.Label = "Dictionary Correction";
             this.config.Name = "config";
             // 
+            // tonecorrectionbutton
+            // 
+            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
+            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
+            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
+            // 
             // label1
             // 
             this.label1.Label = "          ";
             this.label1.Name = "label1";
+            // 
+            // dicton
+            // 
+            this.dicton.Label = "          Enable          ";
+            this.dicton.Name = "dicton";
+            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // group2
             // 
@@ -144,68 +111,6 @@
             this.group2.Items.Add(this.tosimpbutton);
             this.group2.Label = "Convert";
             this.group2.Name = "group2";
-            // 
-            // group1
-            // 
-            this.group1.Items.Add(this.AddTonesRuby);
-            this.group1.Items.Add(this.AddPinyin);
-            this.group1.Items.Add(this.box1);
-            this.group1.Items.Add(this.undobutton);
-            this.group1.Items.Add(this.edittnpy);
-            this.group1.Items.Add(this.remove);
-            this.group1.Items.Add(this.py2tones);
-            this.group1.Label = "Tones or Pinyin";
-            this.group1.Name = "group1";
-            // 
-            // devel
-            // 
-            this.devel.Items.Add(this.inspt);
-            this.devel.Items.Add(this.insxml);
-            this.devel.Items.Add(this.brackets);
-            this.devel.Items.Add(this.reins);
-            this.devel.Items.Add(this.ToneGraphMenu);
-            this.devel.Items.Add(this.removeButton);
-            this.devel.Items.Add(this.pinyinMenu);
-            this.devel.Items.Add(this.AddTones);
-            this.devel.Label = "Developer";
-            this.devel.Name = "devel";
-            this.devel.Visible = false;
-            // 
-            // brackets
-            // 
-            this.brackets.Description = "Turn on Bracket with pinyin output";
-            this.brackets.Label = "[Brackets]";
-            this.brackets.Name = "brackets";
-            // 
-            // other
-            // 
-            this.other.Items.Add(this.lookUp);
-            this.other.Items.Add(this.label2);
-            this.other.Items.Add(this.vlabel);
-            this.other.Label = "Other";
-            this.other.Name = "other";
-            // 
-            // vlabel
-            // 
-            this.vlabel.Label = "Version: 0.xx";
-            this.vlabel.Name = "vlabel";
-            // 
-            // label2
-            // 
-            this.label2.Label = "   ";
-            this.label2.Name = "label2";
-            // 
-            // tonecorrectionbutton
-            // 
-            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
-            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
-            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
-            // 
-            // dicton
-            // 
-            this.dicton.Label = "          Enable          ";
-            this.dicton.Name = "dicton";
-            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // totradbutton
             // 
@@ -226,6 +131,18 @@
             this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
             this.tosimpbutton.ShowImage = true;
             this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
+            // 
+            // group1
+            // 
+            this.group1.Items.Add(this.AddTonesRuby);
+            this.group1.Items.Add(this.AddPinyin);
+            this.group1.Items.Add(this.box1);
+            this.group1.Items.Add(this.undobutton);
+            this.group1.Items.Add(this.edittnpy);
+            this.group1.Items.Add(this.remove);
+            this.group1.Items.Add(this.py2tones);
+            this.group1.Label = "Tones or Pinyin";
+            this.group1.Name = "group1";
             // 
             // AddTonesRuby
             // 
@@ -340,6 +257,14 @@
             this.py2tones.Name = "py2tones";
             this.py2tones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.py2tones_Click);
             // 
+            // other
+            // 
+            this.other.Items.Add(this.lookUp);
+            this.other.Items.Add(this.label2);
+            this.other.Items.Add(this.vlabel);
+            this.other.Label = "Other";
+            this.other.Name = "other";
+            // 
             // lookUp
             // 
             this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
@@ -348,384 +273,15 @@
             this.lookUp.ShowImage = true;
             this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
             // 
-            // inspt
+            // label2
             // 
-            this.inspt.Label = "Inspect";
-            this.inspt.Name = "inspt";
-            this.inspt.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.inspt_Click);
+            this.label2.Label = "   ";
+            this.label2.Name = "label2";
             // 
-            // insxml
+            // vlabel
             // 
-            this.insxml.Label = "Insert XML";
-            this.insxml.Name = "insxml";
-            this.insxml.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insxml_Click);
-            // 
-            // reins
-            // 
-            this.reins.Label = "Reinsert";
-            this.reins.Name = "reins";
-            this.reins.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.reins_Click);
-            // 
-            // ToneGraphMenu
-            // 
-            this.ToneGraphMenu.Items.Add(this.tone1button);
-            this.ToneGraphMenu.Items.Add(this.tone2button);
-            this.ToneGraphMenu.Items.Add(this.tone3button);
-            this.ToneGraphMenu.Items.Add(this.tone4button);
-            this.ToneGraphMenu.Label = "Tone graph";
-            this.ToneGraphMenu.Name = "ToneGraphMenu";
-            // 
-            // tone1button
-            // 
-            this.tone1button.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.tone1button.Label = "1st Tone";
-            this.tone1button.Name = "tone1button";
-            this.tone1button.ScreenTip = "Insert tone for Chinese character.";
-            this.tone1button.ShowImage = true;
-            this.tone1button.Tag = "1";
-            this.tone1button.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertTagAsTone);
-            // 
-            // tone2button
-            // 
-            this.tone2button.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.tone2button.Label = "2nd Tone";
-            this.tone2button.Name = "tone2button";
-            this.tone2button.ScreenTip = "Insert tone for Chinese character.";
-            this.tone2button.ShowImage = true;
-            this.tone2button.Tag = "2";
-            this.tone2button.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertTagAsTone);
-            // 
-            // tone3button
-            // 
-            this.tone3button.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.tone3button.Label = "3rd Tone";
-            this.tone3button.Name = "tone3button";
-            this.tone3button.ScreenTip = "Insert tone for Chinese character.";
-            this.tone3button.ShowImage = true;
-            this.tone3button.Tag = "3";
-            this.tone3button.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertTagAsTone);
-            // 
-            // tone4button
-            // 
-            this.tone4button.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.tone4button.Label = "4th Tone";
-            this.tone4button.Name = "tone4button";
-            this.tone4button.ScreenTip = "Insert tone for Chinese character.";
-            this.tone4button.ShowImage = true;
-            this.tone4button.Tag = "4";
-            this.tone4button.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertTagAsTone);
-            // 
-            // removeButton
-            // 
-            this.removeButton.Label = "Remove both";
-            this.removeButton.Name = "removeButton";
-            this.removeButton.ScreenTip = "Removes added tones or pinyin.";
-            this.removeButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeButton_Click);
-            // 
-            // pinyinMenu
-            // 
-            this.pinyinMenu.Items.Add(this.pinyinMenuA);
-            this.pinyinMenu.Items.Add(this.pinyinMenuO);
-            this.pinyinMenu.Items.Add(this.pinyinMenuE);
-            this.pinyinMenu.Items.Add(this.pinyinMenuI);
-            this.pinyinMenu.Items.Add(this.pinyinMenuU);
-            this.pinyinMenu.Items.Add(this.pinyinMenuV);
-            this.pinyinMenu.Label = "Pinyin";
-            this.pinyinMenu.Name = "pinyinMenu";
-            this.pinyinMenu.ScreenTip = "Insert pinyin vowel with tone graph.";
-            // 
-            // pinyinMenuA
-            // 
-            this.pinyinMenuA.Items.Add(this.buttona1);
-            this.pinyinMenuA.Items.Add(this.buttona2);
-            this.pinyinMenuA.Items.Add(this.buttona3);
-            this.pinyinMenuA.Items.Add(this.buttona4);
-            this.pinyinMenuA.Label = "a";
-            this.pinyinMenuA.Name = "pinyinMenuA";
-            this.pinyinMenuA.ScreenTip = "Insert \'a\' with tone graph.";
-            this.pinyinMenuA.ShowImage = true;
-            // 
-            // buttona1
-            // 
-            this.buttona1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttona1.Label = "ā";
-            this.buttona1.Name = "buttona1";
-            this.buttona1.ScreenTip = "Insert this character.";
-            this.buttona1.ShowImage = true;
-            this.buttona1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttona2
-            // 
-            this.buttona2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttona2.Label = "á";
-            this.buttona2.Name = "buttona2";
-            this.buttona2.ScreenTip = "Insert this character.";
-            this.buttona2.ShowImage = true;
-            this.buttona2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttona3
-            // 
-            this.buttona3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttona3.Label = "ǎ";
-            this.buttona3.Name = "buttona3";
-            this.buttona3.ScreenTip = "Insert this character.";
-            this.buttona3.ShowImage = true;
-            this.buttona3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttona4
-            // 
-            this.buttona4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttona4.Label = "à";
-            this.buttona4.Name = "buttona4";
-            this.buttona4.ScreenTip = "Insert this character.";
-            this.buttona4.ShowImage = true;
-            this.buttona4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // pinyinMenuO
-            // 
-            this.pinyinMenuO.Items.Add(this.buttono1);
-            this.pinyinMenuO.Items.Add(this.buttono2);
-            this.pinyinMenuO.Items.Add(this.buttono3);
-            this.pinyinMenuO.Items.Add(this.buttono4);
-            this.pinyinMenuO.Label = "o";
-            this.pinyinMenuO.Name = "pinyinMenuO";
-            this.pinyinMenuO.ScreenTip = "Insert \'o\' with tone graph.";
-            this.pinyinMenuO.ShowImage = true;
-            // 
-            // buttono1
-            // 
-            this.buttono1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttono1.Label = "ō";
-            this.buttono1.Name = "buttono1";
-            this.buttono1.ScreenTip = "Insert this character.";
-            this.buttono1.ShowImage = true;
-            this.buttono1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttono2
-            // 
-            this.buttono2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttono2.Label = "ó";
-            this.buttono2.Name = "buttono2";
-            this.buttono2.ScreenTip = "Insert this character.";
-            this.buttono2.ShowImage = true;
-            this.buttono2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttono3
-            // 
-            this.buttono3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttono3.Label = "ǒ";
-            this.buttono3.Name = "buttono3";
-            this.buttono3.ScreenTip = "Insert this character.";
-            this.buttono3.ShowImage = true;
-            this.buttono3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttono4
-            // 
-            this.buttono4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttono4.Label = "ò";
-            this.buttono4.Name = "buttono4";
-            this.buttono4.ScreenTip = "Insert this character.";
-            this.buttono4.ShowImage = true;
-            this.buttono4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // pinyinMenuE
-            // 
-            this.pinyinMenuE.Items.Add(this.buttone1);
-            this.pinyinMenuE.Items.Add(this.buttone2);
-            this.pinyinMenuE.Items.Add(this.buttone3);
-            this.pinyinMenuE.Items.Add(this.buttone4);
-            this.pinyinMenuE.Label = "e";
-            this.pinyinMenuE.Name = "pinyinMenuE";
-            this.pinyinMenuE.ScreenTip = "Insert this character.";
-            this.pinyinMenuE.ShowImage = true;
-            // 
-            // buttone1
-            // 
-            this.buttone1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttone1.Label = "ē";
-            this.buttone1.Name = "buttone1";
-            this.buttone1.ScreenTip = "Insert this character.";
-            this.buttone1.ShowImage = true;
-            this.buttone1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttone2
-            // 
-            this.buttone2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttone2.Label = "é";
-            this.buttone2.Name = "buttone2";
-            this.buttone2.ScreenTip = "Insert this character.";
-            this.buttone2.ShowImage = true;
-            this.buttone2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttone3
-            // 
-            this.buttone3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttone3.Label = "ě";
-            this.buttone3.Name = "buttone3";
-            this.buttone3.ScreenTip = "Insert this character.";
-            this.buttone3.ShowImage = true;
-            this.buttone3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttone4
-            // 
-            this.buttone4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttone4.Label = "è";
-            this.buttone4.Name = "buttone4";
-            this.buttone4.ScreenTip = "Insert this character.";
-            this.buttone4.ShowImage = true;
-            this.buttone4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // pinyinMenuI
-            // 
-            this.pinyinMenuI.Items.Add(this.buttoni1);
-            this.pinyinMenuI.Items.Add(this.buttoni2);
-            this.pinyinMenuI.Items.Add(this.buttoni3);
-            this.pinyinMenuI.Items.Add(this.buttoni4);
-            this.pinyinMenuI.Label = "i";
-            this.pinyinMenuI.Name = "pinyinMenuI";
-            this.pinyinMenuI.ScreenTip = "Insert \'i\' with tone graph.";
-            this.pinyinMenuI.ShowImage = true;
-            // 
-            // buttoni1
-            // 
-            this.buttoni1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttoni1.Label = "ī";
-            this.buttoni1.Name = "buttoni1";
-            this.buttoni1.ScreenTip = "Insert this character.";
-            this.buttoni1.ShowImage = true;
-            this.buttoni1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttoni2
-            // 
-            this.buttoni2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttoni2.Label = "í";
-            this.buttoni2.Name = "buttoni2";
-            this.buttoni2.ScreenTip = "Insert this character.";
-            this.buttoni2.ShowImage = true;
-            this.buttoni2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttoni3
-            // 
-            this.buttoni3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttoni3.Label = "ǐ";
-            this.buttoni3.Name = "buttoni3";
-            this.buttoni3.ScreenTip = "Insert this character.";
-            this.buttoni3.ShowImage = true;
-            this.buttoni3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttoni4
-            // 
-            this.buttoni4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttoni4.Label = "ì";
-            this.buttoni4.Name = "buttoni4";
-            this.buttoni4.ScreenTip = "Insert this character.";
-            this.buttoni4.ShowImage = true;
-            this.buttoni4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // pinyinMenuU
-            // 
-            this.pinyinMenuU.Items.Add(this.buttonu1);
-            this.pinyinMenuU.Items.Add(this.buttonu2);
-            this.pinyinMenuU.Items.Add(this.buttonu3);
-            this.pinyinMenuU.Items.Add(this.buttonu4);
-            this.pinyinMenuU.Label = "u";
-            this.pinyinMenuU.Name = "pinyinMenuU";
-            this.pinyinMenuU.ScreenTip = "Insert \'u\' with tone graph.";
-            this.pinyinMenuU.ShowImage = true;
-            // 
-            // buttonu1
-            // 
-            this.buttonu1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttonu1.Label = "ū";
-            this.buttonu1.Name = "buttonu1";
-            this.buttonu1.ScreenTip = "Insert this character.";
-            this.buttonu1.ShowImage = true;
-            this.buttonu1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonu2
-            // 
-            this.buttonu2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttonu2.Label = "ú";
-            this.buttonu2.Name = "buttonu2";
-            this.buttonu2.ScreenTip = "Insert this character.";
-            this.buttonu2.ShowImage = true;
-            this.buttonu2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonu3
-            // 
-            this.buttonu3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttonu3.Label = "ǔ";
-            this.buttonu3.Name = "buttonu3";
-            this.buttonu3.ScreenTip = "Insert this character.";
-            this.buttonu3.ShowImage = true;
-            this.buttonu3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonu4
-            // 
-            this.buttonu4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttonu4.Label = "ù";
-            this.buttonu4.Name = "buttonu4";
-            this.buttonu4.ScreenTip = "Insert this character.";
-            this.buttonu4.ShowImage = true;
-            this.buttonu4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // pinyinMenuV
-            // 
-            this.pinyinMenuV.Items.Add(this.buttonv1);
-            this.pinyinMenuV.Items.Add(this.buttonv2);
-            this.pinyinMenuV.Items.Add(this.buttonv3);
-            this.pinyinMenuV.Items.Add(this.buttonv4);
-            this.pinyinMenuV.Label = "ü";
-            this.pinyinMenuV.Name = "pinyinMenuV";
-            this.pinyinMenuV.ScreenTip = "Insert this character.";
-            this.pinyinMenuV.ShowImage = true;
-            // 
-            // buttonv1
-            // 
-            this.buttonv1.Image = global::Hanzi2TGHZRibbon.Properties.Resources._1;
-            this.buttonv1.Label = "ǖ";
-            this.buttonv1.Name = "buttonv1";
-            this.buttonv1.ScreenTip = "Insert this character.";
-            this.buttonv1.ShowImage = true;
-            this.buttonv1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonv2
-            // 
-            this.buttonv2.Image = global::Hanzi2TGHZRibbon.Properties.Resources._2;
-            this.buttonv2.Label = "ǘ";
-            this.buttonv2.Name = "buttonv2";
-            this.buttonv2.ScreenTip = "Insert this character.";
-            this.buttonv2.ShowImage = true;
-            this.buttonv2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonv3
-            // 
-            this.buttonv3.Image = global::Hanzi2TGHZRibbon.Properties.Resources._3;
-            this.buttonv3.Label = "ǚ";
-            this.buttonv3.Name = "buttonv3";
-            this.buttonv3.ScreenTip = "Insert this character.";
-            this.buttonv3.ShowImage = true;
-            this.buttonv3.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // buttonv4
-            // 
-            this.buttonv4.Image = global::Hanzi2TGHZRibbon.Properties.Resources._4;
-            this.buttonv4.Label = "ǜ";
-            this.buttonv4.Name = "buttonv4";
-            this.buttonv4.ScreenTip = "Insert this character.";
-            this.buttonv4.ShowImage = true;
-            this.buttonv4.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.insertLabel);
-            // 
-            // AddTones
-            // 
-            this.AddTones.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.AddTones.Description = "Add tone graphs to selected text.";
-            this.AddTones.Image = global::Hanzi2TGHZRibbon.Properties.Resources.tones;
-            this.AddTones.Label = "Add Tones";
-            this.AddTones.Name = "AddTones";
-            this.AddTones.ScreenTip = "Add tone graphs to selected text.";
-            this.AddTones.ShowImage = true;
-            this.AddTones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.AddTones_Click);
+            this.vlabel.Label = "Version: 0.xx";
+            this.vlabel.Name = "vlabel";
             // 
             // RibbonMain
             // 
@@ -741,16 +297,14 @@
             this.group2.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
-            this.devel.ResumeLayout(false);
-            this.devel.PerformLayout();
-            this.other.ResumeLayout(false);
-            this.other.PerformLayout();
             this.box1.ResumeLayout(false);
             this.box1.PerformLayout();
             this.box2.ResumeLayout(false);
             this.box2.PerformLayout();
             this.box6.ResumeLayout(false);
             this.box6.PerformLayout();
+            this.other.ResumeLayout(false);
+            this.other.PerformLayout();
 
         }
 
@@ -758,54 +312,11 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton AddTones;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton totradbutton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton tosimpbutton;
-        internal Microsoft.Office.Tools.Ribbon.RibbonGroup devel;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton inspt;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton insxml;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddPinyin;
-        internal Microsoft.Office.Tools.Ribbon.RibbonCheckBox brackets;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup config;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenu;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuA;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttona1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttona2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttona3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttona4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuO;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttono1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttono2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttono3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttono4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuE;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttone1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttone2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttone3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttone4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuI;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttoni1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttoni2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttoni3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttoni4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuU;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonu1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonu2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonu3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonu4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu pinyinMenuV;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonv1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonv2;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonv3;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton buttonv4;
-        internal Microsoft.Office.Tools.Ribbon.RibbonMenu ToneGraphMenu;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton tone1button;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton tone2button;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton tone3button;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton tone4button;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton removeButton;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton reins;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton undobutton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton tonecorrectionbutton;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddTonesRuby;
