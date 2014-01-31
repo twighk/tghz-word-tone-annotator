@@ -40,7 +40,7 @@
     <PublishUrl>C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Publish\</PublishUrl>
     <InstallUrl>https://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.23</ApplicationVersion>
+    <ApplicationVersion>1.0.0.24</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
@@ -232,12 +232,18 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ribbon.cs">
+      <XmlRibbon>true</XmlRibbon>
+    </Compile>
     <Compile Include="toneCorrectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="toneCorrectionForm.Designer.cs">
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Ribbon.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Resources\lookup.png" />
     <None Include="tghz-word-tone-annotator.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
