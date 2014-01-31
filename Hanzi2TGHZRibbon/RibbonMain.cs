@@ -103,9 +103,11 @@ namespace Hanzi2TGHZRibbon
                     }
 
                     currentRange.InsertXML(rangexml);
-                    //currentRange.InsertXML(hanzi2tghz.xmlHeader + function(currentRange.Text, b1, b2) + hanzi2tghz.xmlFooter);
-
                 }
+
+
+                //Hack to prevent other east asian languages (See issue 5.)
+                Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageIDFarEast = Word.WdLanguageID.wdSimplifiedChinese;
             }
             catch (Exception e)
             {
@@ -271,7 +273,6 @@ namespace Hanzi2TGHZRibbon
          
 
         }
-
 
     }
 }

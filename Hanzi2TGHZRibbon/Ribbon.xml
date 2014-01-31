@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab id="tab1" label="hanzi2tghz">
+                <group id="config" label="Dictionary Correction">
+                    <button id="tonecorrectionbutton" onAction="tonecorrectionbutton_Click" label="    Edit Dictionary    " showImage="false" />
+                    <labelControl id="label1" label="          " />
+                    <toggleButton id="dicton" onAction="dicton_Click" label="          Enable          " showImage="false" />
+                </group>
+                <group id="group1" label="Tones or Pinyin">
+                    <button id="AddTonesRuby" onAction="AddTonesRuby_Click" label="Add Tones" size="large" />
+                    <button id="AddPinyin" onAction="AddPinyin_Click" screentip="Add pinyin to selected text." description="Add pinyin to selected text." label="Add Pinyin" size="large" />
+                    <box id="box1">
+                        <box id="box2" boxStyle="vertical">
+                            <button id="resizepinyin" onAction="resizepinyin_Click" label="Pinyin Resize:" showImage="false" />
+                            <button id="ResizeTones" onAction="ResizeTones_Click" label="Tone Resize: " showImage="false" />
+                            <button id="ToneHeightButton" onAction="ResizeTones_Click" label="Tone Height:" showImage="false" />
+                        </box>
+                        <box id="box6" boxStyle="vertical">
+                            <editBox id="pysize" label="Pinyin Size:" showLabel="false" showImage="false" />
+                            <editBox id="tnsize" label="Tone Resize" showLabel="false" showImage="false" />
+                            <editBox id="toneheight" label="Tone Height" showLabel="false" showImage="false" />
+                        </box>
+                    </box>
+                    <button id="undobutton" onAction="undobutton_Click" label="Undo" size="large" />
+                    <button id="edittnpy" onAction="edittnpy_Click" label="Edit Tones or Pinyin" size="large" />
+                    <button id="remove" onAction="remove_Click" screentip="Remove tonegraphs or pinyin from characters. (Note: It does not remove duplicated characters from conversion, use Undo.)" label="Remove Tones/Pinyin" showImage="false" />
+                    <button id="py2tones" onAction="py2tones_Click" label="Pinyin to Tones Graphs" showImage="false" />
+                </group>
+                <group id="group2" label="Convert">
+                    <button id="totradbutton" onAction="totradbutton_Click" screentip="Convert selected text to tradional Chinese." label="To Traditional" size="large" />
+                    <button id="tosimpbutton" onAction="tosimpbutton_Click" screentip="Convert selected text to simplified Chinese." label="To Simplified" size="large" />
+                </group>
+                <group id="other" label="Other">
+                    <button id="lookUp" onAction="lookUp_Click" label="Character Definition" />
+                    <labelControl id="label2" label="   " />
+                    <labelControl id="vlabel" label="Version: 0.xx" />
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>

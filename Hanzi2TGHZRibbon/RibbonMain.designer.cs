@@ -39,9 +39,6 @@
             this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
             this.label1 = this.Factory.CreateRibbonLabel();
             this.dicton = this.Factory.CreateRibbonToggleButton();
-            this.group2 = this.Factory.CreateRibbonGroup();
-            this.totradbutton = this.Factory.CreateRibbonButton();
-            this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.group1 = this.Factory.CreateRibbonGroup();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
             this.AddPinyin = this.Factory.CreateRibbonButton();
@@ -58,24 +55,27 @@
             this.edittnpy = this.Factory.CreateRibbonButton();
             this.remove = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
+            this.group2 = this.Factory.CreateRibbonGroup();
+            this.totradbutton = this.Factory.CreateRibbonButton();
+            this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.other = this.Factory.CreateRibbonGroup();
             this.lookUp = this.Factory.CreateRibbonButton();
             this.label2 = this.Factory.CreateRibbonLabel();
             this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
-            this.group2.SuspendLayout();
             this.group1.SuspendLayout();
             this.box1.SuspendLayout();
             this.box2.SuspendLayout();
             this.box6.SuspendLayout();
+            this.group2.SuspendLayout();
             this.other.SuspendLayout();
             // 
             // tab1
             // 
             this.tab1.Groups.Add(this.config);
-            this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.group1);
+            this.tab1.Groups.Add(this.group2);
             this.tab1.Groups.Add(this.other);
             this.tab1.Label = "hanzi2tghz";
             this.tab1.Name = "tab1";
@@ -104,33 +104,6 @@
             this.dicton.Label = "          Enable          ";
             this.dicton.Name = "dicton";
             this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.totradbutton);
-            this.group2.Items.Add(this.tosimpbutton);
-            this.group2.Label = "Convert";
-            this.group2.Name = "group2";
-            // 
-            // totradbutton
-            // 
-            this.totradbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.totradbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.fan;
-            this.totradbutton.Label = "To Traditional";
-            this.totradbutton.Name = "totradbutton";
-            this.totradbutton.ScreenTip = "Convert selected text to tradional Chinese.";
-            this.totradbutton.ShowImage = true;
-            this.totradbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.totradbutton_Click);
-            // 
-            // tosimpbutton
-            // 
-            this.tosimpbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.tosimpbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.jian;
-            this.tosimpbutton.Label = "To Simplified";
-            this.tosimpbutton.Name = "tosimpbutton";
-            this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
-            this.tosimpbutton.ShowImage = true;
-            this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
             // 
             // group1
             // 
@@ -257,6 +230,33 @@
             this.py2tones.Name = "py2tones";
             this.py2tones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.py2tones_Click);
             // 
+            // group2
+            // 
+            this.group2.Items.Add(this.totradbutton);
+            this.group2.Items.Add(this.tosimpbutton);
+            this.group2.Label = "Convert";
+            this.group2.Name = "group2";
+            // 
+            // totradbutton
+            // 
+            this.totradbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.totradbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.fan;
+            this.totradbutton.Label = "To Traditional";
+            this.totradbutton.Name = "totradbutton";
+            this.totradbutton.ScreenTip = "Convert selected text to tradional Chinese.";
+            this.totradbutton.ShowImage = true;
+            this.totradbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.totradbutton_Click);
+            // 
+            // tosimpbutton
+            // 
+            this.tosimpbutton.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.tosimpbutton.Image = global::Hanzi2TGHZRibbon.Properties.Resources.jian;
+            this.tosimpbutton.Label = "To Simplified";
+            this.tosimpbutton.Name = "tosimpbutton";
+            this.tosimpbutton.ScreenTip = "Convert selected text to simplified Chinese.";
+            this.tosimpbutton.ShowImage = true;
+            this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
+            // 
             // other
             // 
             this.other.Items.Add(this.lookUp);
@@ -293,8 +293,6 @@
             this.tab1.PerformLayout();
             this.config.ResumeLayout(false);
             this.config.PerformLayout();
-            this.group2.ResumeLayout(false);
-            this.group2.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
             this.box1.ResumeLayout(false);
@@ -303,6 +301,8 @@
             this.box2.PerformLayout();
             this.box6.ResumeLayout(false);
             this.box6.PerformLayout();
+            this.group2.ResumeLayout(false);
+            this.group2.PerformLayout();
             this.other.ResumeLayout(false);
             this.other.PerformLayout();
 
