@@ -34,7 +34,6 @@
                 </group>
                 <group id="other" label="Other">
                     <button id="lookUp" onAction="lookUp_Click" label="Character Definition" />
-                    <labelControl id="label2" label="   " />
                     <labelControl id="vlabel" label="Version: 0.xx" />
                 </group>
             </tab>

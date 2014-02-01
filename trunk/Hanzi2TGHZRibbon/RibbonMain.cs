@@ -13,6 +13,7 @@ namespace Hanzi2TGHZRibbon
     {
         private hanzi2tghz tghz;
         toneCorrectionForm tcform;
+        colorForm colorform;
         lookupForm luform;
         private readonly string dictpath = AppDomain.CurrentDomain.BaseDirectory + "\\cedict_ts.u8";
 
@@ -28,7 +29,10 @@ namespace Hanzi2TGHZRibbon
             {
                 vlabel.Label = "Devel Version";
             }
-
+            if (colorform == null || colorform.IsDisposed == true)
+            {
+                colorform = new colorForm();
+            }
         }
 
 
@@ -67,7 +71,7 @@ namespace Hanzi2TGHZRibbon
         }
 
         /* Pinyin Tone Methods */
-        private void pinyintones(Func<string, bool, bool, string> function, bool b1 = false, bool b2 = true)
+        private void pinyintones(Func<string, bool, bool, List<string>, string > function)
         {
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
             try
@@ -94,9 +98,9 @@ namespace Hanzi2TGHZRibbon
                         {
                             rangexml = rangexml.Remove(text[t].Index, text[t].Length);
                             rangexml = rangexml.Insert(text[t].Index,
-                                        "</w:t></w:r>" +
-                                        function(text[t].Value, b1, b2) +
-                                        "<w:r><w:t>");
+                                        "</w:t></w:r>"
+                                        + function(text[t].Value, colorform.getTop(), colorform.getBottom(), colorform.getColors())
+                                        + "<w:r><w:t>");
 
                         }
 
@@ -107,7 +111,8 @@ namespace Hanzi2TGHZRibbon
 
 
                 //Hack to prevent other east asian languages (See issue 5.)
-                Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageIDFarEast = Word.WdLanguageID.wdSimplifiedChinese;
+                if (Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageIDFarEast != Word.WdLanguageID.wdSimplifiedChinese)
+                    Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageIDFarEast = Word.WdLanguageID.wdSimplifiedChinese;
             }
             catch (Exception e)
             {
@@ -117,7 +122,7 @@ namespace Hanzi2TGHZRibbon
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
             //pinyintones(tghz.withPinYinXML, brackets.Checked);
-            pinyintones(tghz.withPinYinXMLRuby, false);
+            pinyintones(tghz.withPinYinXMLRuby);
         }
 
         private void undobutton_Click(object sender, RibbonControlEventArgs e)
@@ -274,5 +279,14 @@ namespace Hanzi2TGHZRibbon
 
         }
 
+        private void color_Click(object sender, RibbonControlEventArgs e)
+        {
+            colorform.Show();
+        }
+
+        private void colorcheck_Click(object sender, RibbonControlEventArgs e)
+        {
+            colorform.Show();
+        }
     }
 }
