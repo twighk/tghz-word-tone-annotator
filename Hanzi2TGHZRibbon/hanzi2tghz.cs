@@ -19,6 +19,7 @@ namespace Hanzi2TGHZRibbon
         private readonly string dictpath;
         private readonly string tonepath;
 
+
         private static string accent2string()
         {
             string output = "";
@@ -212,7 +213,8 @@ namespace Hanzi2TGHZRibbon
             return outer;
         }
 
-        public string withToneXMLRuby(string input, bool b1, bool b2) //superflous bools to match withpiyinxml type
+        public string withToneXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        //superflous bools to match withpiyinxml type
         {
             List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
             string output = "";
@@ -223,7 +225,7 @@ namespace Hanzi2TGHZRibbon
                 {
                     for (int i = 0; i != c.Item1.Length; i++)
                     {
-                        output += withRubyTones(c.Item1[i].ToString(), Transpose(str2tones(c.Item2))[i]);
+                        output += withRubyTones(c.Item1[i].ToString(), Transpose(str2tones(c.Item2))[i],topcolor,bottomcolor,colors);
                     }
                 }
 
@@ -231,7 +233,7 @@ namespace Hanzi2TGHZRibbon
         }
 
 
-        public string withPinYinXMLRuby(string input, bool brackets = false, bool tonegraphs = true)
+        public string withPinYinXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
             List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
             string output = "";
@@ -242,26 +244,28 @@ namespace Hanzi2TGHZRibbon
                     foreach (string pi in c.Item2)
                     {
                         string pi2 = pi;
-                        if (!brackets) pi2 = pi.Trim(new char[] { '[', ']' });
+                        pi2 = pi.Trim(new char[] { '[', ']' });
                         string[] splt = pi2.Split(new char[] { ' ' });
                         for (int i = 0; i != c.Item1.Length; i++)
                         {
-                            if (tonegraphs) splt[i] = num2tonegraphs(splt[i]);
-                            output += withRuby(c.Item1[i].ToString(), splt[i]);
+                            int tone;
+                            splt[i] = num2tonegraphs(splt[i], out tone);
+                            output += withRuby(c.Item1[i].ToString(), splt[i],tone,topcolor,bottomcolor,colors);
                         }
                     }
             return output;
         }
 
-        public static string num2tonegraphs(string str)
+        public static string num2tonegraphs(string str, out int t)
         {
+            t = -1;
             if (str != null)
             {
                 string tone = Regex.Match(str, @"\d+").Value; //Get tone number
                 if (tone != "")
                 {
                     str = str.Replace(tone, "");
-                    int t = Int32.Parse(tone) - 1;
+                    t = Int32.Parse(tone) - 1;
                     System.Console.WriteLine(t);
                     if (t >= 0 && t <= 4)
                     {
@@ -289,6 +293,10 @@ namespace Hanzi2TGHZRibbon
                             str = str.Replace("u:", tones[5][t].ToString());
                             str = str.Replace("v", tones[5][t].ToString());
                         }
+                    }
+                    else
+                    {
+                        t = -1;
                     }
                 }
             }
@@ -358,31 +366,56 @@ namespace Hanzi2TGHZRibbon
 
         }
 
-        public static string withRuby(string bottom, string top)
+        public static string withRuby(string bottom, string top, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
             string output = "";
             output += "<w:r><w:ruby><w:rubyPr><w:rubyAlign w:val=\"center\"/></w:rubyPr><w:rt><w:r>";
-            output += "<w:rPr><w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/></w:rPr>";
+            output += "<w:rPr>";
+            output += "<w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/>";
+            if (topcolour && !(colors == null) && tone != -1)
+            {
+                output += "<w:color w:val=\"" + colors[tone] + "\"/>";
+            }
+            output += "</w:rPr>";
             output += "<w:t xml:space=\"preserve\">";
             output += gap + top + gap;
-            output += "</w:t></w:r></w:rt><w:rubyBase><w:r><w:t>";
+            output += "</w:t></w:r></w:rt><w:rubyBase><w:r>";
+            output += "<w:rPr>";
+            if (bottomcolour && !(colors == null) && tone != -1)
+            {
+                output += "<w:color w:val=\"" + colors[tone] + "\"/>";
+            }
+            output += "</w:rPr>";
+            output += "<w:t>";
             output += bottom;
             output += "</w:t></w:r></w:rubyBase></w:ruby></w:r>";
             //output += "<w:r><w:t xml:space=\"preserve\"> </w:t></w:r>"; // Space
             return output;
         }
 
-        public static string withRubyTones(string bottom, List<int> tones)
+        public static string withRubyTones(string bottom, List<int> tones, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
-
             string output = "";
-            output += "<w:r><w:ruby><w:rubyPr><w:rubyAlign w:val=\"center\"/><w:hps w:val=\"24\"/><w:hpsRaise w:val=\"10\"/><w:hpsBaseText w:val=\"12\"/></w:rubyPr><w:rt><w:r><w:rPr><w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/></w:rPr><w:t>"; // <w:sz w:val=\"11\"/>
+            output += "<w:r><w:ruby><w:rubyPr><w:rubyAlign w:val=\"center\"/><w:hps w:val=\"24\"/><w:hpsRaise w:val=\"10\"/><w:hpsBaseText w:val=\"12\"/></w:rubyPr><w:rt><w:r>";
+            output += "<w:rPr>";
+            output += "<w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/>";
+            if (topcolour && !(colors ==null) && tones.Count==1)
+            {
+                output += "<w:color w:val=\"" + colors[tones[0]-1] + "\"/>";
+            }
+            output += "</w:rPr><w:t>"; // <w:sz w:val=\"11\"/>
             foreach (int t in tones)
                 output += "&#" + accent[t - 1].ToString() + ";";
-            output += "</w:t></w:r></w:rt><w:rubyBase><w:r><w:t>";
+           output += "</w:t></w:r></w:rt><w:rubyBase><w:r>";
+            output += "<w:rPr>";
+            if (bottomcolour && !(colors == null) && tones.Count == 1)
+            {
+                output += "<w:color w:val=\"" + colors[tones[0]-1] + "\"/>";
+            }
+            output += "</w:rPr>";
+            output += "<w:t>";
             output += bottom;
             output += "</w:t></w:r></w:rubyBase></w:ruby></w:r>";
-            //System.Windows.Forms.MessageBox.Show(output);
             return output;
         }
 
@@ -453,8 +486,10 @@ namespace Hanzi2TGHZRibbon
                             if (Int32.Parse(num.ToString()) < accent.Length + 1)
                                 tnpy += (char)accent[Int32.Parse(num.ToString()) - 1];
                     }
-                    else
-                        tnpy += gap + num2tonegraphs(list[i].Item2) + gap;
+                    else{
+                        int tone;
+                        tnpy += gap + num2tonegraphs(list[i].Item2, out tone) + gap;
+                    }
 
                     match = match.Insert(tnpyhanzi[0].Index, tnpy);
                 } else {
