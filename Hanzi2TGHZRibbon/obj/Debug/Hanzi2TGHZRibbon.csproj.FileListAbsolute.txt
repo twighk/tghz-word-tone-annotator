@@ -47,3 +47,5 @@ H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.
 H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
 H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resources
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.lookupForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.colorForm.resources
+C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\bopomofo.u8
