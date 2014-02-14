@@ -19,7 +19,11 @@ namespace Hanzi2TGHZRibbon
 
         private void RibbonMain_Load(object sender, RibbonUIEventArgs e)
         {
-            tghz = new hanzi2tghz(dictpath, Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\tghzToneCorrections.txt");
+            tghz = new hanzi2tghz
+                        ( dictpath
+                        , Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\tghzToneCorrections.txt"
+                        , AppDomain.CurrentDomain.BaseDirectory + "\\bopomofo.u8"
+                        );
             if (ApplicationDeployment.IsNetworkDeployed)
             {
                 Version currentver = ApplicationDeployment.CurrentDeployment.CurrentVersion;
@@ -167,6 +171,11 @@ namespace Hanzi2TGHZRibbon
             pinyintones(tghz.withToneXMLRuby);
         }
 
+        private void AddZhuyin_Click(object sender, RibbonControlEventArgs e)
+        {
+            pinyintones(tghz.withZhuyinXMLRuby);
+        }
+
         private void ResizeTones_Click(object sender, RibbonControlEventArgs e)
         {
             Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
@@ -288,5 +297,7 @@ namespace Hanzi2TGHZRibbon
         {
             colorform.Show();
         }
+
+
     }
 }

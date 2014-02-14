@@ -127,6 +127,9 @@
   <data name="_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\tghzimages\3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lookup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lookup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tones" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\tghzimages\tones.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,7 +151,7 @@
   <data name="_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\tghzimages\2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lookup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lookup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bopomofo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\tghzimages\bopomofo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

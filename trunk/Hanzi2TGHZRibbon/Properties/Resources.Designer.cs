@@ -88,6 +88,13 @@ namespace Hanzi2TGHZRibbon.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap bopomofo {
+            get {
+                object obj = ResourceManager.GetObject("bopomofo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap fan {
             get {
                 object obj = ResourceManager.GetObject("fan", resourceCulture);

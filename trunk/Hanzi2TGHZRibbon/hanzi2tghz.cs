@@ -16,8 +16,10 @@ namespace Hanzi2TGHZRibbon
         //private static readonly short[] accent = { 772, 769, 711, 768, 775 };
         private int longestword;
         private Dictionary<string, List<string>> map; // character, list of pinyin
+        private Dictionary<string, string> zhuyin;
         private readonly string dictpath;
         private readonly string tonepath;
+        private readonly string zypath;
 
 
         private static string accent2string()
@@ -28,11 +30,37 @@ namespace Hanzi2TGHZRibbon
             return output;
         }
 
-        public hanzi2tghz(string dictionarypath, string tonecorrectionpath)
+        public hanzi2tghz(string dictionarypath, string tonecorrectionpath, string zhuyinpath)
         {
             dictpath = System.IO.Path.GetFullPath(dictionarypath);
             tonepath = System.IO.Path.GetFullPath(tonecorrectionpath);
+            zypath = System.IO.Path.GetFullPath(zhuyinpath);
             makeMap(false);
+            makeZhuyin();
+        }
+
+        private void makeZhuyin()
+        {
+            zhuyin= new Dictionary<string,string>();
+            try
+            {
+                FileStream fin = new FileStream(zypath, FileMode.Open);
+                StreamReader stream = new StreamReader(fin, Encoding.UTF8);
+                string line;
+                while ((line = stream.ReadLine()) != null) // Read through the Text file
+                {
+                    if (line.Length > 0 && line[0] != '#') //ignore commented lines and off lines
+                    {
+                        string[] dictline = line.Split(new char[] { '\t' });// split line on tabs
+                        zhuyin.Add(dictline[0].Trim(), dictline[1].Trim());
+                    }
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                System.Windows.Forms.MessageBox.Show("bopomofo.u8 could not be found at '" + Path.GetFullPath(zypath)
+                    + "'. FileNotFoundException (" + e.Message + ") Thrown.");
+            }
         }
 
         private static Tuple<int, Dictionary<string, List<string>>> LoadDicionary(string dictionarypath)
@@ -256,6 +284,60 @@ namespace Hanzi2TGHZRibbon
             return output;
         }
 
+        public string withZhuyinXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        {
+            string output = "";
+            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
+            foreach (Tuple<string, List<string>> c in hzpi)
+                if (c.Item2.Count == 0)
+                    output += withNone(c.Item1);
+                else
+                {
+                    HashSet<string> items = new HashSet<string>();
+                    foreach (string pi in c.Item2)
+                    {
+                        string item = pi.ToLower();
+                        if (!items.Contains(item))
+                        {
+                            items.Add(item);
+                            string pi2 = item;
+                            pi2 = item.Trim(new char[] { '[', ']' });
+                            string[] splt = pi2.Split(new char[] { ' ' });
+                            for (int i = 0; i != c.Item1.Length; i++)
+                            {
+                                int tone;
+                                splt[i] = pinyin2fuyin(splt[i], out tone);
+                                output += withRuby(c.Item1[i].ToString(), splt[i], tone, topcolor, bottomcolor, colors);
+                            }
+                        }
+                    }
+                }
+            return output;
+        }
+        public string pinyin2fuyin(string str, out int t)
+        {
+            t = -1;
+            if (str != null)
+            {
+                string tone = Regex.Match(str, @"\d+").Value; //Get tone number
+                if (tone != "")
+                {
+                    str = str.Replace(tone, "");
+                    t = Int32.Parse(tone) - 1;
+                    if (zhuyin.ContainsKey(str))
+                        str = zhuyin[str];
+                    if (t >= 0 && t <= 4)
+                    {
+                        str += tones[6][t];
+                    }
+                    else
+                    {
+                        t = -1;
+                    }
+                }
+            }
+            return str;
+        }
         public static string num2tonegraphs(string str, out int t)
         {
             t = -1;
@@ -266,7 +348,7 @@ namespace Hanzi2TGHZRibbon
                 {
                     str = str.Replace(tone, "");
                     t = Int32.Parse(tone) - 1;
-                    System.Console.WriteLine(t);
+                    //System.Console.WriteLine(t);
                     if (t >= 0 && t <= 4)
                     {
                         if (str.Contains('a'))
@@ -293,6 +375,8 @@ namespace Hanzi2TGHZRibbon
                             str = str.Replace("u:", tones[5][t].ToString());
                             str = str.Replace("v", tones[5][t].ToString());
                         }
+                        else
+                            str += tones[6][t].ToString();
                     }
                     else
                     {
