@@ -40,7 +40,7 @@
     <PublishUrl>C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Publish\</PublishUrl>
     <InstallUrl>https://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.26</ApplicationVersion>
+    <ApplicationVersion>1.0.0.27</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
@@ -256,9 +256,9 @@
     <EmbeddedResource Include="Ribbon.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="bopomofo.u8">
+    <Content Include="bopomofo.u8">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Resources\lookup.png" />
     <None Include="tghz-word-tone-annotator.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
