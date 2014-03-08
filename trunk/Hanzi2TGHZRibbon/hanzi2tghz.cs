@@ -12,6 +12,7 @@ namespace Hanzi2TGHZRibbon
         private static readonly short[] accent = { 713, 714, 711, 715, 729 };
         private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
         private static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
+        private static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
         private static readonly char gap = '\u2009';
         //private static readonly short[] accent = { 772, 769, 711, 768, 775 };
         private int longestword;
@@ -353,10 +354,16 @@ namespace Hanzi2TGHZRibbon
                     {
                         if (str.Contains('a'))
                             str = str.Replace('a', tones[0][t]);
+                        else if (str.Contains('A'))
+                            str = str.Replace('A', ctones[0][t]);
                         else if (str.Contains('o'))
                             str = str.Replace('o', tones[1][t]);
+                        else if (str.Contains('O'))
+                            str = str.Replace('O', ctones[1][t]);
                         else if (str.Contains('e'))
                             str = str.Replace('e', tones[2][t]);
+                        else if (str.Contains('E'))
+                            str = str.Replace('E', ctones[2][t]); // words cannot start with an i (->y) or u (->w)
                         else if (str.Contains("iu"))
                             str = str.Replace("u", tones[4][t].ToString());
                         else if (str.Contains("iu:")
@@ -374,6 +381,12 @@ namespace Hanzi2TGHZRibbon
                         {
                             str = str.Replace("u:", tones[5][t].ToString());
                             str = str.Replace("v", tones[5][t].ToString());
+                        }
+                        else if (str.Contains("U:")
+                             || str.Contains("V"))
+                        {
+                            str = str.Replace("U:", ctones[5][t].ToString());
+                            str = str.Replace("V", ctones[5][t].ToString());
                         }
                         else
                             str += tones[6][t].ToString();
