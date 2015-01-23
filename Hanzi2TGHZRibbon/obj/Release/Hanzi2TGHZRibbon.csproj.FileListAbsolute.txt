@@ -49,3 +49,7 @@ H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.pdb
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.lookupForm.resources
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.colorForm.resources
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Release\bopomofo.u8
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Release\bopomofo.u8
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.colorForm.resources
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.lookupForm.resources
+H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.wordlistForm.resources

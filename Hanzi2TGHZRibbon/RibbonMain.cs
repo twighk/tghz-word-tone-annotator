@@ -15,6 +15,7 @@ namespace Hanzi2TGHZRibbon
         toneCorrectionForm tcform;
         colorForm colorform;
         lookupForm luform;
+        wordlistForm wlform;
         private readonly string dictpath = AppDomain.CurrentDomain.BaseDirectory + "\\cedict_ts.u8";
 
         private void RibbonMain_Load(object sender, RibbonUIEventArgs e)
@@ -298,6 +299,22 @@ namespace Hanzi2TGHZRibbon
             colorform.Show();
         }
 
+        private void wordlist_Click(object sender, RibbonControlEventArgs e)
+        {
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
+            if (currentRange.Text == null)
+                System.Windows.Forms.MessageBox.Show("Please select some text.");
+            else
+            {
+                if (wlform == null || wlform.IsDisposed == true)
+                {
+                    wlform = new wordlistForm();
+                    wlform.Show();
+                }
+
+                wlform.BringToFront(ref tghz, currentRange.Text);
+            }
+        }
 
     }
 }

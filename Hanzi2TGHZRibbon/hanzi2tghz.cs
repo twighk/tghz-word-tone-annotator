@@ -400,7 +400,7 @@ namespace Hanzi2TGHZRibbon
             return str;
         }
 
-        List<List<int>> str2tones(List<string> str)
+        public List<List<int>> str2tones(List<string> str)
         {
             List<List<int>> output = new List<List<int>>();
 
@@ -420,7 +420,7 @@ namespace Hanzi2TGHZRibbon
             return output;
         }
 
-        private List<Tuple<string, List<string>>> hanziWithPinyin(string strin)
+        public List<Tuple<string, List<string>>> hanziWithPinyin(string strin)
         {
             List<Tuple<string, List<string>>> output = new List<Tuple<string, List<string>>>();
 
