@@ -63,7 +63,7 @@
             this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.other = this.Factory.CreateRibbonGroup();
             this.lookUp = this.Factory.CreateRibbonButton();
-            this.label2 = this.Factory.CreateRibbonLabel();
+            this.wordlist = this.Factory.CreateRibbonButton();
             this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
@@ -286,7 +286,7 @@
             // other
             // 
             this.other.Items.Add(this.lookUp);
-            this.other.Items.Add(this.label2);
+            this.other.Items.Add(this.wordlist);
             this.other.Items.Add(this.vlabel);
             this.other.Label = "Other";
             this.other.Name = "other";
@@ -299,10 +299,11 @@
             this.lookUp.ShowImage = true;
             this.lookUp.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.lookUp_Click);
             // 
-            // label2
+            // wordlist
             // 
-            this.label2.Label = "                  ";
-            this.label2.Name = "label2";
+            this.wordlist.Label = "Create Word List";
+            this.wordlist.Name = "wordlist";
+            this.wordlist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.wordlist_Click);
             // 
             // vlabel
             // 
@@ -366,9 +367,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel vlabel;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton color;
-        internal Microsoft.Office.Tools.Ribbon.RibbonLabel label2;
         internal Microsoft.Office.Tools.Ribbon.RibbonButtonGroup buttonGroup1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddZhuyin;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton wordlist;
     }
 
     partial class ThisRibbonCollection

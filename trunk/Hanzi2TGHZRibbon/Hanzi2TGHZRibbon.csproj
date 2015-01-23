@@ -230,6 +230,12 @@
     <Compile Include="editForm.Designer.cs">
       <DependentUpon>editForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="wordlistForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="wordlistForm.Designer.cs">
+      <DependentUpon>wordlistForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="hanzi2tghz.cs" />
     <Compile Include="lookupForm.cs">
       <SubType>Form</SubType>
@@ -252,6 +258,9 @@
     <None Include="tghzimages\bopomofo.png" />
     <EmbeddedResource Include="color.resx">
       <DependentUpon>color.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wordlistForm.resx">
+      <DependentUpon>wordlistForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ribbon.xml">
       <SubType>Designer</SubType>
