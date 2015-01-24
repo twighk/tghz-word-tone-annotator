@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Deployment.Application;
+using System.Xml.Linq;
 
 namespace Hanzi2TGHZRibbon
 {
@@ -253,17 +254,8 @@ namespace Hanzi2TGHZRibbon
 
         }
 
-        /* Look Up words Methods */
-        private void lookUp_Click(object sender, RibbonControlEventArgs e)
+        private string getplaintext(string xmlstr)
         {
-            // Get the range
-            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
-            if (currentSelection.Start == currentSelection.End)
-                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range.Duplicate;
-            
-            string xmlstr = currentRange.WordOpenXML;
-
             // Remove phonetic guides
             MatchCollection rubies = new Regex(@"<w:ruby>.*?<\/w:ruby>").Matches(xmlstr);
             foreach (Match ruby in rubies)
@@ -274,9 +266,23 @@ namespace Hanzi2TGHZRibbon
             // Get Text
             string text = "";
             MatchCollection texts = new Regex(@"<w:t>.*?<\/w:t>").Matches(xmlstr);
-            foreach (Match t in texts){
-                text += t.Value.Replace(@"<w:t>","").Replace(@"</w:t>","");
+            foreach (Match t in texts)
+            {
+                text += t.Value.Replace(@"<w:t>", "").Replace(@"</w:t>", "");
             }
+            return text;
+        }
+
+        /* Look Up words Methods */
+        private void lookUp_Click(object sender, RibbonControlEventArgs e)
+        {
+            // Get the range
+            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
+            if (currentSelection.Start == currentSelection.End)
+                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range.Duplicate;
+            
+            string text = getplaintext(currentRange.WordOpenXML);
 
             // Create the form if it doesn't exist
             if (luform == null || luform.IsDisposed == true)
@@ -313,7 +319,9 @@ namespace Hanzi2TGHZRibbon
                     wlform.Show();
                 }
 
-                wlform.BringToFront(ref tghz, currentRange.Text, colorform.getColors());
+                string text = getplaintext(currentRange.WordOpenXML);
+
+                wlform.BringToFront(ref tghz, text, colorform.getColors(), tghz.zhuyin);
             }
         }
 
