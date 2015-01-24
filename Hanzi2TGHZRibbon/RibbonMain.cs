@@ -34,6 +34,7 @@ namespace Hanzi2TGHZRibbon
             {
                 vlabel.Label = "Devel Version";
             }
+
             if (colorform == null || colorform.IsDisposed == true)
             {
                 colorform = new colorForm();
@@ -312,7 +313,7 @@ namespace Hanzi2TGHZRibbon
                     wlform.Show();
                 }
 
-                wlform.BringToFront(ref tghz, currentRange.Text);
+                wlform.BringToFront(ref tghz, currentRange.Text, colorform.getColors());
             }
         }
 

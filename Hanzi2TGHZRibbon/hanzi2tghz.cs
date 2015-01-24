@@ -7,21 +7,85 @@ using System.Text.RegularExpressions;
 
 namespace Hanzi2TGHZRibbon
 {
-    public class hanzi2tghz
+    using Pinyin = List<PinyinChar?>;
+    using Chinese = String;
+
+    public struct PinyinChar
     {
+        public string pinyin;
+        public int tone; // 1 to 5
+        public PinyinChar(string py, int t)
+        {
+            pinyin = py;
+            tone = t;
+        }
+
+        public string withDiacritic()
+        {
+            string str = pinyin;
+            int t = tone - 1;
+
+            if (t >= 0 && t <= 4)
+            {
+                if (str.Contains('a'))
+                    str = str.Replace('a', tones[0][t]);
+                else if (str.Contains('A'))
+                    str = str.Replace('A', ctones[0][t]);
+                else if (str.Contains('o'))
+                    str = str.Replace('o', tones[1][t]);
+                else if (str.Contains('O'))
+                    str = str.Replace('O', ctones[1][t]);
+                else if (str.Contains('e'))
+                    str = str.Replace('e', tones[2][t]);
+                else if (str.Contains('E'))
+                    str = str.Replace('E', ctones[2][t]); // words cannot start with an i (->y) or u (->w)
+                else if (str.Contains("iu"))
+                    str = str.Replace("u", tones[4][t].ToString());
+                else if (str.Contains("iu:")
+                        || str.Contains("iv"))
+                {
+                    str = str.Replace("u:", tones[5][t].ToString());
+                    str = str.Replace("v", tones[5][t].ToString());
+                }
+                else if (str.Contains('i'))
+                    str = str.Replace('i', tones[3][t]);
+                else if (str.Contains('u'))
+                    str = str.Replace('u', tones[4][t]);
+                else if (str.Contains("u:")
+                        || str.Contains("v"))
+                {
+                    str = str.Replace("u:", tones[5][t].ToString());
+                    str = str.Replace("v", tones[5][t].ToString());
+                }
+                else if (str.Contains("U:")
+                        || str.Contains("V"))
+                {
+                    str = str.Replace("U:", ctones[5][t].ToString());
+                    str = str.Replace("V", ctones[5][t].ToString());
+                }
+                else
+                    str += tones[6][t].ToString();
+            }
+            return str;
+        }
+
+        public string toZhuYin(Dictionary<string, string> zhuyin){
+            string zyout = "";
+            string py = pinyin.ToLower();
+
+            if (zhuyin.ContainsKey(py))
+                zyout = zhuyin[py];
+            if (tone >= 1 && tone <= 5)
+            {
+                zyout += tones[6][tone-1];
+            }
+            return zyout;
+        }
+
         private static readonly short[] accent = { 713, 714, 711, 715, 729 };
-        private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
         private static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
         private static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
-        private static readonly char gap = '\u2009';
         //private static readonly short[] accent = { 772, 769, 711, 768, 775 };
-        private int longestword;
-        private Dictionary<string, List<string>> map; // character, list of pinyin
-        private Dictionary<string, string> zhuyin;
-        private readonly string dictpath;
-        private readonly string tonepath;
-        private readonly string zypath;
-
 
         private static string accent2string()
         {
@@ -30,6 +94,40 @@ namespace Hanzi2TGHZRibbon
                 output += (char)c;
             return output;
         }
+
+    }
+
+
+    public class hanzi2tghz
+    {
+
+        private int longestword;
+        private Dictionary<Chinese, List<Pinyin>> map; // character, list of pinyin
+        private Dictionary<string, string> zhuyin;
+        private readonly string dictpath;
+        private readonly string tonepath;
+        private readonly string zypath;
+
+        private static readonly char gap = '\u2009';
+        private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
+
+// WARNING Duplicated in PinyinChar struct
+        private static readonly short[] accent = { 713, 714, 711, 715, 729 };
+        private static readonly string[] tones  = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
+        private static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
+        
+        private static string accent2string()
+        {
+            string output = "";
+            foreach (short c in accent)
+                output += (char)c;
+            return output;
+        }
+// End of WARNING
+
+        
+        
+
 
         public hanzi2tghz(string dictionarypath, string tonecorrectionpath, string zhuyinpath)
         {
@@ -42,7 +140,7 @@ namespace Hanzi2TGHZRibbon
 
         private void makeZhuyin()
         {
-            zhuyin= new Dictionary<string,string>();
+            zhuyin = new Dictionary<string,string>();
             try
             {
                 FileStream fin = new FileStream(zypath, FileMode.Open);
@@ -64,9 +162,9 @@ namespace Hanzi2TGHZRibbon
             }
         }
 
-        private static Tuple<int, Dictionary<string, List<string>>> LoadDicionary(string dictionarypath)
+        private static Tuple<int, Dictionary<Chinese, List<Pinyin>>> LoadDicionary(string dictionarypath)
         {
-            Dictionary<string, List<string>> dictout = new Dictionary<string, List<string>>();
+            Dictionary<Chinese, List<Pinyin>> dictout = new Dictionary<Chinese, List<Pinyin>>();
             int lenghtout = 0;
             try
             {
@@ -78,20 +176,23 @@ namespace Hanzi2TGHZRibbon
                     if (line.Length > 0 && line[0] != '#') //ignore commented lines and off lines
                     {
                         string[] dictline = line.Split(new char[] { ' ' });// split line on spaces
-                        string simp = dictline[0];
-                        string trad = dictline[1];
+                        Chinese simp = dictline[0];
+                        Chinese trad = dictline[1];
 
                         lenghtout = Math.Max(simp.Length, lenghtout); // Find the Longest word
 
-                        string pinyin = ""; // make string of pinyin
+                        string CEpinyin = ""; // make string of pinyin
                         for (int i = 0; i != simp.Length; i++)
-                            pinyin += dictline[2 + i] + " ";
-                        pinyin = pinyin.Trim(); //clean off trailing space
+                            CEpinyin += dictline[2 + i] + " ";
 
+                        Pinyin pinyin = CEdictpinyin2pinyin(CEpinyin);
                         foreach (string simptrad in new string[] { simp, trad })
                         { // add it to the Map
                             if (!dictout.ContainsKey(simptrad))
-                                dictout.Add(simptrad, new List<string>(new string[] { pinyin }));
+                            {
+                                dictout.Add(simptrad, new List<Pinyin>());
+                                dictout[simptrad].Add(pinyin);
+                            } 
                             else
                                 if (!dictout[simptrad].Contains(pinyin))
                                     dictout[simptrad].Add(pinyin);
@@ -106,8 +207,28 @@ namespace Hanzi2TGHZRibbon
                     + "'. FileNotFoundException (" + e.Message + ") Thrown.");
             }
 
-            return new Tuple<int, Dictionary<string, List<string>>>(lenghtout, dictout);
+            return new Tuple<int, Dictionary<Chinese, List<Pinyin>>>(lenghtout, dictout);
 
+        }
+
+        private static Pinyin CEdictpinyin2pinyin(String CEpinyin)
+        {
+            Pinyin pinyinout = new Pinyin();
+            CEpinyin = CEpinyin.Trim(); //clean off trailing space
+            CEpinyin = CEpinyin.Trim(new char[] { '[', ']' }); // remove initial and final []
+            
+            string[] words = CEpinyin.Split(new char[] { ' ' }); // Split on spaces to get {"ni3", "hao3"}
+
+            foreach (string s in words)
+            {
+                string tone = Regex.Match(s, @"\d+").Value; //Get tone number
+                if (tone != "") 
+                    pinyinout.Add(new PinyinChar(s.Replace(tone, ""), Int32.Parse(tone)));
+                else
+                    pinyinout.Add(null);
+            }
+
+            return pinyinout;
         }
 
         public static Tuple<int, List<Tuple<string, bool, string>>> LoadToneCorrections(string tonecorrectionpath)
@@ -187,23 +308,28 @@ namespace Hanzi2TGHZRibbon
             makeMap(enabled);
         }
 
-        Dictionary<string, List<string>> corrections2dict(List<Tuple<string, bool, string>> corr)
+        Dictionary<Chinese, List<Pinyin>> corrections2dict(List<Tuple<string, bool, string>> corr)
         {
-            Dictionary<string, List<string>> output = new Dictionary<string, List<string>>();
+            Dictionary<Chinese, List<Pinyin>> output = new Dictionary<Chinese, List<Pinyin>>();
 
             foreach (Tuple<string, bool, string> x in corr)
-                if (x.Item2)
-                    if (output.ContainsKey(x.Item1))
-                        output[x.Item1].Add(x.Item3);
+            {
+                Chinese chinese = x.Item1;
+                Pinyin pinyin = CEdictpinyin2pinyin(x.Item3);
+                bool enabled = x.Item2;
+                if (enabled)
+                    if (output.ContainsKey(chinese))
+                        output[chinese].Add(pinyin);
                     else
-                        output.Add(x.Item1, new List<string>(new string[] { x.Item3 }));
+                        output.Add(chinese, new List<Pinyin>(){pinyin});
+            }
 
             return output;
         }
 
         public void makeMap(bool usecorrections)
         {
-            Tuple<int, Dictionary<string, List<string>>> dict = LoadDicionary(dictpath);
+            Tuple<int, Dictionary<Chinese, List<Pinyin>>> dict = LoadDicionary(dictpath);
             map = dict.Item2;
             longestword = dict.Item1;
 
@@ -214,9 +340,9 @@ namespace Hanzi2TGHZRibbon
                 longestword = Math.Max(dict.Item1, corrections.Item1);
 
 
-                Dictionary<string, List<string>> correctionsmap = corrections2dict(corrections.Item2);
+                Dictionary<Chinese, List<Pinyin>> correctionsmap = corrections2dict(corrections.Item2);
 
-                foreach (KeyValuePair<string, List<string>> x in correctionsmap)
+                foreach (KeyValuePair<Chinese, List<Pinyin>> x in correctionsmap)
                     if (map.ContainsKey(x.Key))
                         map[x.Key] = x.Value;
                     else
@@ -229,32 +355,29 @@ namespace Hanzi2TGHZRibbon
             return LoadToneCorrections(tonepath).Item2;
         }
 
-
-        public static List<List<T>> Transpose<T>(List<List<T>> lists)
-        {
-            var longest = lists.Any() ? lists.Max(l => l.Count) : 0;
-            List<List<T>> outer = new List<List<T>>(longest);
-            for (int i = 0; i < longest; i++)
-                outer.Add(new List<T>());
-            for (int j = 0; j < lists.Count; j++)
-                for (int i = 0; i < longest; i++)
-                    outer[i].Add(lists[j].Count > i ? lists[j][i] : default(T));
-            return outer;
-        }
-
         public string withToneXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         //superflous bools to match withpiyinxml type
         {
-            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
+            List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
             string output = "";
-            foreach (Tuple<string, List<string>> c in hzpi)
+            foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
                     output += withNone(c.Item1);
                 else
                 {
                     for (int i = 0; i != c.Item1.Length; i++)
                     {
-                        output += withRubyTones(c.Item1[i].ToString(), Transpose(str2tones(c.Item2))[i],topcolor,bottomcolor,colors);
+                        char chinesechar = c.Item1[i];
+                        HashSet<int> tones = new HashSet<int>();
+                        for (int j = 0; j != c.Item2.Count; j++)
+                        {
+                            Pinyin pinyin = c.Item2[j];
+                            if (pinyin[i].HasValue)
+                                tones.Add(pinyin[i].Value.tone);
+                        }
+
+
+                        output += withRubyTones(chinesechar.ToString(), tones.ToList(), topcolor, bottomcolor, colors);
                     }
                 }
 
@@ -264,165 +387,67 @@ namespace Hanzi2TGHZRibbon
 
         public string withPinYinXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
-            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
+            List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
             string output = "";
-            foreach (Tuple<string, List<string>> c in hzpi)
+            foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
                     output += withNone(c.Item1);
                 else
-                    foreach (string pi in c.Item2)
-                    {
-                        string pi2 = pi;
-                        pi2 = pi.Trim(new char[] { '[', ']' });
-                        string[] splt = pi2.Split(new char[] { ' ' });
-                        for (int i = 0; i != c.Item1.Length; i++)
-                        {
-                            int tone;
-                            splt[i] = num2tonegraphs(splt[i], out tone);
-                            output += withRuby(c.Item1[i].ToString(), splt[i],tone,topcolor,bottomcolor,colors);
-                        }
-                    }
+                    foreach (Pinyin pinyin in c.Item2)
+                       for (int i = 0; i != c.Item1.Length; i++)
+                           if (pinyin[i].HasValue)
+                               output += withRuby(c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone, topcolor, bottomcolor, colors);
+                           else
+                               output += withNone(c.Item1[i].ToString());
+
             return output;
         }
 
         public string withZhuyinXMLRuby(string input, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
             string output = "";
-            List<Tuple<string, List<string>>> hzpi = hanziWithPinyin(input);
-            foreach (Tuple<string, List<string>> c in hzpi)
+            List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
+            foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
                     output += withNone(c.Item1);
                 else
                 {
                     HashSet<string> items = new HashSet<string>();
-                    foreach (string pi in c.Item2)
+                    foreach (Pinyin pinyin in c.Item2)
                     {
-                        string item = pi.ToLower();
-                        if (!items.Contains(item))
+                        List<string> zhuyin = pinyin2zhuyin(pinyin);
+                        string zhuyinstring = zhuyin.Aggregate((i, j) => i + " " + j);
+
+                        if (!items.Contains(zhuyinstring))
                         {
-                            items.Add(item);
-                            string pi2 = item;
-                            pi2 = item.Trim(new char[] { '[', ']' });
-                            string[] splt = pi2.Split(new char[] { ' ' });
+                            items.Add(zhuyinstring);
                             for (int i = 0; i != c.Item1.Length; i++)
-                            {
-                                int tone;
-                                splt[i] = pinyin2fuyin(splt[i], out tone);
-                                output += withRuby(c.Item1[i].ToString(), splt[i], tone, topcolor, bottomcolor, colors);
-                            }
+                                if (pinyin[i].HasValue)
+                                    output += withRuby(c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone, topcolor, bottomcolor, colors);
+                                else
+                                    output += withNone(c.Item1[i].ToString());
                         }
                     }
                 }
             return output;
         }
-        public string pinyin2fuyin(string str, out int t)
+
+        private List<String> pinyin2zhuyin(Pinyin pinyin)
         {
-            t = -1;
-            if (str != null)
-            {
-                string tone = Regex.Match(str, @"\d+").Value; //Get tone number
-                if (tone != "")
-                {
-                    str = str.Replace(tone, "");
-                    t = Int32.Parse(tone) - 1;
-                    if (zhuyin.ContainsKey(str))
-                        str = zhuyin[str];
-                    if (t >= 0 && t <= 4)
-                    {
-                        str += tones[6][t];
-                    }
-                    else
-                    {
-                        t = -1;
-                    }
-                }
-            }
-            return str;
-        }
-        public static string num2tonegraphs(string str, out int t)
-        {
-            t = -1;
-            if (str != null)
-            {
-                string tone = Regex.Match(str, @"\d+").Value; //Get tone number
-                if (tone != "")
-                {
-                    str = str.Replace(tone, "");
-                    t = Int32.Parse(tone) - 1;
-                    //System.Console.WriteLine(t);
-                    if (t >= 0 && t <= 4)
-                    {
-                        if (str.Contains('a'))
-                            str = str.Replace('a', tones[0][t]);
-                        else if (str.Contains('A'))
-                            str = str.Replace('A', ctones[0][t]);
-                        else if (str.Contains('o'))
-                            str = str.Replace('o', tones[1][t]);
-                        else if (str.Contains('O'))
-                            str = str.Replace('O', ctones[1][t]);
-                        else if (str.Contains('e'))
-                            str = str.Replace('e', tones[2][t]);
-                        else if (str.Contains('E'))
-                            str = str.Replace('E', ctones[2][t]); // words cannot start with an i (->y) or u (->w)
-                        else if (str.Contains("iu"))
-                            str = str.Replace("u", tones[4][t].ToString());
-                        else if (str.Contains("iu:")
-                              || str.Contains("iv"))
-                        {
-                            str = str.Replace("u:", tones[5][t].ToString());
-                            str = str.Replace("v", tones[5][t].ToString());
-                        }
-                        else if (str.Contains('i'))
-                            str = str.Replace('i', tones[3][t]);
-                        else if (str.Contains('u'))
-                            str = str.Replace('u', tones[4][t]);
-                        else if (str.Contains("u:")
-                              || str.Contains("v"))
-                        {
-                            str = str.Replace("u:", tones[5][t].ToString());
-                            str = str.Replace("v", tones[5][t].ToString());
-                        }
-                        else if (str.Contains("U:")
-                             || str.Contains("V"))
-                        {
-                            str = str.Replace("U:", ctones[5][t].ToString());
-                            str = str.Replace("V", ctones[5][t].ToString());
-                        }
-                        else
-                            str += tones[6][t].ToString();
-                    }
-                    else
-                    {
-                        t = -1;
-                    }
-                }
-            }
-            return str;
+            List<String> lsout = new List<String>();
+
+            foreach(PinyinChar? pc in pinyin)
+                if (pc.HasValue)
+                    lsout.Add(pc.Value.toZhuYin(zhuyin));
+                else
+                    lsout.Add("");
+
+            return lsout;
         }
 
-        public List<List<int>> str2tones(List<string> str)
+        public List<Tuple<Chinese, List<Pinyin>>> hanziWithPinyin(string strin)
         {
-            List<List<int>> output = new List<List<int>>();
-
-            foreach (string s in str)
-            {
-                List<int> tl = new List<int>();
-                foreach (string tones in s.TrimEnd().Split(new char[] { ' ' }))
-                    tl.Add(pinyin2tone(tones));
-
-                bool exists = false;
-                foreach (List<int> test in output)
-                    exists |= Enumerable.SequenceEqual(test, tl);
-                if (!exists)
-                    output.Add(tl);
-            }
-
-            return output;
-        }
-
-        public List<Tuple<string, List<string>>> hanziWithPinyin(string strin)
-        {
-            List<Tuple<string, List<string>>> output = new List<Tuple<string, List<string>>>();
+            List<Tuple<Chinese, List<Pinyin>>> output = new List<Tuple<Chinese, List<Pinyin>>>();
 
             for (int strptr = 0, numchartest = 0; strptr < strin.Length; strptr += numchartest)
             {
@@ -431,26 +456,21 @@ namespace Hanzi2TGHZRibbon
                     ) // Find the Longest string in the dictionary then add it to the output with the pinyin
                 {
                     string findchar = strin.Substring(strptr, numchartest);
-                    List<string> ret;
+                    List<Pinyin> ret;
                     if (map.TryGetValue(findchar, out ret))
                     {
-                        output.Add(new Tuple<string, List<string>>(findchar, map[findchar]));
+                        output.Add(new Tuple<Chinese, List<Pinyin>>(findchar, map[findchar]));
                         break;
                     }
                 }
 
                 if (numchartest == 0) // If single char not in dictionary add just the character
                 {
-                    output.Add(new Tuple<string, List<string>>(strin[strptr].ToString(), new List<string>()));
+                    output.Add(new Tuple<Chinese, List<Pinyin>>(strin[strptr].ToString(), new List<Pinyin>()));
                     numchartest = 1;
                 }
             }
             return output;
-        }
-
-        private static int pinyin2tone(string pinyin)
-        {
-            return Int32.Parse(Regex.Match(pinyin, @"\d+").Value); //Get tone number
         }
 
         public static string withNone(string str)
@@ -471,7 +491,7 @@ namespace Hanzi2TGHZRibbon
             output += "<w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/>";
             if (topcolour && !(colors == null) && tone != -1)
             {
-                output += "<w:color w:val=\"" + colors[tone] + "\"/>";
+                output += "<w:color w:val=\"" + colors[tone-1] + "\"/>";
             }
             output += "</w:rPr>";
             output += "<w:t xml:space=\"preserve\">";
@@ -480,7 +500,7 @@ namespace Hanzi2TGHZRibbon
             output += "<w:rPr>";
             if (bottomcolour && !(colors == null) && tone != -1)
             {
-                output += "<w:color w:val=\"" + colors[tone] + "\"/>";
+                output += "<w:color w:val=\"" + colors[tone-1] + "\"/>";
             }
             output += "</w:rPr>";
             output += "<w:t>";
@@ -584,8 +604,11 @@ namespace Hanzi2TGHZRibbon
                                 tnpy += (char)accent[Int32.Parse(num.ToString()) - 1];
                     }
                     else{
-                        int tone;
-                        tnpy += gap + num2tonegraphs(list[i].Item2, out tone) + gap;
+                        PinyinChar? pc = CEdictpinyin2pinyin(list[i].Item2)[0];
+                        if (pc.HasValue)
+                            tnpy += gap + pc.Value.withDiacritic() + gap;
+                        else
+                            tnpy += gap + gap;
                     }
 
                     match = match.Insert(tnpyhanzi[0].Index, tnpy);
