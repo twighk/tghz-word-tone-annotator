@@ -103,7 +103,7 @@ namespace Hanzi2TGHZRibbon
 
         private int longestword;
         private Dictionary<Chinese, List<Pinyin>> map; // character, list of pinyin
-        private Dictionary<string, string> zhuyin;
+        public  Dictionary<string, string> zhuyin;
         private readonly string dictpath;
         private readonly string tonepath;
         private readonly string zypath;
