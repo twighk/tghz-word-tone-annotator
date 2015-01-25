@@ -387,36 +387,35 @@ namespace Hanzi2TGHZRibbon
         }
 
 
-        public List<XElement> withPinYinXMLRuby(string input, List<XAttribute> attributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        public List<XElement> withPinYinXMLRuby(string input, List<XAttribute> tattributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
-            return new List<XElement>() { new XElement(w + "t") };
-            /*
+            List<XElement> tree = new List<XElement>();
             List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
-            string output = "";
+
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    output += withNone(c.Item1);
+                    tree.Add(withNone(c.Item1,tattributes,w));
                 else
                     foreach (Pinyin pinyin in c.Item2)
                        for (int i = 0; i != c.Item1.Length; i++)
                            if (pinyin[i].HasValue)
-                               output += withRuby(c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone, topcolor, bottomcolor, colors);
+                               tree.Add(withRuby(tattributes, w,
+                                   c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone,
+                                   topcolor, bottomcolor, colors));
                            else
-                               output += withNone(c.Item1[i].ToString());
+                               tree.Add(withNone(c.Item1[i].ToString(),tattributes,w));
 
-            return output;
-             * */
+            return tree;
         }
 
-        public List<XElement> withZhuyinXMLRuby(string input, List<XAttribute> attributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        public List<XElement> withZhuyinXMLRuby(string input, List<XAttribute> tattributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
-            return new List<XElement> (){new XElement(w+"t")};
-            /*
-            string output = "";
+            List<XElement> tree = new List<XElement>();
             List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
+
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    output += withNone(c.Item1);
+                    tree.Add(withNone(c.Item1,tattributes,w));
                 else
                 {
                     HashSet<string> items = new HashSet<string>();
@@ -430,14 +429,16 @@ namespace Hanzi2TGHZRibbon
                             items.Add(zhuyinstring);
                             for (int i = 0; i != c.Item1.Length; i++)
                                 if (pinyin[i].HasValue)
-                                    output += withRuby(c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone, topcolor, bottomcolor, colors);
+                                    tree.Add(withRuby(
+                                        tattributes, w,
+                                        c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone,
+                                        topcolor, bottomcolor, colors));
                                 else
-                                    output += withNone(c.Item1[i].ToString());
+                                    tree.Add(withNone(c.Item1[i].ToString(),tattributes,w));
                         }
                     }
                 }
-            return output;
-            */
+            return tree;
         }
 
         private List<String> pinyin2zhuyin(Pinyin pinyin)
@@ -489,31 +490,56 @@ namespace Hanzi2TGHZRibbon
                 );
         }
 
-        public static string withRuby(string bottom, string top, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
+        public static XElement withRuby(List<XAttribute> tattributes, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
-            string output = "";
-            output += "<w:r><w:ruby><w:rubyPr><w:rubyAlign w:val=\"center\"/></w:rubyPr><w:rt><w:r>";
-            output += "<w:rPr>";
-            output += "<w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/>";
-            if (topcolour && !(colors == null) && tone != -1)
+            XElement rubyPr = new XElement(w + "rubyPr",
+                new XElement(w + "rubyAlign", new XAttribute(w + "val", "center"))
+                );
+
+            XElement tcolour = new XElement(w + "color");
+            if (topcolour && !(colors == null))
             {
-                output += "<w:color w:val=\"" + colors[tone-1] + "\"/>";
+                tcolour.SetAttributeValue(w + "val", colors[tone - 1]);
             }
-            output += "</w:rPr>";
-            output += "<w:t xml:space=\"preserve\">";
-            output += gap + top + gap;
-            output += "</w:t></w:r></w:rt><w:rubyBase><w:r>";
-            output += "<w:rPr>";
-            if (bottomcolour && !(colors == null) && tone != -1)
+
+            XElement top = new XElement(w + "rt",
+                new XElement(w + "r",
+                    new XElement(w + "rPr",
+                        new XElement(w + "rFonts",
+                            new XAttribute(w + "ascii", "Arial Unicode MS"),
+                            new XAttribute(w + "eastAsia", "Arial Unicode MS"),
+                            new XAttribute(w + "hAnsi", "Arial Unicode MS"),
+                            new XAttribute(w + "cs", "Arial Unicode MS"),
+                            new XAttribute(w + "hint", "eastAsia")
+                        ),
+                        tcolour
+                    ),
+                    new XElement(w + "t", gap + topstr + gap)
+                )
+            );
+
+            XElement bcolour = new XElement(w + "color");
+            if (bottomcolour && !(colors == null))
             {
-                output += "<w:color w:val=\"" + colors[tone-1] + "\"/>";
+                bcolour.SetAttributeValue(w + "val", colors[tone - 1]);
             }
-            output += "</w:rPr>";
-            output += "<w:t>";
-            output += bottom;
-            output += "</w:t></w:r></w:rubyBase></w:ruby></w:r>";
-            //output += "<w:r><w:t xml:space=\"preserve\"> </w:t></w:r>"; // Space
-            return output;
+
+            XElement bot = new XElement(w + "rubyBase",
+                new XElement(w + "r",
+                    new XElement(w + "rPr",
+                        bcolour
+                    ),
+                    new XElement(w + "t", bottom)
+                )
+            );
+
+            return new XElement(w + "r",
+                new XElement(w + "ruby",
+                    rubyPr,
+                    top,
+                    bot
+                )
+            );
         }
 
         public static XElement withRubyTones(List<XAttribute> tattributes, XNamespace w, string bottom, List<int> tones, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
@@ -565,6 +591,7 @@ namespace Hanzi2TGHZRibbon
                     new XElement(w + "t", bottom)
                 )
             );
+
             return new XElement(w+"r",
                 new XElement(w+"ruby",
                     rubyPr,
@@ -572,30 +599,6 @@ namespace Hanzi2TGHZRibbon
                     bot
                 )
             );
-
- /*         string output = "";
-            output += "<w:r><w:ruby><w:rubyPr><w:rubyAlign w:val=\"center\"/><w:hps w:val=\"24\"/><w:hpsRaise w:val=\"10\"/><w:hpsBaseText w:val=\"12\"/></w:rubyPr><w:rt><w:r>";
-            output += "<w:rPr>";
-            output += "<w:rFonts w:ascii=\"Arial Unicode MS\" w:eastAsia=\"Arial Unicode MS\" w:hAnsi=\"Arial Unicode MS\" w:cs=\"Arial Unicode MS\" w:hint=\"eastAsia\"/>";
-            if (topcolour && !(colors ==null) && tones.Count==1)
-            {
-                output += "<w:color w:val=\"" + colors[tones[0]-1] + "\"/>";
-            }
-            output += "</w:rPr><w:t>"; // <w:sz w:val=\"11\"/>
-            foreach (int t in tones)
-                output += "&#" + accent[t - 1].ToString() + ";";
-           output += "</w:t></w:r></w:rt><w:rubyBase><w:r>";
-            output += "<w:rPr>";
-            if (bottomcolour && !(colors == null) && tones.Count == 1)
-            {
-                output += "<w:color w:val=\"" + colors[tones[0]-1] + "\"/>";
-            }
-            output += "</w:rPr>";
-            output += "<w:t>";
-            output += bottom;
-            output += "</w:t></w:r></w:rubyBase></w:ruby></w:r>";
-            return output;
-  * */
         }
 
         private static string tonegraphs2num(string str)
@@ -681,12 +684,12 @@ namespace Hanzi2TGHZRibbon
                 //fix xml
                 xml = xml.Remove(rubies[i].Index, rubies[i].Length);
                 xml = xml.Insert(rubies[i].Index, match);
-                
             }
-
 
             return xml;
         }
+    }
+}
 
 
 /*
@@ -716,5 +719,3 @@ namespace Hanzi2TGHZRibbon
 ".Replace(Environment.NewLine, "");
 
 */
-    }
-}
