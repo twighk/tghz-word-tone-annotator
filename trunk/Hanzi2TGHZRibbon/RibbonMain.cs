@@ -90,7 +90,6 @@ namespace Hanzi2TGHZRibbon
                 {
                     string rangexml = currentRange.WordOpenXML;
                     XDocument doc = XDocument.Parse(rangexml);
-
                     XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
 
                     List<XElement> wts = doc.Descendants(w + "t").Where(x => 0 == x.Ancestors(w + "ruby").Count()).ToList();
@@ -105,35 +104,8 @@ namespace Hanzi2TGHZRibbon
                         }
                     }
 
-/*
-                    MatchCollection rubies = new Regex(@"(?<=<w:ruby>)(.*?)(?=<\/w:ruby>)").Matches(rangexml);
-                    MatchCollection text = new Regex(@"(?<=<w:t>)(.*?)(?=<\/w:t>)").Matches(rangexml);
-
-                    int rubiespos = rubies.Count - 1;
-                    for (int t = text.Count - 1; t >= 0; t--)
-                    {
-
-                        for (; rubiespos >= 0; rubiespos--)
-                        {
-                            if (text[t].Index > rubies[rubiespos].Index) //find current ruby pos
-                                break;
-                        }
-
-                        if (rubiespos < 0 || text[t].Index > rubies[rubiespos].Index + rubies[rubiespos].Length)
-                        {
-                            rangexml = rangexml.Remove(text[t].Index, text[t].Length);
-                            rangexml = rangexml.Insert(text[t].Index,
-                                        "</w:t></w:r>"
-                                        + function(text[t].Value, colorform.getTop(), colorform.getBottom(), colorform.getColors())
-                                        + "<w:r><w:t>");
-
-                        }
-
-                    }
-                    */
                     currentRange.InsertXML(doc.ToString());
                 }
-
 
                 //Hack to prevent other east asian languages (See issue 5.)
                 if (Globals.ThisAddIn.Application.ActiveDocument.Content.LanguageIDFarEast != Word.WdLanguageID.wdSimplifiedChinese)
@@ -147,7 +119,6 @@ namespace Hanzi2TGHZRibbon
 
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
-            //pinyintones(tghz.withPinYinXML, brackets.Checked);
             pinyintones(tghz.withPinYinXMLRuby);
         }
 
@@ -177,15 +148,19 @@ namespace Hanzi2TGHZRibbon
 
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
 
-            string xmlstr = currentRange.WordOpenXML;
+            string rangexml = currentRange.WordOpenXML;
+            XDocument doc = XDocument.Parse(rangexml);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
 
-            xmlstr = Regex.Replace(xmlstr, @"<w:hpsRaise w:val=""\d*""\/>", "");
+            foreach (XElement ele in doc.Descendants(w+"ruby"))
+            {
+                ele.Descendants(w + "hpsRaise").Remove(); // Remove lowering (e.g. if tone)
+                string size = ele.Descendants(w+"hpsBaseText").Single().Attribute(w+"val").Value;
+                Double sz = Double.Parse(pysize.Text) * Double.Parse(size);
+                ele.Descendants(w+"hps").Single().Attribute(w+"val").SetValue(Math.Round(sz, 1).ToString());
+            }
 
-            string size = new Regex(@"(?<=<w:hpsBaseText w:val="")\d*").Match(xmlstr).Value;
-            Double sz = Double.Parse(pysize.Text) * Double.Parse(size);
-            xmlstr = Regex.Replace(xmlstr, @"(?<=<w:hps w:val="")\d*", Math.Round(sz, 1).ToString());
-            currentRange.InsertXML(xmlstr);
-
+            currentRange.InsertXML(doc.ToString());
         }
 
         private void AddTonesRuby_Click(object sender, RibbonControlEventArgs e)
@@ -211,14 +186,17 @@ namespace Hanzi2TGHZRibbon
 
         private string ToneResize(string xmlstr)
         {
-            string size = new Regex(@"(?<=<w:hpsBaseText w:val="")\d*").Match(xmlstr).Value; // get text size
+            XDocument doc = XDocument.Parse(xmlstr);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
 
-            xmlstr = Regex.Replace(xmlstr, @"(?<=<w:hpsRaise w:val="")\d*", toneheight.Text); // set raise
-
-            Double sz = Double.Parse(tnsize.Text) * Double.Parse(size);
-            xmlstr = Regex.Replace(xmlstr, @"(?<=<w:hps w:val="")\d*", Math.Round(sz, 1).ToString()); // set tone size
-
-            return xmlstr;
+            foreach (XElement ele in doc.Descendants(w + "ruby"))
+            {
+                ele.Descendants(w + "hpsRaise").Single().Attribute(w+"val").SetValue(toneheight.Text);
+                string size = ele.Descendants(w + "hpsBaseText").Single().Attribute(w + "val").Value;
+                Double sz = Double.Parse(tnsize.Text) * Double.Parse(size);
+                ele.Descendants(w + "hps").Single().Attribute(w + "val").SetValue(Math.Round(sz, 1).ToString());
+            }
+            return doc.ToString();
         }
 
         private void edittnpy_Click(object sender, RibbonControlEventArgs e)
