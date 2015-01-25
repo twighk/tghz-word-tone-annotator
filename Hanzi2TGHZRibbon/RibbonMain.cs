@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Deployment.Application;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Hanzi2TGHZRibbon
@@ -78,7 +79,7 @@ namespace Hanzi2TGHZRibbon
         }
 
         /* Pinyin Tone Methods */
-        private void pinyintones(Func<string, bool, bool, List<string>, string > function)
+        private void pinyintones(Func<string, List<XAttribute>, XNamespace, bool, bool, List<string>, List<XElement>> function)
         {
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
             try
@@ -88,6 +89,23 @@ namespace Hanzi2TGHZRibbon
                 else
                 {
                     string rangexml = currentRange.WordOpenXML;
+                    XDocument doc = XDocument.Parse(rangexml);
+
+                    XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
+
+                    List<XElement> wts = doc.Descendants(w + "t").Where(x => 0 == x.Ancestors(w + "ruby").Count()).ToList();
+                    foreach (XElement ele in wts) // w+"t" equivalent to "w:t"
+                    {
+                        if (0 == ele.Ancestors(w + "ruby").Count())
+                        {
+                            string text = ele.Value;
+                            List<XAttribute> attributes = ele.Attributes().ToList();
+                            List<XElement> tree = function(text, attributes, w, colorform.getTop(), colorform.getBottom(), colorform.getColors());
+                            ele.ReplaceWith(tree);
+                        }
+                    }
+
+/*
                     MatchCollection rubies = new Regex(@"(?<=<w:ruby>)(.*?)(?=<\/w:ruby>)").Matches(rangexml);
                     MatchCollection text = new Regex(@"(?<=<w:t>)(.*?)(?=<\/w:t>)").Matches(rangexml);
 
@@ -112,8 +130,8 @@ namespace Hanzi2TGHZRibbon
                         }
 
                     }
-
-                    currentRange.InsertXML(rangexml);
+                    */
+                    currentRange.InsertXML(doc.ToString());
                 }
 
 
@@ -126,6 +144,7 @@ namespace Hanzi2TGHZRibbon
                 System.Windows.Forms.MessageBox.Show("There was an error(" + e.Message + "), please select less text to determine what it does not like");
             }
         }
+
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
             //pinyintones(tghz.withPinYinXML, brackets.Checked);
