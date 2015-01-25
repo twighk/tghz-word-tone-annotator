@@ -356,7 +356,7 @@ namespace Hanzi2TGHZRibbon
             return LoadToneCorrections(tonepath).Item2;
         }
 
-        public List<XElement> withToneXMLRuby(string input, List<XAttribute> tattributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        public List<XElement> withToneXMLRuby(string input, List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         //superflous bools to match withpiyinxml type
         {
             List<XElement> tree = new List<XElement>();
@@ -364,7 +364,7 @@ namespace Hanzi2TGHZRibbon
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
             {
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes,w));
+                    tree.Add(withNone(c.Item1,tattributes, tproperties,w));
                 else
                 {
                     for (int i = 0; i != c.Item1.Length; i++)
@@ -378,7 +378,7 @@ namespace Hanzi2TGHZRibbon
                                 tones.Add(pinyin[i].Value.tone);
                         }
 
-                        tree.Add(withRubyTones(tattributes, w, chinesechar.ToString(), tones.ToList(), topcolor, bottomcolor, colors));
+                        tree.Add(withRubyTones(tattributes, tproperties, w, chinesechar.ToString(), tones.ToList(), topcolor, bottomcolor, colors));
                     }
                 }
             }
@@ -387,35 +387,35 @@ namespace Hanzi2TGHZRibbon
         }
 
 
-        public List<XElement> withPinYinXMLRuby(string input, List<XAttribute> tattributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        public List<XElement> withPinYinXMLRuby(string input, List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
             List<XElement> tree = new List<XElement>();
             List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
 
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes,w));
+                    tree.Add(withNone(c.Item1,tattributes, tproperties,w));
                 else
                     foreach (Pinyin pinyin in c.Item2)
                        for (int i = 0; i != c.Item1.Length; i++)
                            if (pinyin[i].HasValue)
-                               tree.Add(withRuby(tattributes, w,
+                               tree.Add(withRuby(tattributes, tproperties, w,
                                    c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone,
                                    topcolor, bottomcolor, colors));
                            else
-                               tree.Add(withNone(c.Item1[i].ToString(),tattributes,w));
+                               tree.Add(withNone(c.Item1[i].ToString(),tattributes, tproperties,w));
 
             return tree;
         }
 
-        public List<XElement> withZhuyinXMLRuby(string input, List<XAttribute> tattributes, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
+        public List<XElement> withZhuyinXMLRuby(string input, List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, bool topcolor = false, bool bottomcolor = false, List<string> colors = null)
         {
             List<XElement> tree = new List<XElement>();
             List<Tuple<Chinese, List<Pinyin>>> hzpi = hanziWithPinyin(input);
 
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes,w));
+                    tree.Add(withNone(c.Item1,tattributes,tproperties, w));
                 else
                 {
                     HashSet<string> items = new HashSet<string>();
@@ -430,11 +430,11 @@ namespace Hanzi2TGHZRibbon
                             for (int i = 0; i != c.Item1.Length; i++)
                                 if (pinyin[i].HasValue)
                                     tree.Add(withRuby(
-                                        tattributes, w,
+                                        tattributes, tproperties, w,
                                         c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone,
                                         topcolor, bottomcolor, colors));
                                 else
-                                    tree.Add(withNone(c.Item1[i].ToString(),tattributes,w));
+                                    tree.Add(withNone(c.Item1[i].ToString(),tattributes,tproperties, w));
                         }
                     }
                 }
@@ -482,19 +482,31 @@ namespace Hanzi2TGHZRibbon
             return output;
         }
 
-        public static XElement withNone(string str, List<XAttribute> tattributes, XNamespace w)
+        public static XElement withNone(string str, List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w)
         {
             return
                 new XElement(w + "r",
+                    new XElement(w + "rPr", tproperties),
                     new XElement(w + "t", str, tattributes)
                 );
         }
 
-        public static XElement withRuby(List<XAttribute> tattributes, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
+        public static XElement withRuby(List<XAttribute> tattributes,List<XElement> tproperties, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
+            string size = "";
+            foreach (XElement x in tproperties.DescendantsAndSelf(w + "sz"))
+                size = x.Attribute(w + "val").Value;
+            if (size == "") size = "12";
+            IEnumerable<XElement> tp = tproperties.Where(x =>
+                x.Name != w + "sz" ||
+                x.Name != w + "szCs"); // Properties without size
+
+
             XElement rubyPr = new XElement(w + "rubyPr",
                 new XElement(w + "rubyAlign", new XAttribute(w + "val", "center"))
                 );
+
+
 
             XElement tcolour = new XElement(w + "color");
             if (topcolour && !(colors == null))
@@ -505,6 +517,7 @@ namespace Hanzi2TGHZRibbon
             XElement top = new XElement(w + "rt",
                 new XElement(w + "r",
                     new XElement(w + "rPr",
+                        tp,
                         new XElement(w + "rFonts",
                             new XAttribute(w + "ascii", "Arial Unicode MS"),
                             new XAttribute(w + "eastAsia", "Arial Unicode MS"),
@@ -527,6 +540,7 @@ namespace Hanzi2TGHZRibbon
             XElement bot = new XElement(w + "rubyBase",
                 new XElement(w + "r",
                     new XElement(w + "rPr",
+                        tproperties,
                         bcolour
                     ),
                     new XElement(w + "t", bottom)
@@ -542,7 +556,7 @@ namespace Hanzi2TGHZRibbon
             );
         }
 
-        public static XElement withRubyTones(List<XAttribute> tattributes, XNamespace w, string bottom, List<int> tones, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
+        public static XElement withRubyTones(List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, string bottom, List<int> tones, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
             XElement rubyPr = new XElement(w + "rubyPr",
                 new XElement(w + "rubyAlign", new XAttribute(w + "val", "center")),
@@ -564,6 +578,7 @@ namespace Hanzi2TGHZRibbon
             XElement top = new XElement(w + "rt",
                 new XElement(w + "r",
                     new XElement(w + "rPr",
+                        tproperties,
                         new XElement(w + "rFonts",
                             new XAttribute(w + "ascii", "Arial Unicode MS"),
                             new XAttribute(w + "eastAsia", "Arial Unicode MS"),
@@ -586,6 +601,7 @@ namespace Hanzi2TGHZRibbon
             XElement bot = new XElement(w + "rubyBase",
                 new XElement(w + "r",
                     new XElement(w + "rPr",
+                        tproperties,
                         bcolour
                     ),
                     new XElement(w + "t", bottom)

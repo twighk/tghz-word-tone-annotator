@@ -65,6 +65,7 @@ namespace Hanzi2TGHZRibbon
             {
                 // don't use get_XML(), converts equations to pictures, use WordOpenXML               
                 currentRange.InsertXML(convertlong(currentRange.WordOpenXML, convert));
+                currentRange.Select();
             }
         }
 
@@ -79,7 +80,7 @@ namespace Hanzi2TGHZRibbon
         }
 
         /* Pinyin Tone Methods */
-        private void pinyintones(Func<string, List<XAttribute>, XNamespace, bool, bool, List<string>, List<XElement>> function)
+        private void pinyintones(Func<string, List<XAttribute>, List<XElement>, XNamespace, bool, bool, List<string>, List<XElement>> function)
         {
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
             try
@@ -97,14 +98,22 @@ namespace Hanzi2TGHZRibbon
                     {
                         if (0 == ele.Ancestors(w + "ruby").Count())
                         {
+                            List <XElement> properties = new List<XElement>();
+                            foreach (XElement p in ele.Parent.Descendants(w+"rPr"))
+                                properties.AddRange(p.Descendants());
+                            
                             string text = ele.Value;
                             List<XAttribute> attributes = ele.Attributes().ToList();
-                            List<XElement> tree = function(text, attributes, w, colorform.getTop(), colorform.getBottom(), colorform.getColors());
+                            List<XElement> tree = function(text, attributes, properties, w,
+                                colorform.getTop(), colorform.getBottom(), colorform.getColors()
+                                );
                             ele.ReplaceWith(tree);
                         }
                     }
 
                     currentRange.InsertXML(doc.ToString());
+                    currentRange.Select();
+                    
                 }
 
                 //Hack to prevent other east asian languages (See issue 5.)
@@ -120,6 +129,7 @@ namespace Hanzi2TGHZRibbon
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
             pinyintones(tghz.withPinYinXMLRuby);
+            resizepinyin_Click(sender, e);
         }
 
         private void undobutton_Click(object sender, RibbonControlEventArgs e)
@@ -152,25 +162,32 @@ namespace Hanzi2TGHZRibbon
             XDocument doc = XDocument.Parse(rangexml);
             XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
 
-            foreach (XElement ele in doc.Descendants(w+"ruby"))
+            List<XElement> elements = doc.Descendants(w+"ruby").ToList();
+            foreach (XElement ele in elements)
             {
                 ele.Descendants(w + "hpsRaise").Remove(); // Remove lowering (e.g. if tone)
-                string size = ele.Descendants(w+"hpsBaseText").Single().Attribute(w+"val").Value;
+                string size = ele.Descendants(w + "hpsBaseText").Single().Attribute(w + "val").Value;
+                if (0 < ele.Descendants(w + "rubyBase").Single().Descendants(w + "sz").Count())
+                    size = ele.Descendants(w + "rubyBase").Single().Descendants(w + "sz").First().Attribute(w + "val").Value;
+                ele.Descendants(w+"hpsBaseText").Single().SetAttributeValue(w+"val",size);
                 Double sz = Double.Parse(pysize.Text) * Double.Parse(size);
                 ele.Descendants(w+"hps").Single().Attribute(w+"val").SetValue(Math.Round(sz, 1).ToString());
             }
 
             currentRange.InsertXML(doc.ToString());
+            currentRange.Select();
         }
 
         private void AddTonesRuby_Click(object sender, RibbonControlEventArgs e)
         {
             pinyintones(tghz.withToneXMLRuby);
+            ResizeTones_Click(sender, e);
         }
 
         private void AddZhuyin_Click(object sender, RibbonControlEventArgs e)
         {
             pinyintones(tghz.withZhuyinXMLRuby);
+            resizepinyin_Click(sender, e);
         }
 
         private void ResizeTones_Click(object sender, RibbonControlEventArgs e)
@@ -182,6 +199,7 @@ namespace Hanzi2TGHZRibbon
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
 
             currentRange.InsertXML(ToneResize(currentRange.WordOpenXML));
+            currentRange.Select();
         }
 
         private string ToneResize(string xmlstr)
@@ -193,6 +211,8 @@ namespace Hanzi2TGHZRibbon
             {
                 ele.Descendants(w + "hpsRaise").Single().Attribute(w+"val").SetValue(toneheight.Text);
                 string size = ele.Descendants(w + "hpsBaseText").Single().Attribute(w + "val").Value;
+                if (0 < ele.Descendants(w + "rubyBase").Single().Descendants(w + "sz").Count())
+                    size = ele.Descendants(w + "rubyBase").Single().Descendants(w + "sz").First().Attribute(w + "val").Value;
                 Double sz = Double.Parse(tnsize.Text) * Double.Parse(size);
                 ele.Descendants(w + "hps").Single().Attribute(w + "val").SetValue(Math.Round(sz, 1).ToString());
             }
@@ -221,15 +241,19 @@ namespace Hanzi2TGHZRibbon
             Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
 
             string xmlstr = currentRange.WordOpenXML;
-
-            MatchCollection rubies = new Regex(@"<w:ruby>.*?<\/w:ruby>").Matches(xmlstr);
-
-            foreach (Match ruby in rubies)
+            XDocument doc = XDocument.Parse(xmlstr);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
+            List<XElement> elements = doc.Descendants(w + "ruby").ToList();
+            foreach (XElement ele in elements)
             {
-                xmlstr = Regex.Replace(xmlstr, ruby.Value, new Regex(@"<w:t>.*?<\/w:t>").Matches(ruby.Value)[1].Value);
+
+                List<XElement> tproperties = ele.Descendants(w + "rubyBase").Single().Descendants(w + "rPr").ToList();
+                XElement t = ele.Descendants(w + "rubyBase").Single().Descendants(w + "t").Single();
+                ele.ReplaceWith(tproperties, t);
             }
 
-            currentRange.InsertXML(xmlstr);
+            currentRange.InsertXML(doc.ToString());
+            currentRange.Select();
         }
 
         private void py2tones_Click(object sender, RibbonControlEventArgs e)
@@ -248,7 +272,7 @@ namespace Hanzi2TGHZRibbon
 
             //unconvert
             currentRange.InsertXML(ToneResize(hanzi2tghz.XMLhanzistring2XML(xml, editForm.unconvert(datalist))));
-
+            currentRange.Select();
         }
 
         private string getplaintext(string xmlstr)
