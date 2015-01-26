@@ -128,8 +128,11 @@ namespace Hanzi2TGHZRibbon
 
         private void AddPinyin_Click(object sender, RibbonControlEventArgs e)
         {
+            Word.UndoRecord undorecord = Globals.ThisAddIn.Application.UndoRecord; // This doesn't work
+            undorecord.StartCustomRecord("Add Pinyin");
             pinyintones(tghz.withPinYinXMLRuby);
             resizepinyin_Click(sender, e);
+            undorecord.EndCustomRecord();
         }
 
         private void undobutton_Click(object sender, RibbonControlEventArgs e)
@@ -180,14 +183,20 @@ namespace Hanzi2TGHZRibbon
 
         private void AddTonesRuby_Click(object sender, RibbonControlEventArgs e)
         {
+            Word.UndoRecord undorecord = Globals.ThisAddIn.Application.UndoRecord; // This doesn't work
+            undorecord.StartCustomRecord("Add Tones");
             pinyintones(tghz.withToneXMLRuby);
             ResizeTones_Click(sender, e);
+            undorecord.EndCustomRecord();
         }
 
         private void AddZhuyin_Click(object sender, RibbonControlEventArgs e)
         {
+            Word.UndoRecord undorecord = Globals.ThisAddIn.Application.UndoRecord; // This doesn't work
+            undorecord.StartCustomRecord("Add Zhuyin");
             pinyintones(tghz.withZhuyinXMLRuby);
             resizepinyin_Click(sender, e);
+            undorecord.EndCustomRecord();
         }
 
         private void ResizeTones_Click(object sender, RibbonControlEventArgs e)
