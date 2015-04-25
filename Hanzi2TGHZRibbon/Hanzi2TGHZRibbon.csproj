@@ -40,14 +40,14 @@
     <PublishUrl>H:\tghz-word-tone-annotator\Publish\</PublishUrl>
     <InstallUrl>https://raw.githubusercontent.com/twighk/tghz-word-tone-annotator/master/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.35</ApplicationVersion>
+    <ApplicationVersion>1.0.0.37</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
-    <ProductName>Hanzi2TGHZRibbon</ProductName>
+    <ProductName>Chinese Annotator for Microsoft Word - Hanzi2TGHZRibbon</ProductName>
     <PublisherName>Thomas Branch</PublisherName>
-    <SupportUrl>http://code.google.com/p/tghz-word-tone-annotator/</SupportUrl>
+    <SupportUrl>https://twighk.github.io/tghz-word-tone-annotator/</SupportUrl>
     <FriendlyName>Hanzi2TGHZRibbon</FriendlyName>
     <OfficeApplicationDescription />
     <LoadBehavior>3</LoadBehavior>
