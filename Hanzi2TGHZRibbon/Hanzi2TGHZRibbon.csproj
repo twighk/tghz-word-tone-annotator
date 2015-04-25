@@ -37,10 +37,10 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <VSTO_TrustAssembliesLocation>true</VSTO_TrustAssembliesLocation>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>H:\Hanzi2TGHZRibbon\Publish\</PublishUrl>
-    <InstallUrl>https://tghz-word-tone-annotator.googlecode.com/svn/trunk/Publish/</InstallUrl>
+    <PublishUrl>H:\tghz-word-tone-annotator\Publish\</PublishUrl>
+    <InstallUrl>https://raw.githubusercontent.com/twighk/tghz-word-tone-annotator/master/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.33</ApplicationVersion>
+    <ApplicationVersion>1.0.0.34</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
