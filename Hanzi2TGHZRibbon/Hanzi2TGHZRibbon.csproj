@@ -40,7 +40,7 @@
     <PublishUrl>H:\tghz-word-tone-annotator\Publish\</PublishUrl>
     <InstallUrl>https://raw.githubusercontent.com/twighk/tghz-word-tone-annotator/master/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.34</ApplicationVersion>
+    <ApplicationVersion>1.0.0.35</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>

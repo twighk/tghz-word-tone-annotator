@@ -61,6 +61,7 @@ H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Release\Hanzi2TGHZRibbon.dll.ma
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Release\Hanzi2TGHZRibbon.vsto
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.csprojResolveAssemblyReference.cache
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.colorForm.resources
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.wordlistForm.resources
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.editForm.resources
