@@ -29,7 +29,7 @@ time, mark, audio, video {
 /* Base text styles */
 
 body {
-  padding:10px 50px 0 0;
+  padding:10px 10px 0 10px;
   font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	color: #232323;
@@ -400,7 +400,7 @@ footer {
   }
 
 	section {
-    padding:10px 0 10px 20px;
+    padding: 0px;
     margin:0 0 30px;
   }
 
