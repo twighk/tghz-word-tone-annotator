@@ -36,10 +36,14 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.config = this.Factory.CreateRibbonGroup();
-            this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
             this.label1 = this.Factory.CreateRibbonLabel();
-            this.dicton = this.Factory.CreateRibbonToggleButton();
             this.group1 = this.Factory.CreateRibbonGroup();
+            this.buttonGroup1 = this.Factory.CreateRibbonButtonGroup();
+            this.group2 = this.Factory.CreateRibbonGroup();
+            this.other = this.Factory.CreateRibbonGroup();
+            this.vlabel = this.Factory.CreateRibbonLabel();
+            this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
+            this.dicton = this.Factory.CreateRibbonToggleButton();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
             this.AddPinyin = this.Factory.CreateRibbonButton();
             this.AddZhuyin = this.Factory.CreateRibbonButton();
@@ -54,26 +58,24 @@
             this.toneheight = this.Factory.CreateRibbonEditBox();
             this.undobutton = this.Factory.CreateRibbonButton();
             this.edittnpy = this.Factory.CreateRibbonButton();
-            this.remove = this.Factory.CreateRibbonButton();
+            this.menu1 = this.Factory.CreateRibbonMenu();
+            this.removeAnnotation = this.Factory.CreateRibbonButton();
+            this.removeChar = this.Factory.CreateRibbonButton();
             this.py2tones = this.Factory.CreateRibbonButton();
-            this.buttonGroup1 = this.Factory.CreateRibbonButtonGroup();
             this.color = this.Factory.CreateRibbonButton();
-            this.group2 = this.Factory.CreateRibbonGroup();
             this.totradbutton = this.Factory.CreateRibbonButton();
             this.tosimpbutton = this.Factory.CreateRibbonButton();
-            this.other = this.Factory.CreateRibbonGroup();
             this.lookUp = this.Factory.CreateRibbonButton();
             this.wordlist = this.Factory.CreateRibbonButton();
-            this.vlabel = this.Factory.CreateRibbonLabel();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group1.SuspendLayout();
-            this.box1.SuspendLayout();
-            this.box2.SuspendLayout();
-            this.box6.SuspendLayout();
             this.buttonGroup1.SuspendLayout();
             this.group2.SuspendLayout();
             this.other.SuspendLayout();
+            this.box1.SuspendLayout();
+            this.box2.SuspendLayout();
+            this.box6.SuspendLayout();
             // 
             // tab1
             // 
@@ -92,22 +94,10 @@
             this.config.Label = "Dictionary Correction";
             this.config.Name = "config";
             // 
-            // tonecorrectionbutton
-            // 
-            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
-            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
-            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
-            // 
             // label1
             // 
             this.label1.Label = "          ";
             this.label1.Name = "label1";
-            // 
-            // dicton
-            // 
-            this.dicton.Label = "          Enable          ";
-            this.dicton.Name = "dicton";
-            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // group1
             // 
@@ -117,11 +107,48 @@
             this.group1.Items.Add(this.box1);
             this.group1.Items.Add(this.undobutton);
             this.group1.Items.Add(this.edittnpy);
-            this.group1.Items.Add(this.remove);
+            this.group1.Items.Add(this.menu1);
             this.group1.Items.Add(this.py2tones);
             this.group1.Items.Add(this.buttonGroup1);
             this.group1.Label = "Tones or Pinyin";
             this.group1.Name = "group1";
+            // 
+            // buttonGroup1
+            // 
+            this.buttonGroup1.Items.Add(this.color);
+            this.buttonGroup1.Name = "buttonGroup1";
+            // 
+            // group2
+            // 
+            this.group2.Items.Add(this.totradbutton);
+            this.group2.Items.Add(this.tosimpbutton);
+            this.group2.Label = "Convert";
+            this.group2.Name = "group2";
+            // 
+            // other
+            // 
+            this.other.Items.Add(this.lookUp);
+            this.other.Items.Add(this.wordlist);
+            this.other.Items.Add(this.vlabel);
+            this.other.Label = "Other";
+            this.other.Name = "other";
+            // 
+            // vlabel
+            // 
+            this.vlabel.Label = "Version: 0.xx";
+            this.vlabel.Name = "vlabel";
+            // 
+            // tonecorrectionbutton
+            // 
+            this.tonecorrectionbutton.Label = "    Edit Dictionary    ";
+            this.tonecorrectionbutton.Name = "tonecorrectionbutton";
+            this.tonecorrectionbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tonecorrectionbutton_Click);
+            // 
+            // dicton
+            // 
+            this.dicton.Label = "          Enable          ";
+            this.dicton.Name = "dicton";
+            this.dicton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.dicton_Click);
             // 
             // AddTonesRuby
             // 
@@ -231,13 +258,26 @@
             this.edittnpy.ShowImage = true;
             this.edittnpy.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.edittnpy_Click);
             // 
-            // remove
+            // menu1
             // 
-            this.remove.Label = "Remove Tones/Pinyin";
-            this.remove.Name = "remove";
-            this.remove.ScreenTip = "Remove tonegraphs or pinyin from characters. (Note: It does not remove duplicated" +
-                " characters from conversion, use Undo.)";
-            this.remove.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.remove_Click);
+            this.menu1.Items.Add(this.removeAnnotation);
+            this.menu1.Items.Add(this.removeChar);
+            this.menu1.Label = "Partial Delete";
+            this.menu1.Name = "menu1";
+            // 
+            // removeAnnotation
+            // 
+            this.removeAnnotation.Label = "Remove Tones/Pinyin/Zhuyin";
+            this.removeAnnotation.Name = "removeAnnotation";
+            this.removeAnnotation.ShowImage = true;
+            this.removeAnnotation.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeAnnotation_Click);
+            // 
+            // removeChar
+            // 
+            this.removeChar.Label = "Remove Character";
+            this.removeChar.Name = "removeChar";
+            this.removeChar.ShowImage = true;
+            this.removeChar.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.removeChar_Click);
             // 
             // py2tones
             // 
@@ -245,23 +285,11 @@
             this.py2tones.Name = "py2tones";
             this.py2tones.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.py2tones_Click);
             // 
-            // buttonGroup1
-            // 
-            this.buttonGroup1.Items.Add(this.color);
-            this.buttonGroup1.Name = "buttonGroup1";
-            // 
             // color
             // 
             this.color.Label = "Colour";
             this.color.Name = "color";
             this.color.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.color_Click);
-            // 
-            // group2
-            // 
-            this.group2.Items.Add(this.totradbutton);
-            this.group2.Items.Add(this.tosimpbutton);
-            this.group2.Label = "Convert";
-            this.group2.Name = "group2";
             // 
             // totradbutton
             // 
@@ -283,14 +311,6 @@
             this.tosimpbutton.ShowImage = true;
             this.tosimpbutton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.tosimpbutton_Click);
             // 
-            // other
-            // 
-            this.other.Items.Add(this.lookUp);
-            this.other.Items.Add(this.wordlist);
-            this.other.Items.Add(this.vlabel);
-            this.other.Label = "Other";
-            this.other.Name = "other";
-            // 
             // lookUp
             // 
             this.lookUp.Image = global::Hanzi2TGHZRibbon.Properties.Resources.lookup;
@@ -305,11 +325,6 @@
             this.wordlist.Name = "wordlist";
             this.wordlist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.wordlist_Click);
             // 
-            // vlabel
-            // 
-            this.vlabel.Label = "Version: 0.xx";
-            this.vlabel.Name = "vlabel";
-            // 
             // RibbonMain
             // 
             this.Name = "RibbonMain";
@@ -322,18 +337,18 @@
             this.config.PerformLayout();
             this.group1.ResumeLayout(false);
             this.group1.PerformLayout();
-            this.box1.ResumeLayout(false);
-            this.box1.PerformLayout();
-            this.box2.ResumeLayout(false);
-            this.box2.PerformLayout();
-            this.box6.ResumeLayout(false);
-            this.box6.PerformLayout();
             this.buttonGroup1.ResumeLayout(false);
             this.buttonGroup1.PerformLayout();
             this.group2.ResumeLayout(false);
             this.group2.PerformLayout();
             this.other.ResumeLayout(false);
             this.other.PerformLayout();
+            this.box1.ResumeLayout(false);
+            this.box1.PerformLayout();
+            this.box2.ResumeLayout(false);
+            this.box2.PerformLayout();
+            this.box6.ResumeLayout(false);
+            this.box6.PerformLayout();
 
         }
 
@@ -361,7 +376,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton edittnpy;
         internal Microsoft.Office.Tools.Ribbon.RibbonToggleButton dicton;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel label1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton remove;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton py2tones;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup other;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
@@ -370,6 +384,9 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButtonGroup buttonGroup1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddZhuyin;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton wordlist;
+        internal Microsoft.Office.Tools.Ribbon.RibbonMenu menu1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton removeAnnotation;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton removeChar;
     }
 
     partial class ThisRibbonCollection

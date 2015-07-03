@@ -241,30 +241,6 @@ namespace Hanzi2TGHZRibbon
             tghz.makeMap(dicton.Checked);
         }
 
-        private void remove_Click(object sender, RibbonControlEventArgs e)
-        {
-            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
-            if (currentSelection.Start == currentSelection.End)
-                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
-
-            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
-
-            string xmlstr = currentRange.WordOpenXML;
-            XDocument doc = XDocument.Parse(xmlstr);
-            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
-            List<XElement> elements = doc.Descendants(w + "ruby").ToList();
-            foreach (XElement ele in elements)
-            {
-
-                List<XElement> tproperties = ele.Descendants(w + "rubyBase").Single().Descendants(w + "rPr").ToList();
-                XElement t = ele.Descendants(w + "rubyBase").Single().Descendants(w + "t").Single();
-                ele.ReplaceWith(tproperties, t);
-            }
-
-            currentRange.InsertXML(doc.ToString());
-            currentRange.Select();
-        }
-
         private void py2tones_Click(object sender, RibbonControlEventArgs e)
         {
             // Get the range
@@ -355,5 +331,76 @@ namespace Hanzi2TGHZRibbon
             }
         }
 
+        private void gallery1_Click(object sender, RibbonControlEventArgs e)
+        {
+            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
+            if (currentSelection.Start == currentSelection.End)
+                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
+
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
+
+            string xmlstr = currentRange.WordOpenXML;
+            XDocument doc = XDocument.Parse(xmlstr);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
+            List<XElement> elements = doc.Descendants(w + "ruby").ToList();
+            foreach (XElement ele in elements)
+            {
+
+                List<XElement> tproperties = ele.Descendants(w + "rubyBase").Single().Descendants(w + "rPr").ToList();
+                XElement t = ele.Descendants(w + "rubyBase").Single().Descendants(w + "t").Single();
+                ele.ReplaceWith(tproperties, t);
+            }
+
+            currentRange.InsertXML(doc.ToString());
+            currentRange.Select();
+        }
+
+        private void removeAnnotation_Click(object sender, RibbonControlEventArgs e)
+        {
+            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
+            if (currentSelection.Start == currentSelection.End)
+                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
+
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
+
+            string xmlstr = currentRange.WordOpenXML;
+            XDocument doc = XDocument.Parse(xmlstr);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
+            List<XElement> elements = doc.Descendants(w + "ruby").ToList();
+            foreach (XElement ele in elements)
+            {
+
+                List<XElement> tproperties = ele.Descendants(w + "rubyBase").Single().Descendants(w + "rPr").ToList();
+                XElement t = ele.Descendants(w + "rubyBase").Single().Descendants(w + "t").Single();
+                ele.ReplaceWith(tproperties, t);
+            }
+
+            currentRange.InsertXML(doc.ToString());
+            currentRange.Select();
+        }
+
+        private void removeChar_Click(object sender, RibbonControlEventArgs e)
+        {
+            Word.Selection currentSelection = Globals.ThisAddIn.Application.Selection;
+            if (currentSelection.Start == currentSelection.End)
+                currentSelection.MoveRight(Word.WdUnits.wdCharacter, 1, Word.WdMovementType.wdExtend);
+
+            Word.Range currentRange = Globals.ThisAddIn.Application.Selection.Range;
+
+            string xmlstr = currentRange.WordOpenXML;
+            XDocument doc = XDocument.Parse(xmlstr);
+            XNamespace w = doc.Descendants().First(x => x.Name.LocalName == "document").Name.Namespace;
+            List<XElement> elements = doc.Descendants(w + "ruby").ToList();
+            foreach (XElement ele in elements)
+            {
+
+                List<XElement> tproperties = ele.Descendants(w + "rt").Single().Descendants(w + "rPr").ToList();
+                XElement t = ele.Descendants(w + "rt").Single().Descendants(w + "t").Single();
+                ele.ReplaceWith(tproperties, t);
+            }
+
+            currentRange.InsertXML(doc.ToString());
+            currentRange.Select();
+        }
     }
 }

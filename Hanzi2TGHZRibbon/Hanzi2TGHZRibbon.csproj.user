@@ -3,6 +3,6 @@
   <PropertyGroup>
     <PublishUrlHistory>H:\tghz-word-tone-annotator\Publish\</PublishUrlHistory>
     <InstallUrlHistory>https://raw.githubusercontent.com/twighk/tghz-word-tone-annotator/master/Publish/</InstallUrlHistory>
-    <SupportUrlHistory>http://code.google.com/p/tghz-word-tone-annotator/</SupportUrlHistory>
+    <SupportUrlHistory>https://twighk.github.io/tghz-word-tone-annotator/|http://code.google.com/p/tghz-word-tone-annotator/</SupportUrlHistory>
   </PropertyGroup>
 </Project>
