@@ -78,9 +78,9 @@ namespace Hanzi2TGHZRibbon
                 int i = 0;
                 foreach (Tuple<Chinese, List<Pinyin>> word in set)
                 {
-                    i++; tbl.Rows.Add(); // Add a second Empty extra row
                     foreach (Pinyin pinyin in word.Item2)
                     {
+                        i++; tbl.Rows.Add(); // Add a second Empty extra row
                         tbl.Cell(i, 1).Range.Text = word.Item1;
                         tbl.Cell(i, 1).PreferredWidthType = Word.WdPreferredWidthType.wdPreferredWidthAuto;
                         Word.Range rng = tbl.Cell(i, 2).Range;
