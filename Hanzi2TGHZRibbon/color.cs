@@ -127,6 +127,11 @@ namespace Hanzi2TGHZRibbon
             colorText(colortone5);
         }
 
+        private void colortop_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

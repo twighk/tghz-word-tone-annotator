@@ -41,7 +41,6 @@
             this.buttonGroup1 = this.Factory.CreateRibbonButtonGroup();
             this.group2 = this.Factory.CreateRibbonGroup();
             this.other = this.Factory.CreateRibbonGroup();
-            this.vlabel = this.Factory.CreateRibbonLabel();
             this.tonecorrectionbutton = this.Factory.CreateRibbonButton();
             this.dicton = this.Factory.CreateRibbonToggleButton();
             this.AddTonesRuby = this.Factory.CreateRibbonButton();
@@ -67,6 +66,7 @@
             this.tosimpbutton = this.Factory.CreateRibbonButton();
             this.lookUp = this.Factory.CreateRibbonButton();
             this.wordlist = this.Factory.CreateRibbonButton();
+            this.vlabel = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.config.SuspendLayout();
             this.group1.SuspendLayout();
@@ -132,11 +132,6 @@
             this.other.Items.Add(this.vlabel);
             this.other.Label = "Other";
             this.other.Name = "other";
-            // 
-            // vlabel
-            // 
-            this.vlabel.Label = "Version: 0.xx";
-            this.vlabel.Name = "vlabel";
             // 
             // tonecorrectionbutton
             // 
@@ -325,6 +320,12 @@
             this.wordlist.Name = "wordlist";
             this.wordlist.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.wordlist_Click);
             // 
+            // vlabel
+            // 
+            this.vlabel.Label = "Version: 0.xx";
+            this.vlabel.Name = "vlabel";
+            this.vlabel.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.vlabel_Click);
+            // 
             // RibbonMain
             // 
             this.Name = "RibbonMain";
@@ -379,7 +380,6 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonButton py2tones;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup other;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton lookUp;
-        internal Microsoft.Office.Tools.Ribbon.RibbonLabel vlabel;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton color;
         internal Microsoft.Office.Tools.Ribbon.RibbonButtonGroup buttonGroup1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton AddZhuyin;
@@ -387,6 +387,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonMenu menu1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton removeAnnotation;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton removeChar;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton vlabel;
     }
 
     partial class ThisRibbonCollection

@@ -72,3 +72,4 @@ H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.toneCo
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.csproj.GenerateResource.Cache
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.dll
 H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.pdb
+H:\tghz-word-tone-annotator\Hanzi2TGHZRibbon\obj\Release\Hanzi2TGHZRibbon.aboutForm.resources

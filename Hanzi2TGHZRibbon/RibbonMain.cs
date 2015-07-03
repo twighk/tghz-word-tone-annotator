@@ -14,6 +14,7 @@ namespace Hanzi2TGHZRibbon
     public partial class RibbonMain
     {
         private hanzi2tghz tghz;
+        aboutForm about;
         toneCorrectionForm tcform;
         colorForm colorform;
         lookupForm luform;
@@ -401,6 +402,16 @@ namespace Hanzi2TGHZRibbon
 
             currentRange.InsertXML(doc.ToString());
             currentRange.Select();
+        }
+
+        private void vlabel_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (about == null || about.IsDisposed == true)
+            {
+                about = new aboutForm();
+            }
+            about.Show();
+            about.BringToFront();
         }
     }
 }

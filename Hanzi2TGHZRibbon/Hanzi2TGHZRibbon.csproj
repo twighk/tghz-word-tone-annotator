@@ -40,7 +40,7 @@
     <PublishUrl>H:\tghz-word-tone-annotator\Publish\</PublishUrl>
     <InstallUrl>https://raw.githubusercontent.com/twighk/tghz-word-tone-annotator/master/Publish/</InstallUrl>
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.0.0.37</ApplicationVersion>
+    <ApplicationVersion>1.0.0.40</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>1</UpdateInterval>
@@ -218,6 +218,12 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="about.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="about.Designer.cs">
+      <DependentUpon>about.cs</DependentUpon>
+    </Compile>
     <Compile Include="color.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +262,9 @@
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
     <None Include="tghzimages\bopomofo.png" />
+    <EmbeddedResource Include="about.resx">
+      <DependentUpon>about.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="color.resx">
       <DependentUpon>color.cs</DependentUpon>
     </EmbeddedResource>

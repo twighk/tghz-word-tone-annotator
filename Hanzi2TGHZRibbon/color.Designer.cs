@@ -58,6 +58,7 @@
             this.colortop.TabIndex = 0;
             this.colortop.Text = "Colour Tone/Pinyin";
             this.colortop.UseVisualStyleBackColor = true;
+            this.colortop.CheckedChanged += new System.EventHandler(this.colortop_CheckedChanged);
             // 
             // colorchar
             // 
