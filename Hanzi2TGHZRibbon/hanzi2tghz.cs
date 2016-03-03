@@ -40,24 +40,24 @@ namespace Hanzi2TGHZRibbon
                     str = str.Replace('e', tones[2][t]);
                 else if (str.Contains('E'))
                     str = str.Replace('E', ctones[2][t]); // words cannot start with an i (->y) or u (->w)
-                else if (str.Contains("iu"))
-                    str = str.Replace("u", tones[4][t].ToString());
                 else if (str.Contains("iu:")
                         || str.Contains("iv"))
                 {
                     str = str.Replace("u:", tones[5][t].ToString());
                     str = str.Replace("v", tones[5][t].ToString());
                 }
+                else if (str.Contains("iu"))
+                    str = str.Replace("u", tones[4][t].ToString());
                 else if (str.Contains('i'))
                     str = str.Replace('i', tones[3][t]);
-                else if (str.Contains('u'))
-                    str = str.Replace('u', tones[4][t]);
                 else if (str.Contains("u:")
                         || str.Contains("v"))
                 {
                     str = str.Replace("u:", tones[5][t].ToString());
                     str = str.Replace("v", tones[5][t].ToString());
                 }
+                else if (str.Contains('u'))
+                    str = str.Replace('u', tones[4][t]);
                 else if (str.Contains("U:")
                         || str.Contains("V"))
                 {
