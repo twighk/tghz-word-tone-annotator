@@ -67,6 +67,11 @@ namespace Hanzi2TGHZRibbon
                 else
                     str += tones[6][t].ToString();
             }
+            str = str.Replace("u:", tones[5][4].ToString());
+            str = str.Replace("v", tones[5][4].ToString());
+            str = str.Replace("U:", ctones[5][4].ToString());
+            str = str.Replace("V", ctones[5][4].ToString());
+
             return str;
         }
 
