@@ -27,8 +27,9 @@
     <NoStandardLibraries>false</NoStandardLibraries>
     <RootNamespace>Hanzi2TGHZRibbon</RootNamespace>
     <AssemblyName>Hanzi2TGHZRibbon</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <DefineConstants>VSTO40</DefineConstants>
     <IsWebBootstrapper>True</IsWebBootstrapper>
     <FileUpgradeFlags>
@@ -117,6 +118,7 @@
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <!--
     This section defines properties that are set when the "Release" configuration is selected.
@@ -141,6 +143,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
     <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <!--
     This section enables pre- and post-build steps. However, in VSTO use
@@ -156,13 +159,13 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Hanzi2TGHZRibbon_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Hanzi2TGHZRibbon_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8AD3BA3E2587E732FC8AE77B0D35DA480AB7BF76</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E6F8B142ADB93CB14C0DB4F4C09406D8636810DE</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <!--
     This section specifies references for the project.
@@ -262,8 +265,8 @@
     <Compile Include="toneCorrectionForm.Designer.cs">
       <DependentUpon>toneCorrectionForm.cs</DependentUpon>
     </Compile>
-    <None Include="Hanzi2TGHZRibbon_1_TemporaryKey.pfx" />
     <None Include="Hanzi2TGHZRibbon_TemporaryKey.pfx" />
+    <None Include="Signingkey.pfx" />
     <None Include="tghzimages\bopomofo.png" />
     <EmbeddedResource Include="about.resx">
       <DependentUpon>about.cs</DependentUpon>
@@ -281,7 +284,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\lookup.png" />
-    <None Include="tghz-word-tone-annotator.cert.pfx" />
     <None Include="tghzimages\pencil.png" />
     <EmbeddedResource Include="editForm.resx">
       <DependentUpon>editForm.cs</DependentUpon>
@@ -349,6 +351,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Signingkey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- Include additional build rules for an Office application add-in. -->

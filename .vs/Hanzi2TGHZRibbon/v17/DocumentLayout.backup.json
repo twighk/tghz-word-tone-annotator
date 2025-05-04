@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|c:\\users\\twigh\\onedrive\\documents\\github\\tghz-word-tone-annotator\\hanzi2tghzribbon\\cedict_ts.u8||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|solutionrelative:hanzi2tghzribbon\\cedict_ts.u8||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\hanzi2tghzribbon\\bopomofo.u8||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|solutionrelative:hanzi2tghzribbon\\bopomofo.u8||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\hanzi2tghzribbon\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|solutionrelative:hanzi2tghzribbon\\about.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\hanzi2tghzribbon\\lookupform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{48C6F9AF-0879-4969-940D-764322B8A8AD}|Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj|solutionrelative:hanzi2tghzribbon\\lookupform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|Hanzi2TGHZRibbon||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "cedict_ts.u8",
+              "DocumentMoniker": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\cedict_ts.u8",
+              "RelativeDocumentMoniker": "Hanzi2TGHZRibbon\\cedict_ts.u8",
+              "ToolTip": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\cedict_ts.u8",
+              "RelativeToolTip": "Hanzi2TGHZRibbon\\cedict_ts.u8",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T10:24:27.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "bopomofo.u8",
+              "DocumentMoniker": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\bopomofo.u8",
+              "RelativeDocumentMoniker": "Hanzi2TGHZRibbon\\bopomofo.u8",
+              "ToolTip": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\bopomofo.u8",
+              "RelativeToolTip": "Hanzi2TGHZRibbon\\bopomofo.u8",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T10:24:25.11Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "about.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\about.cs",
+              "RelativeDocumentMoniker": "Hanzi2TGHZRibbon\\about.cs",
+              "ToolTip": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\about.cs [Design]",
+              "RelativeToolTip": "Hanzi2TGHZRibbon\\about.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:24:09.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "lookupForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\lookupForm.cs",
+              "RelativeDocumentMoniker": "Hanzi2TGHZRibbon\\lookupForm.cs",
+              "ToolTip": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\lookupForm.cs [Design]",
+              "RelativeToolTip": "Hanzi2TGHZRibbon\\lookupForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-04T10:24:04.242Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Hanzi2TGHZRibbon",
+              "DocumentMoniker": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj",
+              "RelativeDocumentMoniker": "Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj",
+              "ToolTip": "C:\\Users\\twigh\\OneDrive\\Documents\\GitHub\\tghz-word-tone-annotator\\Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj",
+              "RelativeToolTip": "Hanzi2TGHZRibbon\\Hanzi2TGHZRibbon.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-04T09:51:24.71Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
