@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Drawing;
 
 namespace Hanzi2TGHZRibbon
 {
@@ -15,22 +16,16 @@ namespace Hanzi2TGHZRibbon
     {
         private static string accent2string()
         {
-            string output = "";
+            var output = new StringBuilder();
             foreach (short c in accent)
-                output += (char)c;
-            return output;
+                output.Append((char)c);
+            return output.ToString();
         }
 
         public static readonly short[] accent = { 713, 714, 711, 715, 729 };
         public static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
         public static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
     }
-
-
-
-                                                                                                                        
-
-
 
     public struct PinyinChar
     {
@@ -51,7 +46,7 @@ namespace Hanzi2TGHZRibbon
             var ctones = Accents.ctones;
 
             if (t >= 0 && t <= 4)
-            {
+            {               
                 if (str.Contains('a'))
                     str = str.Replace('a', tones[0][t]);
                 else if (str.Contains('A'))
@@ -111,9 +106,6 @@ namespace Hanzi2TGHZRibbon
             }
             return zyout;
         }
-
-
-
     }
 
 
@@ -129,6 +121,7 @@ namespace Hanzi2TGHZRibbon
 
         private static readonly char gap = '\u2009';
         private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
+        private static readonly Regex ToneRegex = new Regex(@"\d+", RegexOptions.Compiled);
 
         public hanzi2tghz(string dictionarypath, string tonecorrectionpath, string zhuyinpath)
         {
@@ -222,7 +215,7 @@ namespace Hanzi2TGHZRibbon
 
             foreach (string s in words)
             {
-                string tone = Regex.Match(s, @"\d+").Value; //Get tone number
+                string tone = ToneRegex.Match(s).Value; //Get tone number
                 if (tone != "") 
                     pinyinout.Add(new PinyinChar(s.Replace(tone, ""), Int32.Parse(tone)));
                 else
@@ -491,6 +484,27 @@ namespace Hanzi2TGHZRibbon
                 );
         }
 
+        private static XElement makeTop(XNamespace w, IEnumerable<XElement> tproperties, XElement tcolour, string tonesoutput)
+        {
+            const string font = "Arial Unicode MS";
+            return new XElement(w + "rt",
+                new XElement(w + "r",
+                    new XElement(w + "rPr",
+                        tproperties,
+                        new XElement(w + "rFonts",
+                            new XAttribute(w + "ascii", font),
+                            new XAttribute(w + "eastAsia", font),
+                            new XAttribute(w + "hAnsi", font),
+                            new XAttribute(w + "cs", font),
+                            new XAttribute(w + "hint", "eastAsia")
+            ),
+                        tcolour
+                    ),
+                    new XElement(w + "t", tonesoutput)
+                )
+            );
+        }
+
         public static XElement withRuby(List<XAttribute> tattributes,List<XElement> tproperties, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
             string size = "";
@@ -514,22 +528,7 @@ namespace Hanzi2TGHZRibbon
                 tcolour.SetAttributeValue(w + "val", colors[tone - 1]);
             }
 
-            XElement top = new XElement(w + "rt",
-                new XElement(w + "r",
-                    new XElement(w + "rPr",
-                        tp,
-                        new XElement(w + "rFonts",
-                            new XAttribute(w + "ascii", "Arial Unicode MS"),
-                            new XAttribute(w + "eastAsia", "Arial Unicode MS"),
-                            new XAttribute(w + "hAnsi", "Arial Unicode MS"),
-                            new XAttribute(w + "cs", "Arial Unicode MS"),
-                            new XAttribute(w + "hint", "eastAsia")
-                        ),
-                        tcolour
-                    ),
-                    new XElement(w + "t", gap + topstr + gap)
-                )
-            );
+            XElement top = makeTop(w, tp, tcolour, gap + topstr + gap); 
 
             XElement bcolour = new XElement(w + "color");
             if (bottomcolour && !(colors == null))
@@ -575,22 +574,7 @@ namespace Hanzi2TGHZRibbon
                 tcolour.SetAttributeValue(w+"val", colors[tones[0] - 1]);
             }
 
-            XElement top = new XElement(w + "rt",
-                new XElement(w + "r",
-                    new XElement(w + "rPr",
-                        tproperties,
-                        new XElement(w + "rFonts",
-                            new XAttribute(w + "ascii", "Arial Unicode MS"),
-                            new XAttribute(w + "eastAsia", "Arial Unicode MS"),
-                            new XAttribute(w + "hAnsi", "Arial Unicode MS"),
-                            new XAttribute(w + "cs", "Arial Unicode MS"),
-                            new XAttribute(w + "hint", "eastAsia")
-                        ),
-                        tcolour
-                    ),
-                    new XElement(w + "t", tonesoutput)
-                )
-            );
+            XElement top = makeTop(w, tproperties, tcolour, tonesoutput);
 
             XElement bcolour = new XElement(w + "color");
             if (bottomcolour && !(colors == null) && tones.Count == 1)
