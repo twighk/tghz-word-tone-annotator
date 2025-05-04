@@ -11,6 +11,27 @@ namespace Hanzi2TGHZRibbon
     using Pinyin = List<PinyinChar?>;
     using Chinese = String;
 
+    public struct Accents
+    {
+        private static string accent2string()
+        {
+            string output = "";
+            foreach (short c in accent)
+                output += (char)c;
+            return output;
+        }
+
+        public static readonly short[] accent = { 713, 714, 711, 715, 729 };
+        public static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
+        public static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
+    }
+
+
+
+                                                                                                                        
+
+
+
     public struct PinyinChar
     {
         public string pinyin;
@@ -25,6 +46,9 @@ namespace Hanzi2TGHZRibbon
         {
             string str = pinyin;
             int t = tone - 1;
+
+            var tones = Accents.tones;
+            var ctones = Accents.ctones;
 
             if (t >= 0 && t <= 4)
             {
@@ -83,23 +107,12 @@ namespace Hanzi2TGHZRibbon
                 zyout = zhuyin[py];
             if (tone >= 1 && tone <= 5)
             {
-                zyout += tones[6][tone-1];
+                zyout += Accents.tones[6][tone-1];
             }
             return zyout;
         }
 
-        private static readonly short[] accent = { 713, 714, 711, 715, 729 };
-        private static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
-        private static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
-        //private static readonly short[] accent = { 772, 769, 711, 768, 775 };
 
-        private static string accent2string()
-        {
-            string output = "";
-            foreach (short c in accent)
-                output += (char)c;
-            return output;
-        }
 
     }
 
@@ -116,24 +129,6 @@ namespace Hanzi2TGHZRibbon
 
         private static readonly char gap = '\u2009';
         private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
-
-// WARNING Duplicated in PinyinChar struct
-        private static readonly short[] accent = { 713, 714, 711, 715, 729 };
-        private static readonly string[] tones  = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
-        private static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
-        
-        private static string accent2string()
-        {
-            string output = "";
-            foreach (short c in accent)
-                output += (char)c;
-            return output;
-        }
-// End of WARNING
-
-        
-        
-
 
         public hanzi2tghz(string dictionarypath, string tonecorrectionpath, string zhuyinpath)
         {
@@ -572,7 +567,7 @@ namespace Hanzi2TGHZRibbon
 
             string tonesoutput = "";
             foreach (int t in tones)
-                tonesoutput += ctones[6][t - 1].ToString();
+                tonesoutput += Accents.ctones[6][t - 1].ToString();
 
             XElement tcolour = new XElement(w + "color");
             if (topcolour && !(colors == null) && tones.Count == 1)
@@ -626,6 +621,7 @@ namespace Hanzi2TGHZRibbon
         {
             string output = "";
             string[] words = str.Trim().Split(new char[] { ' ' });
+            var tones = Accents.tones;
             for (int w = 0; w != words.Count(); w++)
             {
                 int i;
@@ -686,8 +682,8 @@ namespace Hanzi2TGHZRibbon
                     if (Int32.TryParse(list[i].Item2, out tmp))
                     {
                         foreach (char num in list[i].Item2.Trim())
-                            if (Int32.Parse(num.ToString()) < accent.Length + 1)
-                                tnpy += (char)accent[Int32.Parse(num.ToString()) - 1];
+                            if (Int32.Parse(num.ToString()) < Accents.accent.Length + 1)
+                                tnpy += (char)Accents.accent[Int32.Parse(num.ToString()) - 1];
                     }
                     else{
                         PinyinChar? pc = CEdictpinyin2pinyin(list[i].Item2)[0];
