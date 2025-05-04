@@ -492,12 +492,12 @@ namespace Hanzi2TGHZRibbon
                     new XElement(w + "rPr",
                         tproperties,
                         new XElement(w + "rFonts",
-                            new XAttribute(w + "ascii", font),
-                            new XAttribute(w + "eastAsia", font),
-                            new XAttribute(w + "hAnsi", font),
-                            new XAttribute(w + "cs", font),
+                            //new XAttribute(w + "ascii", font),
+                            //new XAttribute(w + "eastAsia", font),
+                            //new XAttribute(w + "hAnsi", font),
+                            //new XAttribute(w + "cs", font),
                             new XAttribute(w + "hint", "eastAsia")
-            ),
+                        ),
                         tcolour
                     ),
                     new XElement(w + "t", tonesoutput)
