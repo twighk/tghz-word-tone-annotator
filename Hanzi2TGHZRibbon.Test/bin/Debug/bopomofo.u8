@@ -12,11 +12,14 @@ bei 	ㄅㄟ
 ben 	ㄅㄣ 
 beng 	ㄅㄥ 
 bi 	ㄅㄧ 
+bia 	ㄅㄧㄚ
 bian 	ㄅㄧㄢ
+biang 	ㄅㄧㄤ
 biao 	ㄅㄧㄠ
 bie 	ㄅㄧㄝ
 bin 	ㄅㄧㄣ
 bing 	ㄅㄧㄥ
+biu 	ㄅㄧㄡ
 bo 	ㄅㄛ 
 bu 	ㄅㄨ 
 ca 	ㄘㄚ 
@@ -42,11 +45,13 @@ chu 	ㄔㄨ
 chuai 	ㄔㄨㄞ
 chuan 	ㄔㄨㄢ
 chuang	ㄔㄨㄤ
+chua 	ㄔㄨㄚ
 chui 	ㄔㄨㄟ
 chun 	ㄔㄨㄣ
 chuo 	ㄔㄨㄛ
 ci 	ㄘ 
 cong 	ㄘㄨㄥ
+cou 	ㄘㄡ 
 cu 	ㄘㄨ 
 cuan 	ㄘㄨㄢ
 cui 	ㄘㄨㄟ
@@ -59,8 +64,10 @@ dang 	ㄉㄤ
 dao 	ㄉㄠ 
 de 	ㄉㄜ 
 dei 	ㄉㄟ 
+den 	ㄉㄣ 
 deng 	ㄉㄥ 
 di 	ㄉㄧ 
+dia 	ㄉㄧㄚ
 dian 	ㄉㄧㄢ
 diao 	ㄉㄧㄠ
 die 	ㄉㄧㄝ
@@ -85,6 +92,7 @@ fang 	ㄈㄤ
 fei 	ㄈㄟ 
 fen 	ㄈㄣ 
 feng 	ㄈㄥ 
+fiao 	ㄈㄧㄠ
 fo 	ㄈㄛ 
 fou 	ㄈㄡ 
 fu 	ㄈㄨ 
@@ -97,6 +105,7 @@ ge 	ㄍㄜ
 gei 	ㄍㄟ 
 gen 	ㄍㄣ 
 geng 	ㄍㄥ 
+ging 	ㄍㄧㄥ
 gong 	ㄍㄨㄥ
 gou 	ㄍㄡ 
 gu 	ㄍㄨ 
@@ -146,6 +155,7 @@ kan 	ㄎㄢ
 kang 	ㄎㄤ 
 kao 	ㄎㄠ 
 ke 	ㄎㄜ 
+kei 	ㄎㄟ 
 ken 	ㄎㄣ 
 keng 	ㄎㄥ 
 kong 	ㄎㄨㄥ
@@ -176,9 +186,11 @@ lin 	ㄌㄧㄣ
 ling 	ㄌㄧㄥ
 liu 	ㄌㄧㄡ
 long 	ㄌㄨㄥ
+lo 	ㄌㄛ 
 lou 	ㄌㄡ 
 lu 	ㄌㄨ 
 luan 	ㄌㄨㄢ
+lu:	ㄌㄩ
 lu:e 	ㄌㄩㄝ
 lun 	ㄌㄨㄣ
 luo 	ㄌㄨㄛ
@@ -187,6 +199,7 @@ mai 	ㄇㄞ
 man 	ㄇㄢ 
 mang 	ㄇㄤ 
 mao 	ㄇㄠ 
+me 	ㄇㄜ 
 mei 	ㄇㄟ 
 men 	ㄇㄣ 
 meng 	ㄇㄥ 
@@ -205,7 +218,9 @@ nai 	ㄋㄞ
 nan 	ㄋㄢ 
 nang 	ㄋㄤ 
 nao 	ㄋㄠ 
+ne 	ㄋㄜ 
 nei 	ㄋㄟ 
+nen 	ㄋㄣ 
 neng 	ㄋㄥ 
 ni 	ㄋㄧ 
 nian 	ㄋㄧㄢ
@@ -216,12 +231,14 @@ nin 	ㄋㄧㄣ
 ning 	ㄋㄧㄥ
 niu 	ㄋㄧㄡ
 nong 	ㄋㄨㄥ
-nou 	ㄋㄨㄡ
+nou 	ㄋㄡ
 nu 	ㄋㄨ 
 nu: 	ㄋㄩ 
 nuan 	ㄋㄨㄢ
 nu:e 	ㄋㄩㄝ
+nun	ㄋㄨㄣ
 nuo 	ㄋㄨㄛ
+o 	ㄛ 
 ou 	ㄡ 
 pa 	ㄆㄚ 
 pai 	ㄆㄞ 
@@ -264,6 +281,7 @@ ri 	ㄖ
 rong 	ㄖㄨㄥ
 rou 	ㄖㄡ 
 ru 	ㄖㄨ 
+rua 	ㄖㄨㄚ
 ruan 	ㄖㄨㄢ
 rui 	ㄖㄨㄟ
 run 	ㄖㄨㄣ
@@ -274,6 +292,7 @@ san 	ㄙㄢ
 sang 	ㄙㄤ 
 sao 	ㄙㄠ 
 se 	ㄙㄜ 
+sei 	ㄙㄟ 
 sen 	ㄙㄣ 
 seng 	ㄙㄥ 
 sha 	ㄕㄚ 
@@ -309,6 +328,7 @@ tan 	ㄊㄢ
 tang 	ㄊㄤ 
 tao 	ㄊㄠ 
 te 	ㄊㄜ 
+tei 	ㄊㄟ 
 teng 	ㄊㄥ 
 ti 	ㄊㄧ 
 tian 	ㄊㄧㄢ
@@ -354,6 +374,7 @@ yi 	ㄧ
 yin 	ㄧㄣ 
 ying 	ㄧㄥ 
 yong 	ㄩㄥ 
+yo 	ㄧㄛ 
 you 	ㄧㄡ 
 yu 	ㄩ 
 yuan 	ㄩㄢ 
@@ -374,6 +395,7 @@ zhan 	ㄓㄢ
 zhang 	ㄓㄤ 
 zhao 	ㄓㄠ 
 zhe 	ㄓㄜ 
+zhei 	ㄓㄟ 
 zhen 	ㄓㄣ 
 zheng 	ㄓㄥ 
 zhi 	ㄓ 

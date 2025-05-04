@@ -33,7 +33,12 @@ namespace Hanzi2TGHZRibbon
         public int tone; // 1 to 5
         public PinyinChar(string py, int t)
         {
-            pinyin = py;
+            pinyin 
+                = py
+                .Replace("ü", "u:")
+                .Replace("Ü", "U:")
+                .Replace("v", "u:")
+                .Replace("V", "U:");
             tone = t;
         }
 
@@ -45,9 +50,15 @@ namespace Hanzi2TGHZRibbon
             var tones = Accents.tones;
             var ctones = Accents.ctones;
 
+            str = str.Replace("u:", "ü");
+            str = str.Replace("U:", "Ü");
+            str = str.Replace( "v", "ü");
+            str = str.Replace( "V", "Ü");
+
             if (t >= 0 && t <= 4)
-            {               
-                if (str.Contains('a'))
+            {
+                if (false) {}
+                else if (str.Contains('a'))
                     str = str.Replace('a', tones[0][t]);
                 else if (str.Contains('A'))
                     str = str.Replace('A', ctones[0][t]);
@@ -59,37 +70,21 @@ namespace Hanzi2TGHZRibbon
                     str = str.Replace('e', tones[2][t]);
                 else if (str.Contains('E'))
                     str = str.Replace('E', ctones[2][t]); // words cannot start with an i (->y) or u (->w)
-                else if (str.Contains("iu:")
-                        || str.Contains("iv"))
-                {
-                    str = str.Replace("u:", tones[5][t].ToString());
-                    str = str.Replace("v", tones[5][t].ToString());
-                }
+                else if (str.Contains("iü"))
+                    str = str.Replace('ü', tones[5][t]);
                 else if (str.Contains("iu"))
-                    str = str.Replace("u", tones[4][t].ToString());
+                    str = str.Replace('u', tones[4][t]);
                 else if (str.Contains('i'))
                     str = str.Replace('i', tones[3][t]);
-                else if (str.Contains("u:")
-                        || str.Contains("v"))
-                {
-                    str = str.Replace("u:", tones[5][t].ToString());
-                    str = str.Replace("v", tones[5][t].ToString());
-                }
+                else if (str.Contains('ü'))
+                    str = str.Replace('ü', tones[5][t]);
                 else if (str.Contains('u'))
                     str = str.Replace('u', tones[4][t]);
-                else if (str.Contains("U:")
-                        || str.Contains("V"))
-                {
-                    str = str.Replace("U:", ctones[5][t].ToString());
-                    str = str.Replace("V", ctones[5][t].ToString());
-                }
+                else if (str.Contains('Ü'))
+                    str = str.Replace('Ü', ctones[5][t]);
                 else
                     str += tones[6][t].ToString();
             }
-            str = str.Replace("u:", tones[5][4].ToString());
-            str = str.Replace("v", tones[5][4].ToString());
-            str = str.Replace("U:", ctones[5][4].ToString());
-            str = str.Replace("V", ctones[5][4].ToString());
 
             return str;
         }
@@ -114,7 +109,7 @@ namespace Hanzi2TGHZRibbon
 
         private int longestword;
         private Dictionary<Chinese, List<Pinyin>> map; // character, list of pinyin
-        public  Dictionary<string, string> zhuyin;
+        public  readonly Dictionary<string, string> zhuyin;
         private readonly string dictpath;
         private readonly string tonepath;
         private readonly string zypath;
@@ -129,12 +124,12 @@ namespace Hanzi2TGHZRibbon
             tonepath = System.IO.Path.GetFullPath(tonecorrectionpath);
             zypath = System.IO.Path.GetFullPath(zhuyinpath);
             makeMap(false);
-            makeZhuyin();
+            zhuyin = makeZhuyin(zypath);
         }
 
-        private void makeZhuyin()
+        static public Dictionary<string, string> makeZhuyin(string zypath)
         {
-            zhuyin = new Dictionary<string,string>();
+            var zhuyin = new Dictionary<string, string>();
             try
             {
                 FileStream fin = new FileStream(zypath, FileMode.Open);
@@ -154,6 +149,7 @@ namespace Hanzi2TGHZRibbon
                 System.Windows.Forms.MessageBox.Show("bopomofo.u8 could not be found at '" + Path.GetFullPath(zypath)
                     + "'. FileNotFoundException (" + e.Message + ") Thrown.");
             }
+            return zhuyin;
         }
 
         private static Tuple<int, Dictionary<Chinese, List<Pinyin>>> LoadDicionary(string dictionarypath)
@@ -186,10 +182,14 @@ namespace Hanzi2TGHZRibbon
                             {
                                 dictout.Add(simptrad, new List<Pinyin>());
                                 dictout[simptrad].Add(pinyin);
-                            } 
+                            }
                             else
+                            {
                                 if (!dictout[simptrad].Contains(pinyin))
+                                {
                                     dictout[simptrad].Add(pinyin);
+                                }
+                            }
                         }
                     }
                 }
@@ -237,8 +237,7 @@ namespace Hanzi2TGHZRibbon
                 string line;
                 while ((line = stream.ReadLine()) != null) // Read through the Text file
                 {
-
-                    if (line.Length > 0 && line[0] != '#') //ignore commented lines and off lines
+                    if (line.Length > 0 && line[0] != '#') //ignore commented lines
                     {
                         bool on = true;
                         if (line[0] == '!')
@@ -247,14 +246,14 @@ namespace Hanzi2TGHZRibbon
                             line = line.TrimStart('!');
                         }
 
-                        string[] dictline = line.Split(new char[] { ' ' });// split line on spaces
+                        string[] dictline = line.Split(new char[] { ' ' }); // split line on spaces
                         string character = dictline[0];
 
 
                         string pinyin = ""; // make string of pinyin
                         for (int i = 0; i != character.Length; i++)
                             pinyin += dictline[1 + i] + " ";
-                        pinyin = pinyin.Trim(); //clean off trailing space
+                        pinyin = pinyin.Trim(); // clean off trailing space
 
                         dictout.Add(new Tuple<string, bool, string>(character, on, pinyin));
                     }
