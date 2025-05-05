@@ -23,7 +23,6 @@ namespace Hanzi2TGHZRibbon
 
         HashSet<Tuple<Chinese, List<Pinyin>>> set;
         List<string> colours;
-        private Dictionary<string, string> zhuyindict;
 
         private void makeTable()
         {
@@ -43,7 +42,7 @@ namespace Hanzi2TGHZRibbon
                             if (pinyinradio.Checked)
                                 textbox.SelectedText = pychar.withDiacritic();
                             else
-                                textbox.SelectedText = pychar.toZhuYin(zhuyindict);
+                                textbox.SelectedText = pychar.toZhuYin();
                             textbox.AppendText(" ");
                         }
                         textbox.AppendText("\n");
@@ -52,7 +51,7 @@ namespace Hanzi2TGHZRibbon
             }
         }
 
-        internal void BringToFront(ref hanzi2tghz tghz, string input, List<string> colors, Dictionary <string,string> zydict)
+        internal void BringToFront(ref hanzi2tghz tghz, string input, List<string> colors)
         {
             this.Show();
             this.BringToFront();
@@ -61,7 +60,6 @@ namespace Hanzi2TGHZRibbon
 
             List<Tuple<Chinese, List<Pinyin>>> hzpi = tghz.hanziWithPinyin(input);
             set = new HashSet<Tuple<Chinese, List<Pinyin>>>(hzpi);
-            zhuyindict = zydict;
 
             makeTable();
         }
@@ -89,7 +87,7 @@ namespace Hanzi2TGHZRibbon
                             if (pinyinradio.Checked)
                                 rng.Text = pychar.withDiacritic() + " ";
                             else
-                                rng.Text = pychar.toZhuYin(zhuyindict) + " ";
+                                rng.Text = pychar.toZhuYin() + " ";
                             Color colour = System.Drawing.ColorTranslator.FromHtml("#" + colours[pychar.tone - 1]);
                             rng.Font.TextColor.RGB = colour.B * 0x010000 + colour.G * 0x0100 + colour.R;
                             rng.Start = rng.End - 1;

@@ -328,7 +328,7 @@ namespace Hanzi2TGHZRibbon
 
                 string text = getplaintext(currentRange.WordOpenXML);
 
-                wlform.BringToFront(ref tghz, text, colorform.getColors(), tghz.zhuyin);
+                wlform.BringToFront(ref tghz, text, colorform.getColors());
             }
         }
 

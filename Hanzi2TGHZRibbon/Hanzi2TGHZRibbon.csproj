@@ -285,9 +285,6 @@
     <EmbeddedResource Include="Ribbon.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="bopomofo.u8">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\lookup.png" />
     <None Include="tghzimages\pencil.png" />
     <EmbeddedResource Include="editForm.resx">

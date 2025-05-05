@@ -6,6 +6,10 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Drawing;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
+using Microsoft.VisualBasic;
+using Microsoft.Office.Interop.Word;
 
 namespace Hanzi2TGHZRibbon
 {
@@ -23,41 +27,109 @@ namespace Hanzi2TGHZRibbon
         }
 
         public static readonly short[] accent = { 713, 714, 711, 715, 729 };
-        public static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv
-        public static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv
+        public static readonly string[] tones = { "āáǎàa", "ōóǒòo", "ēéěèe", "īíǐìi", "ūúǔùu", "ǖǘǚǜü", accent2string() }; // aoeiuv // Lower Case Tones
+        public static readonly string[] ctones = { "ĀÁǍÀA", "ŌÓǑÒO", "ĒÉĚÈE", "ĪÍǏÌI", "ŪÚǓÙU", "ǕǗǙǛÜ", accent2string() }; // aoeiuv // Capital Tones
     }
 
     public struct PinyinChar
     {
         public string pinyin;
         public int tone; // 1 to 5
+        private static readonly Regex InitFinalRegex 
+            = new Regex(@"^([^aeiɿʅouü]*)(.*)$", RegexOptions.Compiled);
+
+        private static readonly Dictionary<string, string> initials 
+            = new Dictionary<string, string>
+            {
+               {"b", "ㄅ"},
+               {"c", "ㄘ"},
+               {"ch", "ㄔ"},
+               {"d", "ㄉ"},
+               {"f", "ㄈ"},
+               {"g", "ㄍ"},
+               {"h", "ㄏ"},
+               {"j", "ㄐ"},
+               {"k", "ㄎ"},
+               {"l", "ㄌ"},
+               {"m", "ㄇ"},
+               {"n", "ㄋ"},
+               {"p", "ㄆ"},
+               {"q", "ㄑ"},
+               {"r", "ㄖ"},
+               {"s", "ㄙ"},
+               {"sh", "ㄕ"},
+               {"t", "ㄊ"},
+               {"w", "ㄨ"},
+               {"x", "ㄒ"},
+               {"y", "ㄧ"},
+               {"z", "ㄗ"},
+               {"zh", "ㄓ"}
+            };
+
+        private static readonly Dictionary<string, string> finals 
+            = new Dictionary<string, string>
+            {{"a", "ㄚ" }
+            ,{"ai", "ㄞ" }
+            ,{"an", "ㄢ" }
+            ,{"ang", "ㄤ" }
+            ,{"ao", "ㄠ" }
+            ,{"e", "ㄜ" }
+            ,{"ei", "ㄟ" }
+            ,{"en", "ㄣ" }
+            ,{"eng", "ㄥ" }
+            ,{"er", "ㄦ" }
+            ,{"i", "ㄧ" }
+            ,{"ia", "ㄧㄚ" }
+            ,{"ian", "ㄧㄢ" }
+            ,{"iang", "ㄧㄤ" }
+            ,{"iao", "ㄧㄠ" }
+            ,{"ie", "ㄧㄝ" }
+            ,{"in", "ㄧㄣ" }
+            ,{"ing", "ㄧㄥ" }
+            ,{"io", "ㄧㄛ" }
+            ,{"iong", "ㄩㄥ" }
+            ,{"iu", "ㄧㄡ" }
+            ,{"o", "ㄛ" }
+            ,{"ong", "ㄨㄥ" }
+            ,{"ou", "ㄡ" }
+            ,{"u", "ㄨ" }
+            ,{"ü","ㄩ" }
+            ,{"ua", "ㄨㄚ" }
+            ,{"uai", "ㄨㄞ" }
+            ,{"uan", "ㄨㄢ" }
+            ,{"üan", "ㄩㄢ" }
+            ,{"uang", "ㄨㄤ" }
+            ,{"ue", "ㄝ" }
+            ,{"üe", "ㄩㄝ" }
+            ,{"ui", "ㄨㄟ" }
+            ,{"un", "ㄨㄣ" }
+            ,{"ün", "ㄩㄣ" }
+            ,{"ung", "ㄨㄥ" }
+            ,{"uo", "ㄨㄛ" }
+            };
+
         public PinyinChar(string py, int t)
         {
-            pinyin 
-                = py
-                .Replace("ü", "u:")
-                .Replace("Ü", "U:")
-                .Replace("v", "u:")
-                .Replace("V", "U:");
+            pinyin
+              = py
+              .Replace("ü", "u:")
+              .Replace("Ü", "U:")
+              .Replace("v", "u:")
+              .Replace("V", "U:");
             tone = t;
         }
 
         public string withDiacritic()
         {
-            string str = pinyin;
+            string str = pinyin.Replace("u:", "ü");
             int t = tone - 1;
 
             var tones = Accents.tones;
             var ctones = Accents.ctones;
 
-            str = str.Replace("u:", "ü");
-            str = str.Replace("U:", "Ü");
-            str = str.Replace( "v", "ü");
-            str = str.Replace( "V", "Ü");
-
             if (t >= 0 && t <= 4)
             {
-                if (false) {}
+                if (false) { }
                 else if (str.Contains('a'))
                     str = str.Replace('a', tones[0][t]);
                 else if (str.Contains('A'))
@@ -89,17 +161,89 @@ namespace Hanzi2TGHZRibbon
             return str;
         }
 
-        public string toZhuYin(Dictionary<string, string> zhuyin){
+        public string toZhuYin()
+        {
             string zyout = "";
-            string py = pinyin.ToLower();
+            string py 
+                = pinyin
+                .ToLower()
+                .Replace("u:", "ü");
 
-            if (zhuyin.ContainsKey(py))
-                zyout = zhuyin[py];
+            // Note 7
+            if (py.StartsWith("wei"))
+            {
+                py = py.Replace("wei", "ui");
+            }
+
+            // Note 8
+            if (py.StartsWith("wen"))
+            {
+                py = py.Replace("wen", "un");
+            }
+
+            // Note 9
+            if (py.StartsWith("you"))
+            {
+                py = py.Replace("you", "iu");
+            }
+
+            // Note 2
+            if (py.StartsWith("w"))
+            {
+                py = py.Replace("w", "u");
+            }
+
+            // Note 6
+            if (py.Length >= 2 && new[] { "ju", "qu", "xu", "yu" }.Contains(py.Substring(0, 2)))
+            {
+                py = py.Replace("u", "ü");
+            }
+
+            // Note 5
+            if (py.StartsWith("y"))
+            {
+                py = py.Replace("y", "i");
+            }
+
+            // No Initial Doubles, e.g. ii/uu
+            if (py.Length >= 2 && py[0] == py[1])
+            {
+                py = py.Substring(1);
+            }
+
+            // Note 3
+            if (py.Length >= 2 && new[] { "zi", "ci", "si" }.Contains(py.Substring(0, 2)))
+            {
+                py = py.Replace("i", "ɿ");
+            }
+
+            // Note 4
+            if (py.Length >= 3 && new[] { "zhi", "chi", "shi"}.Contains(py.Substring(0, 3))
+                || py.Length >= 2 && "ri" == py.Substring(0, 2)
+                )
+            {
+                py = py.Replace("i", "ʅ"); 
+            }
+
+            py = py.Replace("iü", "ü");
+
+            var matches = InitFinalRegex.Matches(py);
+            if (matches.Count == 1) {
+                zyout += GetValueOrDefault(initials, matches[0].Groups[1].Value);
+                zyout += GetValueOrDefault(  finals, matches[0].Groups[2].Value);
+            }
+
+
             if (tone >= 1 && tone <= 5)
             {
-                zyout += Accents.tones[6][tone-1];
+                zyout += Accents.tones[6][tone - 1];
             }
             return zyout;
+        }
+
+        private static string GetValueOrDefault(Dictionary<string, string> dictionary, string key, string defaultValue = default)
+        {
+            return dictionary.TryGetValue(key, out var value) ? value : defaultValue;
         }
     }
 
@@ -109,10 +253,8 @@ namespace Hanzi2TGHZRibbon
 
         private int longestword;
         private Dictionary<Chinese, List<Pinyin>> map; // character, list of pinyin
-        public  readonly Dictionary<string, string> zhuyin;
         private readonly string dictpath;
         private readonly string tonepath;
-        private readonly string zypath;
 
         private static readonly char gap = '\u2009';
         private static readonly string[] toneorder = { "a", "o", "e", "i", "u", "v", "" };
@@ -122,34 +264,7 @@ namespace Hanzi2TGHZRibbon
         {
             dictpath = System.IO.Path.GetFullPath(dictionarypath);
             tonepath = System.IO.Path.GetFullPath(tonecorrectionpath);
-            zypath = System.IO.Path.GetFullPath(zhuyinpath);
             makeMap(false);
-            zhuyin = makeZhuyin(zypath);
-        }
-
-        static public Dictionary<string, string> makeZhuyin(string zypath)
-        {
-            var zhuyin = new Dictionary<string, string>();
-            try
-            {
-                FileStream fin = new FileStream(zypath, FileMode.Open);
-                StreamReader stream = new StreamReader(fin, Encoding.UTF8);
-                string line;
-                while ((line = stream.ReadLine()) != null) // Read through the Text file
-                {
-                    if (line.Length > 0 && line[0] != '#') //ignore commented lines and off lines
-                    {
-                        string[] dictline = line.Split(new char[] { '\t' });// split line on tabs
-                        zhuyin.Add(dictline[0].Trim(), dictline[1].Trim());
-                    }
-                }
-            }
-            catch (FileNotFoundException e)
-            {
-                System.Windows.Forms.MessageBox.Show("bopomofo.u8 could not be found at '" + Path.GetFullPath(zypath)
-                    + "'. FileNotFoundException (" + e.Message + ") Thrown.");
-            }
-            return zhuyin;
         }
 
         private static Tuple<int, Dictionary<Chinese, List<Pinyin>>> LoadDicionary(string dictionarypath)
@@ -198,7 +313,7 @@ namespace Hanzi2TGHZRibbon
             catch (FileNotFoundException e)
             {
                 System.Windows.Forms.MessageBox.Show("Dictionary could not be found at '" + Path.GetFullPath(dictionarypath)
-                    + "'. FileNotFoundException (" + e.Message + ") Thrown.");
+                  + "'. FileNotFoundException (" + e.Message + ") Thrown.");
             }
 
             return new Tuple<int, Dictionary<Chinese, List<Pinyin>>>(lenghtout, dictout);
@@ -210,13 +325,13 @@ namespace Hanzi2TGHZRibbon
             Pinyin pinyinout = new Pinyin();
             CEpinyin = CEpinyin.Trim(); //clean off trailing space
             CEpinyin = CEpinyin.Trim(new char[] { '[', ']' }); // remove initial and final []
-            
+
             string[] words = CEpinyin.Split(new char[] { ' ' }); // Split on spaces to get {"ni3", "hao3"}
 
             foreach (string s in words)
             {
                 string tone = ToneRegex.Match(s).Value; //Get tone number
-                if (tone != "") 
+                if (tone != "")
                     pinyinout.Add(new PinyinChar(s.Replace(tone, ""), Int32.Parse(tone)));
                 else
                     pinyinout.Add(null);
@@ -267,7 +382,7 @@ namespace Hanzi2TGHZRibbon
         {
             try
             {
-                if(File.Exists(filepath))
+                if (File.Exists(filepath))
                     File.SetAttributes(filepath, File.GetAttributes(filepath) & ~FileAttributes.Hidden);
                 FileStream fout = new FileStream(filepath, FileMode.Create);
                 StreamWriter stream = new StreamWriter(fout, Encoding.UTF8);
@@ -290,8 +405,8 @@ namespace Hanzi2TGHZRibbon
             }
             catch (Exception e)
             {
-                System.Windows.Forms.MessageBox.Show("Problem saving the corrections file to  '" + Path.GetFullPath(filepath)
-                    + "'. (" + e.Message + ") Thrown.");
+                System.Windows.Forms.MessageBox.Show("Problem saving the corrections file to '" + Path.GetFullPath(filepath)
+                  + "'. (" + e.Message + ") Thrown.");
             }
         }
 
@@ -314,7 +429,7 @@ namespace Hanzi2TGHZRibbon
                     if (output.ContainsKey(chinese))
                         output[chinese].Add(pinyin);
                     else
-                        output.Add(chinese, new List<Pinyin>(){pinyin});
+                        output.Add(chinese, new List<Pinyin>() { pinyin });
             }
 
             return output;
@@ -356,7 +471,7 @@ namespace Hanzi2TGHZRibbon
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
             {
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes, tproperties,w));
+                    tree.Add(withNone(c.Item1, tattributes, tproperties, w));
                 else
                 {
                     for (int i = 0; i != c.Item1.Length; i++)
@@ -386,16 +501,16 @@ namespace Hanzi2TGHZRibbon
 
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes, tproperties,w));
+                    tree.Add(withNone(c.Item1, tattributes, tproperties, w));
                 else
                     foreach (Pinyin pinyin in c.Item2)
-                       for (int i = 0; i != c.Item1.Length; i++)
-                           if (pinyin[i].HasValue)
-                               tree.Add(withRuby(tattributes, tproperties, w,
-                                   c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone,
-                                   topcolor, bottomcolor, colors));
-                           else
-                               tree.Add(withNone(c.Item1[i].ToString(),tattributes, tproperties,w));
+                        for (int i = 0; i != c.Item1.Length; i++)
+                            if (pinyin[i].HasValue)
+                                tree.Add(withRuby(tattributes, tproperties, w,
+                                  c.Item1[i].ToString(), pinyin[i].Value.withDiacritic(), pinyin[i].Value.tone,
+                                  topcolor, bottomcolor, colors));
+                            else
+                                tree.Add(withNone(c.Item1[i].ToString(), tattributes, tproperties, w));
 
             return tree;
         }
@@ -407,7 +522,7 @@ namespace Hanzi2TGHZRibbon
 
             foreach (Tuple<Chinese, List<Pinyin>> c in hzpi)
                 if (c.Item2.Count == 0)
-                    tree.Add(withNone(c.Item1,tattributes,tproperties, w));
+                    tree.Add(withNone(c.Item1, tattributes, tproperties, w));
                 else
                 {
                     HashSet<string> items = new HashSet<string>();
@@ -422,11 +537,11 @@ namespace Hanzi2TGHZRibbon
                             for (int i = 0; i != c.Item1.Length; i++)
                                 if (pinyin[i].HasValue)
                                     tree.Add(withRuby(
-                                        tattributes, tproperties, w,
-                                        c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone,
-                                        topcolor, bottomcolor, colors));
+                                      tattributes, tproperties, w,
+                                      c.Item1[i].ToString(), zhuyin[i], pinyin[i].Value.tone,
+                                      topcolor, bottomcolor, colors));
                                 else
-                                    tree.Add(withNone(c.Item1[i].ToString(),tattributes,tproperties, w));
+                                    tree.Add(withNone(c.Item1[i].ToString(), tattributes, tproperties, w));
                         }
                     }
                 }
@@ -437,9 +552,9 @@ namespace Hanzi2TGHZRibbon
         {
             List<String> lsout = new List<String>();
 
-            foreach(PinyinChar? pc in pinyin)
+            foreach (PinyinChar? pc in pinyin)
                 if (pc.HasValue)
-                    lsout.Add(pc.Value.toZhuYin(zhuyin));
+                    lsout.Add(pc.Value.toZhuYin());
                 else
                     lsout.Add("");
 
@@ -453,8 +568,8 @@ namespace Hanzi2TGHZRibbon
             for (int strptr = 0, numchartest = 0; strptr < strin.Length; strptr += numchartest)
             {
                 for (numchartest = Math.Min(longestword, strin.Length - strptr)
-                    ; numchartest != 0; numchartest--
-                    ) // Find the Longest string in the dictionary then add it to the output with the pinyin
+                  ; numchartest != 0; numchartest--
+                  ) // Find the Longest string in the dictionary then add it to the output with the pinyin
                 {
                     string findchar = strin.Substring(strptr, numchartest);
                     List<Pinyin> ret;
@@ -477,47 +592,47 @@ namespace Hanzi2TGHZRibbon
         public static XElement withNone(string str, List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w)
         {
             return
-                new XElement(w + "r",
-                    new XElement(w + "rPr", tproperties),
-                    new XElement(w + "t", str, tattributes)
-                );
+              new XElement(w + "r",
+                new XElement(w + "rPr", tproperties),
+                new XElement(w + "t", str, tattributes)
+              );
         }
 
         private static XElement makeTop(XNamespace w, IEnumerable<XElement> tproperties, XElement tcolour, string tonesoutput)
         {
-            const string font = "Arial Unicode MS";
+            //const string font = "Arial Unicode MS";
             return new XElement(w + "rt",
-                new XElement(w + "r",
-                    new XElement(w + "rPr",
-                        tproperties,
-                        new XElement(w + "rFonts",
-                            //new XAttribute(w + "ascii", font),
-                            //new XAttribute(w + "eastAsia", font),
-                            //new XAttribute(w + "hAnsi", font),
-                            //new XAttribute(w + "cs", font),
-                            new XAttribute(w + "hint", "eastAsia")
-                        ),
-                        tcolour
-                    ),
-                    new XElement(w + "t", tonesoutput)
-                )
+              new XElement(w + "r",
+                new XElement(w + "rPr",
+                  tproperties,
+                  new XElement(w + "rFonts",
+                    //new XAttribute(w + "ascii", font),
+                    //new XAttribute(w + "eastAsia", font),
+                    //new XAttribute(w + "hAnsi", font),
+                    //new XAttribute(w + "cs", font),
+                    new XAttribute(w + "hint", "eastAsia")
+                  ),
+                  tcolour
+                ),
+                new XElement(w + "t", tonesoutput)
+              )
             );
         }
 
-        public static XElement withRuby(List<XAttribute> tattributes,List<XElement> tproperties, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
+        public static XElement withRuby(List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, string bottom, string topstr, int tone, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
             string size = "";
             foreach (XElement x in tproperties.DescendantsAndSelf(w + "sz"))
                 size = x.Attribute(w + "val").Value;
             if (size == "") size = "12";
             IEnumerable<XElement> tp = tproperties.Where(x =>
-                x.Name != w + "sz" ||
-                x.Name != w + "szCs"); // Properties without size
+              x.Name != w + "sz" ||
+              x.Name != w + "szCs"); // Properties without size
 
 
             XElement rubyPr = new XElement(w + "rubyPr",
-                new XElement(w + "rubyAlign", new XAttribute(w + "val", "center"))
-                );
+              new XElement(w + "rubyAlign", new XAttribute(w + "val", "center"))
+              );
 
 
 
@@ -527,7 +642,7 @@ namespace Hanzi2TGHZRibbon
                 tcolour.SetAttributeValue(w + "val", colors[tone - 1]);
             }
 
-            XElement top = makeTop(w, tp, tcolour, gap + topstr + gap); 
+            XElement top = makeTop(w, tp, tcolour, gap + topstr + gap);
 
             XElement bcolour = new XElement(w + "color");
             if (bottomcolour && !(colors == null))
@@ -536,32 +651,32 @@ namespace Hanzi2TGHZRibbon
             }
 
             XElement bot = new XElement(w + "rubyBase",
-                new XElement(w + "r",
-                    new XElement(w + "rPr",
-                        tproperties,
-                        bcolour
-                    ),
-                    new XElement(w + "t", bottom)
-                )
+              new XElement(w + "r",
+                new XElement(w + "rPr",
+                  tproperties,
+                  bcolour
+                ),
+                new XElement(w + "t", bottom)
+              )
             );
 
             return new XElement(w + "r",
-                new XElement(w + "ruby",
-                    rubyPr,
-                    top,
-                    bot
-                )
+              new XElement(w + "ruby",
+                rubyPr,
+                top,
+                bot
+              )
             );
         }
 
         public static XElement withRubyTones(List<XAttribute> tattributes, List<XElement> tproperties, XNamespace w, string bottom, List<int> tones, bool topcolour = false, bool bottomcolour = false, List<string> colors = null)
         {
             XElement rubyPr = new XElement(w + "rubyPr",
-                new XElement(w + "rubyAlign", new XAttribute(w + "val", "center")),
-                new XElement(w + "hps", new XAttribute(w + "val", "24")),
-                new XElement(w + "hpsRaise", new XAttribute(w + "val", "10")),
-                new XElement(w + "hpsBaseText", new XAttribute(w + "val", "12"))
-                );
+              new XElement(w + "rubyAlign", new XAttribute(w + "val", "center")),
+              new XElement(w + "hps", new XAttribute(w + "val", "24")),
+              new XElement(w + "hpsRaise", new XAttribute(w + "val", "10")),
+              new XElement(w + "hpsBaseText", new XAttribute(w + "val", "12"))
+              );
 
             string tonesoutput = "";
             foreach (int t in tones)
@@ -570,7 +685,7 @@ namespace Hanzi2TGHZRibbon
             XElement tcolour = new XElement(w + "color");
             if (topcolour && !(colors == null) && tones.Count == 1)
             {
-                tcolour.SetAttributeValue(w+"val", colors[tones[0] - 1]);
+                tcolour.SetAttributeValue(w + "val", colors[tones[0] - 1]);
             }
 
             XElement top = makeTop(w, tproperties, tcolour, tonesoutput);
@@ -582,21 +697,21 @@ namespace Hanzi2TGHZRibbon
             }
 
             XElement bot = new XElement(w + "rubyBase",
-                new XElement(w + "r",
-                    new XElement(w + "rPr",
-                        tproperties,
-                        bcolour
-                    ),
-                    new XElement(w + "t", bottom)
-                )
+              new XElement(w + "r",
+                new XElement(w + "rPr",
+                  tproperties,
+                  bcolour
+                ),
+                new XElement(w + "t", bottom)
+              )
             );
 
-            return new XElement(w+"r",
-                new XElement(w+"ruby",
-                    rubyPr,
-                    top,
-                    bot
-                )
+            return new XElement(w + "r",
+              new XElement(w + "ruby",
+                rubyPr,
+                top,
+                bot
+              )
             );
         }
 
@@ -608,7 +723,8 @@ namespace Hanzi2TGHZRibbon
             for (int w = 0; w != words.Count(); w++)
             {
                 int i;
-                while((i = words[w].IndexOfAny(tones[6].ToCharArray())) != -1){ // look for tones only and convert to chars
+                while ((i = words[w].IndexOfAny(tones[6].ToCharArray())) != -1)
+                { // look for tones only and convert to chars
                     for (int tn = 0; tn != tones[6].Length; tn++)
                         words[w] = words[w].Replace(tones[6][tn].ToString(), (1 + tn).ToString());
                 }
@@ -653,7 +769,7 @@ namespace Hanzi2TGHZRibbon
                 if (list[i].Item2 != "")
                 {
                     MatchCollection tnpyhanzi = new Regex(@"(?<=<w:t>)(.*?)(?=<\/w:t>)").Matches(match);// Find tone/pinyin & characters
-                    // Change characters
+                                                                                                        // Change characters
                     match = match.Remove(tnpyhanzi[1].Index, tnpyhanzi[1].Length);
                     match = match.Insert(tnpyhanzi[1].Index, list[i].Item1);
 
@@ -668,7 +784,8 @@ namespace Hanzi2TGHZRibbon
                             if (Int32.Parse(num.ToString()) < Accents.accent.Length + 1)
                                 tnpy += (char)Accents.accent[Int32.Parse(num.ToString()) - 1];
                     }
-                    else{
+                    else
+                    {
                         PinyinChar? pc = CEdictpinyin2pinyin(list[i].Item2)[0];
                         if (pc.HasValue)
                             tnpy += gap + pc.Value.withDiacritic() + gap;
@@ -677,7 +794,9 @@ namespace Hanzi2TGHZRibbon
                     }
 
                     match = match.Insert(tnpyhanzi[0].Index, tnpy);
-                } else {
+                }
+                else
+                {
                     match = @"<w:t>" + list[i].Item1 + "</w:t>)";
                 }
 
@@ -693,29 +812,29 @@ namespace Hanzi2TGHZRibbon
 
 
 /*
-        public static readonly string xmlFooter = @"</w:p></w:body></w:document></pkg:xmlData></pkg:part></pkg:package>";
+    public static readonly string xmlFooter = @"</w:p></w:body></w:document></pkg:xmlData></pkg:part></pkg:package>";
 
-        public static readonly string xmlHeader = @"
+    public static readonly string xmlHeader = @"
 <?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
 <?mso-application progid=""Word.Document""?>
 <pkg:package xmlns:pkg=""http://schemas.microsoft.com/office/2006/xmlPackage"">
-  <pkg:part pkg:name=""/_rels/.rels"" pkg:contentType=""application/vnd.openxmlformats-package.relationships+xml"">
-    <pkg:xmlData>
-      <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
-        <Relationship Id=""rId1"" Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"" Target=""word/document.xml""/>
-      </Relationships>
-    </pkg:xmlData>
-  </pkg:part>
-  <pkg:part pkg:name=""/word/_rels/document.xml.rels"" pkg:contentType=""application/vnd.openxmlformats-package.relationships+xml"">
-    <pkg:xmlData>
-      <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"" />
-    </pkg:xmlData>
-  </pkg:part>
-  <pkg:part pkg:name=""/word/document.xml"" pkg:contentType=""application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"">
-    <pkg:xmlData>
-      <w:document xmlns:m=""http://schemas.openxmlformats.org/officeDocument/2006/math"" xmlns:w=""http://schemas.openxmlformats.org/wordprocessingml/2006/main"">
-        <w:body>
-            <w:p>
+ <pkg:part pkg:name=""/_rels/.rels"" pkg:contentType=""application/vnd.openxmlformats-package.relationships+xml"">
+  <pkg:xmlData>
+   <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"">
+    <Relationship Id=""rId1"" Type=""http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument"" Target=""word/document.xml""/>
+   </Relationships>
+  </pkg:xmlData>
+ </pkg:part>
+ <pkg:part pkg:name=""/word/_rels/document.xml.rels"" pkg:contentType=""application/vnd.openxmlformats-package.relationships+xml"">
+  <pkg:xmlData>
+   <Relationships xmlns=""http://schemas.openxmlformats.org/package/2006/relationships"" />
+  </pkg:xmlData>
+ </pkg:part>
+ <pkg:part pkg:name=""/word/document.xml"" pkg:contentType=""application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"">
+  <pkg:xmlData>
+   <w:document xmlns:m=""http://schemas.openxmlformats.org/officeDocument/2006/math"" xmlns:w=""http://schemas.openxmlformats.org/wordprocessingml/2006/main"">
+    <w:body>
+      <w:p>
 ".Replace(Environment.NewLine, "");
 
 */

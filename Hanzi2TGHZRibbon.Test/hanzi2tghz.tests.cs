@@ -2475,7 +2475,6 @@ namespace Hanzi2TGHZ.Tests
                 };
 
 
-            var zydict = hanzi2tghz.makeZhuyin("bopomofo.u8");
             foreach (var t in tests)
             {
                 var pinyinChar = new PinyinChar(t.pinyin, t.tone);
@@ -2486,7 +2485,7 @@ namespace Hanzi2TGHZ.Tests
                    , $"Failed for Pinyin: {t.pinyin}, Tone: {t.tone}"
                    );
 
-                string zhuyin_result = pinyinChar.toZhuYin(zydict);
+                string zhuyin_result = pinyinChar.toZhuYin();
                 Assert.AreEqual
                    ( t.correct_zhuyin
                    , zhuyin_result

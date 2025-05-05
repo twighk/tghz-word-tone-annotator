@@ -1,4 +1,3 @@
-C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon.Test\bin\Debug\bopomofo.u8
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon.Test\bin\Debug\cedict_ts.u8
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon.Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll

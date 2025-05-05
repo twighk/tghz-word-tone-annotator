@@ -49,7 +49,6 @@ H:\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.editForm.resourc
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.lookupForm.resources
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\obj\Debug\Hanzi2TGHZRibbon.colorForm.resources
 C:\Users\tcb06\Desktop\Hanzi2TGHZRibbon\Hanzi2TGHZRibbon\bin\Debug\bopomofo.u8
-C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Debug\bopomofo.u8
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Debug\cedict_ts.u8
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.dll
 C:\Users\twigh\OneDrive\Documents\GitHub\tghz-word-tone-annotator\Hanzi2TGHZRibbon\bin\Debug\Hanzi2TGHZRibbon.pdb
